@@ -16,6 +16,40 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".HomeActivity"
+            android:label="@string/title_activity_home"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".NewJobActivity"
+            android:label="@string/title_activity_new_job"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".StarredJobActivity"
+            android:label="@string/title_activity_starred_job"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".UpcomingJobActivity"
+            android:label="@string/title_activity_upcoming_job"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".PostedJobActivity"
+            android:label="@string/title_activity_posted_job"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".NotificationActivity"
+            android:label="@string/title_activity_notification"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".EditUserProfileActivity"
+            android:label="@string/title_activity_edit_user_profile"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">SoftwareEngineering</string>
+    <string name="title_activity_home">HomeActivity</string>
+    <string name="starred_jobs">Starred Jobs</string>
+    <string name="posted_jobs">Posted Jobs</string>
+    <string name="new_job">New Job</string>
+    <string name="upcoming_jobs">Upcoming Jobs</string>
+    <string name="notification">Notifications</string>
+    <string name="profile">Edit User Profile</string>
+    <string name="title_activity_new_job">NewJobActivity</string>
+    <string name="title_activity_starred_job">StarredJobActivity</string>
+    <string name="title_activity_upcoming_job">UpcomingJobActivity</string>
+    <string name="title_activity_posted_job">PostedJobActivity</string>
+    <string name="title_activity_notification">NotificationActivity</string>
+    <string name="title_activity_edit_user_profile">EditUserProfileActivity</string>
+
 </resources>
