@@ -2,27 +2,32 @@ package group9.softwareengineering;
 
 import android.location.Location;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Date;
 
 public class Posting {
 
-    private String owner;
-    private String owner_id;
+    private String id;
+    private String poster;
+    private String poster_id;
     private Date start_time;
     private Date end_time;
     private Location location;
+    private String description;
     private int payment;
     private String[] petIDs;
     private ArrayList<Pet> pets = new ArrayList<>();
 
-    public String getOwner() {
-        return owner;
+    public String getID() {
+        return poster;
     }
 
-    public void setOwner(String owner) {
-        this.owner = owner;
+    public String getPoster() {
+        return poster;
+    }
+
+    public void setPoster(String poster) {
+        this.poster = poster;
     }
 
     public Date getStart_time() {
@@ -63,7 +68,15 @@ public class Posting {
 
     public void addPet(Pet pet) { pets.add(pet); }
 
-    public String getOwner_id() {
-        return owner_id;
+    public String getPoster_id() {
+        return poster_id;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

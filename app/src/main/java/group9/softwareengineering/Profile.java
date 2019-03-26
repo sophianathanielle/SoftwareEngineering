@@ -1,5 +1,7 @@
 package group9.softwareengineering;
 
+import android.location.Location;
+
 public class Profile {
 
     private String name;
@@ -7,6 +9,7 @@ public class Profile {
     private String bio;
     private int fee_ph;
     private int rating;
+    private Location location;
 
     public String getName() {
         return name;
@@ -43,5 +46,14 @@ public class Profile {
     public int getRating() {
         return rating;
     }
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
+    }
+
 
 }
