@@ -19,7 +19,7 @@ public class Posting {
     private ArrayList<Pet> pets = new ArrayList<>();
 
     public String getID() {
-        return poster;
+        return id;
     }
 
     public String getPoster() {
@@ -28,6 +28,10 @@ public class Posting {
 
     public void setPoster(String poster) {
         this.poster = poster;
+    }
+
+    public String getPoster_id() {
+        return poster_id;
     }
 
     public Date getStart_time() {
@@ -67,10 +71,6 @@ public class Posting {
     }
 
     public void addPet(Pet pet) { pets.add(pet); }
-
-    public String getPoster_id() {
-        return poster_id;
-    }
 
     public String getDescription() {
         return description;

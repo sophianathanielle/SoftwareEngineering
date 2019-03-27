@@ -39,10 +39,15 @@ public class FirebaseFuncs {
     }
 
     // PROFILE
+    // get DocumentReference of a Profile
+    private DocumentReference getProfileDR (String uid) {
+        return db.collection("profiles").document(uid);
+    }
+
     private Profile getCurrentProfile() {
         final Profile[] profile = new Profile[1];
 
-        DocumentReference profileRef = db.collection("profiles").document(currentUser.getUid());
+        DocumentReference profileRef = getProfileDR(currentUser.getUid());
 
         profileRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
@@ -57,7 +62,7 @@ public class FirebaseFuncs {
     private Profile getProfile(String uid) {
         final Profile[] profile = new Profile[1];
 
-        DocumentReference profileRef = db.collection("profiles").document(uid);
+        DocumentReference profileRef = getProfileDR(uid);
 
         profileRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
@@ -71,10 +76,14 @@ public class FirebaseFuncs {
 
     // used to create and update
     private void updateProfile(Profile profile) {
-        db.collection("profiles").document(currentUser.getUid()).set(profile);
+        getProfileDR(currentUser.getUid()).set(profile);
     }
 
     // POSTINGS
+    private DocumentReference getPostingDR(String posting_id) {
+        return db.collection("postings").document(posting_id);
+    }
+
     private List<Posting> getMyPostings() {
         final ArrayList<Posting> postings = new ArrayList<>();
 
@@ -133,7 +142,7 @@ public class FirebaseFuncs {
     }
 
     private void updatePosting(Posting posting) {
-        db.collection("postings").document(posting.getID()).set(posting);
+        getPostingDR(posting.getID()).set(posting);
     }
 
     private void createPosting(Posting posting) {
@@ -141,17 +150,40 @@ public class FirebaseFuncs {
     }
 
     private void deletePosting(Posting posting) {
-        db.collection("postings").document(posting.getID()).delete();
+        getPostingDR(posting.getID()).delete();
     }
 
     // REQUESTS
+    private DocumentReference getRequestDR(String posting_id, String uid) {
+        return db.collection("postings").document(posting_id).collection("requests").document(uid);
+    }
+
+    //  - sitter
     private void createRequest(Posting posting) {
         Map<String, Object> data = new HashMap<>();
         data.put("accepted", false);
-        db.collection("postings").document(posting.getID()).collection("reviews").document(currentUser.getUid()).set(data);
+        getRequestDR(posting.getID(), currentUser.getUid()).set(data);
+    }
+
+    private void deleteRequest(Posting posting) {
+        getRequestDR(posting.getID(), currentUser.getUid()).delete();
+    }
+
+    // - owner/poster
+    private void acceptRequest(Posting posting, String uid) {
+        Map<String, Object> data = new HashMap<>();
+        data.put("accepted", true);
+        getRequestDR(posting.getID(), uid).set(data);
+    }
+
+    private void declineRequest(Posting posting, String uid) {
+        Map<String, Object> data = new HashMap<>();
+        data.put("declined", true);
+        getRequestDR(posting.getID(), uid).set(data);
     }
 
     // PETS
+    // used to get pet info from ID
     private Pet getPet(String petID) {
         final Pet[] pet = new Pet[1];
 
@@ -166,5 +198,4 @@ public class FirebaseFuncs {
 
         return pet[0];
     }
-
 }
