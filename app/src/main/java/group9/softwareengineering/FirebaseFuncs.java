@@ -21,12 +21,17 @@ import java.util.List;
 import java.util.Map;
 
 public class FirebaseFuncs {
-    private static final FirebaseFuncs ourInstance = new FirebaseFuncs();
+    private static FirebaseFuncs ourInstance;
     private FirebaseFirestore db;
     private FirebaseUser currentUser;
     private FirebaseAuth mAuth;
+    private ArrayList<Posting> postings = new ArrayList<>();
+
 
     public static FirebaseFuncs getInstance() {
+        if (ourInstance == null) {
+            ourInstance = new FirebaseFuncs();
+        }
         return ourInstance;
     }
 
@@ -96,10 +101,6 @@ public class FirebaseFuncs {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Posting posting = document.toObject(Posting.class);
-                                for (String petID: posting.getPetIDs()) {
-                                    Pet pet = getPet(petID);
-                                    posting.addPet(pet);
-                                }
                                 postings.add(posting);
                             }
                         } else {
@@ -112,32 +113,26 @@ public class FirebaseFuncs {
     }
 
 
-    private List<Posting> getOtherPostings() {
-        final ArrayList<Posting> postings = new ArrayList<>();
+    public ArrayList<Posting> getOtherPostings() {
 
         db.collection("postings")
-                .whereEqualTo("in_progress", "0")
-                .whereGreaterThan("poster_id", currentUser.getUid())
-                .whereLessThan("poster_id",currentUser.getUid())
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
+                                //Log.d("das", document.getId() + " => " + document.getData());
                                 Posting posting = document.toObject(Posting.class);
-                                for (String petID: posting.getPetIDs()) {
-                                    Pet pet = getPet(petID);
-                                    posting.addPet(pet);
-                                }
                                 postings.add(posting);
+                                Log.i("postings", Integer.toString(postings.size()));
                             }
                         } else {
                             Log.d("FB", "Error getting documents: ", task.getException());
                         }
                     }
                 });
-
+        Log.i("postings", Integer.toString(postings.size()));
         return postings;
     }
 
