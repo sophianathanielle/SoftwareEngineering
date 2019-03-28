@@ -15,6 +15,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -44,7 +45,7 @@ public class FirebaseFuncs {
         return db.collection("profiles").document(uid);
     }
 
-    private Profile getCurrentProfile() {
+    public Profile getCurrentProfile() {
         final Profile[] profile = new Profile[1];
 
         DocumentReference profileRef = getProfileDR(currentUser.getUid());
@@ -59,7 +60,7 @@ public class FirebaseFuncs {
         return profile[0];
     }
 
-    private Profile getProfile(String uid) {
+    public Profile getProfile(String uid) {
         final Profile[] profile = new Profile[1];
 
         DocumentReference profileRef = getProfileDR(uid);
@@ -75,7 +76,7 @@ public class FirebaseFuncs {
     }
 
     // used to create and update
-    private void updateProfile(Profile profile) {
+    public void updateProfile(Profile profile) {
         getProfileDR(currentUser.getUid()).set(profile);
     }
 
@@ -84,7 +85,8 @@ public class FirebaseFuncs {
         return db.collection("postings").document(posting_id);
     }
 
-    private List<Posting> getMyPostings() {
+    // Postings I have created
+    public List<Posting> getMyPostings() {
         final ArrayList<Posting> postings = new ArrayList<>();
 
         db.collection("postings")
@@ -96,10 +98,6 @@ public class FirebaseFuncs {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Posting posting = document.toObject(Posting.class);
-                                for (String petID: posting.getPetIDs()) {
-                                    Pet pet = getPet(petID);
-                                    posting.addPet(pet);
-                                }
                                 postings.add(posting);
                             }
                         } else {
@@ -111,12 +109,24 @@ public class FirebaseFuncs {
         return postings;
     }
 
+    public void updatePosting(Posting posting) {
+        getPostingDR(posting.getID()).set(posting);
+    }
 
-    private List<Posting> getOtherPostings() {
+    public void createPosting(Posting posting) {
+        db.collection("postings").add(posting);
+    }
+
+    public void deletePosting(Posting posting) {
+        getPostingDR(posting.getID()).delete();
+    }
+
+    public List<Posting> getOtherPostings() {
         final ArrayList<Posting> postings = new ArrayList<>();
 
         db.collection("postings")
-                .whereEqualTo("in_progress", "0")
+                .whereEqualTo("completed", false)
+                .whereEqualTo("sitter_found", null)
                 .whereGreaterThan("poster_id", currentUser.getUid())
                 .whereLessThan("poster_id",currentUser.getUid())
                 .get()
@@ -126,10 +136,6 @@ public class FirebaseFuncs {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Posting posting = document.toObject(Posting.class);
-                                for (String petID: posting.getPetIDs()) {
-                                    Pet pet = getPet(petID);
-                                    posting.addPet(pet);
-                                }
                                 postings.add(posting);
                             }
                         } else {
@@ -141,50 +147,105 @@ public class FirebaseFuncs {
         return postings;
     }
 
-    private void updatePosting(Posting posting) {
-        getPostingDR(posting.getID()).set(posting);
-    }
-
-    private void createPosting(Posting posting) {
-        db.collection("postings").add(posting);
-    }
-
-    private void deletePosting(Posting posting) {
-        getPostingDR(posting.getID()).delete();
-    }
-
     // REQUESTS
     private DocumentReference getRequestDR(String posting_id, String uid) {
         return db.collection("postings").document(posting_id).collection("requests").document(uid);
     }
 
     //  - sitter
-    private void createRequest(Posting posting) {
+    private DocumentReference getHistoryDR(String posting_id, String uid) {
+        return db.collection("profiles").document(uid).collection("history").document(posting_id);
+    }
+
+    public List<Posting> getRequestedJobs() {
+        final ArrayList<Posting> postings = new ArrayList<>();
+
+        db.collection("profiles")
+                .document(currentUser.getUid())
+                .collection("history")
+                .whereEqualTo("accepted", false)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Posting posting = document.toObject(Posting.class);
+                                postings.add(posting);
+                            }
+                        } else {
+                            Log.d("FB", "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
+
+        return postings;
+    }
+
+    // perhaps in future, instead of creating docs with this preset data, create Cloud Funcs to populate these docs on creation
+    public void createRequest(Posting posting) {
         Map<String, Object> data = new HashMap<>();
         data.put("accepted", false);
+        data.put("declined", false);
+        Map<String, Object> histdata = new HashMap<>();
+        histdata.put("accepted", false);
+        histdata.put("reviewed", false);
+        getHistoryDR(posting.getID(), currentUser.getUid()).set(histdata);
         getRequestDR(posting.getID(), currentUser.getUid()).set(data);
     }
 
-    private void deleteRequest(Posting posting) {
+    public void cancelRequest(Posting posting) {
         getRequestDR(posting.getID(), currentUser.getUid()).delete();
+        getHistoryDR(posting.getID(), currentUser.getUid()).delete();
     }
 
     // - owner/poster
-    private void acceptRequest(Posting posting, String uid) {
-        Map<String, Object> data = new HashMap<>();
-        data.put("accepted", true);
-        getRequestDR(posting.getID(), uid).set(data);
+    public Map<String, Profile> getRequestsForPosting (Posting posting) {
+        final HashMap<String, Profile> profileIDs = new HashMap<>();
+
+        db.collection("postings")
+                .document(posting.getID())
+                .collection("requests")
+                .whereEqualTo("accepted", false)
+                .whereEqualTo("declined", false)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                String uid = document.getId();
+                                profileIDs.put(uid, getProfile(uid));
+                            }
+                        } else {
+                            Log.d("FB", "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
+
+        return profileIDs;
     }
 
-    private void declineRequest(Posting posting, String uid) {
+    public void acceptRequest(Posting posting, String uid) {
+        Map<String, Object> data = new HashMap<>();
+        data.put("accepted", true);
+        Map<String, Object> data1 = new HashMap<>();
+        data1.put("sitter_found", uid);
+        getPostingDR(posting.getID()).set(data1);
+        getRequestDR(posting.getID(), uid).set(data);
+        getHistoryDR(posting.getID(), uid).set(data);
+    }
+
+    public void declineRequest(Posting posting, String uid) {
         Map<String, Object> data = new HashMap<>();
         data.put("declined", true);
         getRequestDR(posting.getID(), uid).set(data);
+        getHistoryDR(posting.getID(), uid).delete();
     }
 
     // PETS
     // used to get pet info from ID
-    private Pet getPet(String petID) {
+    public Pet getPet(String petID) {
         final Pet[] pet = new Pet[1];
 
         DocumentReference petRef = db.collection("pets").document(petID);
