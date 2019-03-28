@@ -15,14 +15,6 @@
       },
       "oauth_client": [
         {
-          "client_id": "983498493149-dqlj1jfe3q3b8hb41dmga7nmv7ou8n36.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "group9.softwareengineering",
-            "certificate_hash": "848466deea6b92e319a5e89f2d3fca9832ee4b65"
-          }
-        },
-        {
           "client_id": "983498493149-8kcuot2l665so485ao0u28h2tnqsclj3.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
