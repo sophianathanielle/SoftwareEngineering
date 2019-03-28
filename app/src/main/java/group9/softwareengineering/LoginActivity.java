@@ -71,7 +71,7 @@ public class LoginActivity extends AppCompatActivity {
                                     if (password.length() < 6) {
                                         inputPassword.setError("Password must be 6 or more");
                                     } else {
-                                        Toast.makeText(LoginActivity.this, "Authentication Failed", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(LoginActivity.this, "INVALID EMAIL OR PASSWORD", Toast.LENGTH_LONG).show();
                                     }
                                 } else {
                                     Intent intent = new Intent(LoginActivity.this, HomeActivity.class);

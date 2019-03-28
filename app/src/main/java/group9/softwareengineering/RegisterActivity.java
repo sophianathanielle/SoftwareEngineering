@@ -77,7 +77,7 @@ public class RegisterActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "Enter name!", Toast.LENGTH_SHORT).show();
             return;
         }
-        if (TextUtils.isEmpty(phone)) {
+        if (TextUtils.isEmpty(phone)&& !Integer.getInteger(phone).equals("[0-9]{10}")) {
             Toast.makeText(getApplicationContext(), "Enter phone!", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -101,7 +101,7 @@ public class RegisterActivity extends AppCompatActivity {
                             startActivity(intent);
                             finish();
                         }else{
-                            Toast.makeText(RegisterActivity.this,task.getException().getMessage(),Toast.LENGTH_LONG);
+                            Toast.makeText(RegisterActivity.this,"Please provide a valid email address",Toast.LENGTH_LONG).show();
                         }
                     }
                 });
