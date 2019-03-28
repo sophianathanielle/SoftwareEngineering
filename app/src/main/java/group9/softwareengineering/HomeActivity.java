@@ -109,7 +109,7 @@ public class HomeActivity extends AppCompatActivity {
                                 Log.i("postings", Integer.toString(postings.size()));
                             }
                             postings = tempPostings;
-                            adapter = new HomeAdapter(postings , pay , posted);
+                            adapter = new HomeAdapter(postings , pay , posted, getApplicationContext());
                             recyclerView.setLayoutManager(layoutManager);
                             recyclerView.setAdapter(adapter);
                         } else {

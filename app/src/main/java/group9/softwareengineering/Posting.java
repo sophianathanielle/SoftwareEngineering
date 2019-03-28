@@ -18,6 +18,7 @@ public class Posting {
     private String description;
     private int payment;
     private String petID;
+    private String photoURL;
     private int in_progress;
     private ArrayList<Pet> pets = new ArrayList<>();
 
@@ -96,4 +97,14 @@ public class Posting {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public String getPhotoURL() {
+        return photoURL;
+    }
+
+    public void setPhotoURL(String photoURL) {
+        this.photoURL = photoURL;
+    }
+
 }
+
