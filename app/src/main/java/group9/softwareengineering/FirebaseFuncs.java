@@ -36,7 +36,7 @@ public class FirebaseFuncs {
         return ourInstance;
     }
 
-    private FirebaseFuncs() {
+    public FirebaseFuncs() {
         db = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
 
