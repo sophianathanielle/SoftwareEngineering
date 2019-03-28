@@ -26,6 +26,7 @@ public class FirebaseFuncs {
     private FirebaseUser currentUser;
     private FirebaseAuth mAuth;
 
+
     public static FirebaseFuncs getInstance() {
         return ourInstance;
     }
@@ -78,6 +79,14 @@ public class FirebaseFuncs {
     private void updateProfile(Profile profile) {
         getProfileDR(currentUser.getUid()).set(profile);
     }
+
+
+    public void insertUser(String email,String password,String name, String phone){
+        Profile user = new Profile(email,password,name,phone);
+        db.collection("profile").document().set(user);
+
+    }
+
 
     // POSTINGS
     private DocumentReference getPostingDR(String posting_id) {
