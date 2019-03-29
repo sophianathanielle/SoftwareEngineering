@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".PostedJobActivity"
-    tools:showIn="@layout/activity_posted_job">
+    tools:context=".PostingJobActivity"
+    tools:showIn="@layout/activity_posting_job">
 
 </android.support.constraint.ConstraintLayout>
