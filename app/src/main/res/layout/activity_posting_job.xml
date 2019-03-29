@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".PostingJobActivity">
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/floatingActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:clickable="true"
+        app:fabSize="normal"
+        app:layout_anchor="@+id/constraintLayout"
+        app:layout_anchorGravity="right|top"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/ic_menu_help" />
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!-- Add image to this button of the current selected pet? Or just a random pet icon -->
+
+        <TextView
+            android:id="@+id/post_job"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="72dp"
+            android:text="@string/post_job"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/startLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="@string/start_time"
+            app:layout_constraintStart_toStartOf="@+id/post_job"
+            app:layout_constraintTop_toBottomOf="@+id/post_job" />
+
+        <TextView
+            android:id="@+id/startDate"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@+id/post_job"
+            app:layout_constraintTop_toBottomOf="@+id/startLabel"
+            style="@android:style/Widget.Holo.Spinner"
+            android:onClick="clickSD"
+            android:clickable="true"
+            android:textSize="32dp"/>
+
+        <TextView
+            android:id="@+id/startTime"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            app:layout_constraintStart_toEndOf="@+id/startDate"
+            app:layout_constraintTop_toBottomOf="@+id/startLabel"
+            style="@android:style/Widget.Holo.Spinner"
+            android:onClick="clickST"
+            android:clickable="true"
+            android:textSize="32dp"/>
+
+        <TextView
+            android:id="@+id/endLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/end_time"
+            app:layout_constraintStart_toStartOf="@+id/post_job"
+            app:layout_constraintTop_toBottomOf="@+id/startDate"
+            />
+
+        <TextView
+            android:id="@+id/endDate"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@+id/post_job"
+            app:layout_constraintTop_toBottomOf="@+id/endLabel"
+            style="@android:style/Widget.Holo.Spinner"
+            android:onClick="clickED"
+            android:clickable="true"
+            android:textSize="32dp"/>
+
+        <TextView
+            android:id="@+id/endTime"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            app:layout_constraintStart_toEndOf="@+id/endDate"
+            app:layout_constraintTop_toBottomOf="@+id/endLabel"
+            style="@android:style/Widget.Holo.Spinner"
+            android:onClick="clickET"
+            android:clickable="true"
+            android:textSize="32dp"/>
+
+        <Button
+            android:id="@+id/setLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:onClick="clickLocation"
+            android:text="Set Location"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/endDate" />
+
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/update"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        android:clickable="true"
+        app:srcCompat="@android:drawable/checkbox_on_background" />
+
+</android.support.design.widget.CoordinatorLayout>

@@ -16,19 +16,27 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class FirebaseFuncs {
-    private static final FirebaseFuncs ourInstance = new FirebaseFuncs();
+    private static FirebaseFuncs ourInstance;
     private FirebaseFirestore db;
     private FirebaseUser currentUser;
     private FirebaseAuth mAuth;
+    private ArrayList<Posting> postings = new ArrayList<>();
+
+
 
     public static FirebaseFuncs getInstance() {
+        if (ourInstance == null) {
+            ourInstance = new FirebaseFuncs();
+        }
         return ourInstance;
     }
 
-    private FirebaseFuncs() {
+    public FirebaseFuncs() {
         db = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
 
@@ -36,10 +44,16 @@ public class FirebaseFuncs {
         currentUser = mAuth.getCurrentUser();
     }
 
+    // PROFILE
+    // get DocumentReference of a Profile
+    private DocumentReference getProfileDR (String uid) {
+        return db.collection("profiles").document(uid);
+    }
+
     private Profile getCurrentProfile() {
         final Profile[] profile = new Profile[1];
 
-        DocumentReference profileRef = db.collection("profiles").document(currentUser.getUid());
+        DocumentReference profileRef = getProfileDR(currentUser.getUid());
 
         profileRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
@@ -51,14 +65,44 @@ public class FirebaseFuncs {
         return profile[0];
     }
 
-    private void updateProfile(Profile profile) {
-        db.collection("profiles").document(currentUser.getUid()).set(profile);
+    private Profile getProfile(String uid) {
+        final Profile[] profile = new Profile[1];
+
+        DocumentReference profileRef = getProfileDR(uid);
+
+        profileRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                profile[0] = documentSnapshot.toObject(Profile.class);
+            }
+        });
+
+        return profile[0];
     }
 
-    private List<Posting> getPostings() {
+    // used to create and update
+    private void updateProfile(Profile profile) {
+        getProfileDR(currentUser.getUid()).set(profile);
+    }
+
+
+    public void insertUser(String email,String password,String name, String phone){
+        Profile user = new Profile(email,password,name,phone);
+        db.collection("profile").document().set(user);
+
+    }
+
+
+    // POSTINGS
+    private DocumentReference getPostingDR(String posting_id) {
+        return db.collection("postings").document(posting_id);
+    }
+
+    private List<Posting> getMyPostings() {
         final ArrayList<Posting> postings = new ArrayList<>();
 
         db.collection("postings")
+                .whereEqualTo("poster_id", currentUser.getUid())
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -66,13 +110,7 @@ public class FirebaseFuncs {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Posting posting = document.toObject(Posting.class);
-                                if (!posting.getOwner_id().equals(currentUser.getUid())) {
-                                    for (String petID: posting.getPetIDs()) {
-                                        Pet pet = getPet(petID);
-                                        posting.addPet(pet);
-                                    }
-                                    postings.add(posting);
-                                }
+                                postings.add(posting);
                             }
                         } else {
                             Log.d("FB", "Error getting documents: ", task.getException());
@@ -83,6 +121,73 @@ public class FirebaseFuncs {
         return postings;
     }
 
+
+    public ArrayList<Posting> getOtherPostings() {
+
+        db.collection("postings")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                //Log.d("das", document.getId() + " => " + document.getData());
+                                Posting posting = document.toObject(Posting.class);
+                                postings.add(posting);
+                                Log.i("postings", Integer.toString(postings.size()));
+                            }
+                        } else {
+                            Log.d("FB", "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
+        Log.i("postings", Integer.toString(postings.size()));
+        return postings;
+    }
+
+    private void updatePosting(Posting posting) {
+        getPostingDR(posting.getID()).set(posting);
+    }
+
+    private void createPosting(Posting posting) {
+        db.collection("postings").add(posting);
+    }
+
+    private void deletePosting(Posting posting) {
+        getPostingDR(posting.getID()).delete();
+    }
+
+    // REQUESTS
+    private DocumentReference getRequestDR(String posting_id, String uid) {
+        return db.collection("postings").document(posting_id).collection("requests").document(uid);
+    }
+
+    //  - sitter
+    private void createRequest(Posting posting) {
+        Map<String, Object> data = new HashMap<>();
+        data.put("accepted", false);
+        getRequestDR(posting.getID(), currentUser.getUid()).set(data);
+    }
+
+    private void deleteRequest(Posting posting) {
+        getRequestDR(posting.getID(), currentUser.getUid()).delete();
+    }
+
+    // - owner/poster
+    private void acceptRequest(Posting posting, String uid) {
+        Map<String, Object> data = new HashMap<>();
+        data.put("accepted", true);
+        getRequestDR(posting.getID(), uid).set(data);
+    }
+
+    private void declineRequest(Posting posting, String uid) {
+        Map<String, Object> data = new HashMap<>();
+        data.put("declined", true);
+        getRequestDR(posting.getID(), uid).set(data);
+    }
+
+    // PETS
+    // used to get pet info from ID
     private Pet getPet(String petID) {
         final Pet[] pet = new Pet[1];
 
