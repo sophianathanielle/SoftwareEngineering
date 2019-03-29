@@ -73,7 +73,7 @@ public class HomeActivity extends AppCompatActivity {
         postedFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), PostedJobActivity.class);
+                Intent intent = new Intent(getApplicationContext(), PostingJobActivity.class);
                 startActivity(intent);
             }
         });

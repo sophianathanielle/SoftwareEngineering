@@ -7,15 +7,19 @@
     <string name="upcoming_jobs">Upcoming Jobs</string>
     <string name="notification">Notifications</string>
     <string name="profile">Edit User Profile</string>
+    <string name="post_job">Post a New Job</string>
+    <string name="start_time">Start</string>
+    <string name="end_time">End</string>
     <string name="title_activity_new_job">NewJobActivity</string>
     <string name="title_activity_starred_job">StarredJobActivity</string>
     <string name="title_activity_upcoming_job">UpcomingJobActivity</string>
-    <string name="title_activity_posted_job">PostedJobActivity</string>
+    <string name="title_activity_posting_job">PostingJobActivity</string>
     <string name="title_activity_notification">NotificationActivity</string>
     <string name="title_activity_edit_user_profile">EditUserProfileActivity</string>
     <string name="find">Find Jobs</string>
     <string name="posted">Posted by: </string>
     <string name="pay">Payment: £</string>
     <string name="description">Description</string>
+    <string name="title_activity_maps">Map</string>
 
 </resources>
