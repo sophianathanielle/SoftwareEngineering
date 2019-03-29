@@ -69,8 +69,8 @@ public class EditUserProfileActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     updatesDatabase();
-                    //Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
-                    //startActivity(intent);
+                    Intent intent = new Intent(getApplicationContext(), UsersProfile.class);
+                    startActivity(intent);
                 }
             });
 
@@ -86,7 +86,6 @@ public class EditUserProfileActivity extends AppCompatActivity {
                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
                     if (task.isSuccessful()) {
                         user.setName(editName.toString());
-                        user.setPassword(editPassword.toString());
                         user.setPhone_number(editPhone.toString());
                         //user.setLocation(editAddress.toString());
                         user.setBio(editBio.toString());
