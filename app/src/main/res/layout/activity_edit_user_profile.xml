@@ -34,7 +34,7 @@
             android:layout_marginTop="7dp"
             android:layout_marginEnd="8dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/editSurname"
+            app:layout_constraintStart_toEndOf="@+id/Users_Surname"
             app:layout_constraintTop_toBottomOf="@+id/edit_info"
             tools:srcCompat="@tools:sample/avatars" />
 
@@ -48,7 +48,7 @@
             tools:layout_editor_absoluteY="72dp" />
 
         <EditText
-            android:id="@+id/editName"
+            android:id="@+id/Users_Name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -59,25 +59,25 @@
             tools:layout_editor_absoluteX="16dp" />
 
         <EditText
-            android:id="@+id/editSurname"
+            android:id="@+id/Users_Surname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:ems="10"
             android:inputType="textPersonName"
             android:text="Surname"
-            app:layout_constraintTop_toBottomOf="@+id/editName"
+            app:layout_constraintTop_toBottomOf="@+id/Users_Name"
             tools:layout_editor_absoluteX="16dp" />
 
         <EditText
-            android:id="@+id/editEmail"
+            android:id="@+id/Users_Email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:ems="10"
             android:inputType="textEmailAddress"
             android:text="Email"
-            app:layout_constraintTop_toBottomOf="@+id/editSurname"
+            app:layout_constraintTop_toBottomOf="@+id/Users_Surname"
             tools:layout_editor_absoluteX="16dp" />
 
         <EditText
@@ -88,11 +88,11 @@
             android:ems="10"
             android:inputType="textPassword"
             android:text="Password"
-            app:layout_constraintTop_toBottomOf="@+id/editEmail"
+            app:layout_constraintTop_toBottomOf="@+id/Users_Email"
             tools:layout_editor_absoluteX="16dp" />
 
         <EditText
-            android:id="@+id/editPhone"
+            android:id="@+id/Users_phoneNumber"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -103,14 +103,14 @@
             tools:layout_editor_absoluteX="16dp" />
 
         <EditText
-            android:id="@+id/editAddress"
+            android:id="@+id/Users_Address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:ems="10"
             android:inputType="textPostalAddress"
             android:text="Address"
-            app:layout_constraintTop_toBottomOf="@+id/editPhone"
+            app:layout_constraintTop_toBottomOf="@+id/Users_phoneNumber"
             tools:layout_editor_absoluteX="16dp" />
 
         <android.support.v7.widget.RecyclerView
@@ -136,7 +136,7 @@
             android:text="Pets"
             android:textAppearance="@style/TextAppearance.AppCompat.Display1"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editAddress" />
+            app:layout_constraintTop_toBottomOf="@+id/Users_Address" />
 
     </android.support.constraint.ConstraintLayout>
 
@@ -157,7 +157,8 @@
 
     <include
         android:id="@+id/include"
-        layout="@layout/content_edit_user_profile" />
+        layout="@layout/content_edit_user_profile"
+        android:layout_width="238dp" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/update"
