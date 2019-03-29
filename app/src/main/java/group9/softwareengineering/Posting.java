@@ -17,6 +17,9 @@ public class Posting {
     private int payment;
     private String[] petIDs;
     private ArrayList<Pet> pets = new ArrayList<>();
+    private String photoURL;
+
+    public Posting(){}
 
     public Posting(String poster, String poster_id, Date start_time, Date end_time, Location location, String description, int payment, String[] petIDs, ArrayList<Pet> pets){
         this.poster = poster;
@@ -86,6 +89,14 @@ public class Posting {
 
     public String getDescription() {
         return description;
+    }
+
+    public String getPhotoURL() {
+        return photoURL;
+    }
+
+    public void setPhotoURL(String getPhotoURL) {
+        this.photoURL = getPhotoURL;
     }
 
     public void setDescription(String description) {
