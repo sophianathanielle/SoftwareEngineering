@@ -6,6 +6,7 @@ import com.google.firebase.firestore.GeoPoint;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Posting {
 
@@ -17,12 +18,28 @@ public class Posting {
     private GeoPoint location;
     private String description;
     private int payment;
-    private String petID;
-    private String photoURL;
-    private int in_progress;
-    private ArrayList<Pet> pets = new ArrayList<>();
+    private String[] petIDs;
+    private Boolean completed;
+    private String sitter_found;
 
-    public Posting() { }
+    public Posting() {
+
+    }
+
+    public Posting(String poster, String poster_id, Date start_time, Date end_time, GeoPoint location, String description, int payment, String[] petIDs) {
+        this.poster = poster;
+        this.poster_id = poster_id;
+        this.start_time = start_time;
+        this.end_time = end_time;
+        this.location = location;
+        this.description = description;
+        this.payment = payment;
+        this.petIDs = petIDs;
+
+        // maybe create these values in Cloud Func on doc creation
+        this.completed = false;
+        this.sitter_found = null;
+    }
 
     public String getID() {
         return id;
@@ -46,18 +63,6 @@ public class Posting {
 
     public void setStart_time(Date start_time) {
         this.start_time = start_time;
-    }
-
-    public void setPetID(String petID) {
-        this.petID = petID;
-    }
-
-    public int getIn_progress() {
-        return in_progress;
-    }
-
-    public void setIn_progress(int in_progress) {
-        this.in_progress = in_progress;
     }
 
     public Date getEnd_time() {
@@ -84,11 +89,9 @@ public class Posting {
         this.payment = payment;
     }
 
-    public String getPetID() {
-        return petID;
+    public String[] getPetIDs() {
+        return petIDs;
     }
-
-    public void addPet(Pet pet) { pets.add(pet); }
 
     public String getDescription() {
         return description;
@@ -97,14 +100,4 @@ public class Posting {
     public void setDescription(String description) {
         this.description = description;
     }
-
-    public String getPhotoURL() {
-        return photoURL;
-    }
-
-    public void setPhotoURL(String photoURL) {
-        this.photoURL = photoURL;
-    }
-
 }
-
