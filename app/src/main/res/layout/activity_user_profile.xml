@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+
+
+xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".EditUserProfileActivity">
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/floatingActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:clickable="true"
+        app:fabSize="normal"
+        app:layout_anchor="@+id/constraintLayout"
+        app:layout_anchorGravity="right|top"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/ic_menu_help" />
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+    </android.support.design.widget.AppBarLayout>
+
+    <include
+        android:id="@+id/include"
+        layout="@layout/content_edit_user_profile"
+        android:layout_width="match_parent"
+        android:layout_height="28dp" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/update"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:clickable="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@android:drawable/checkbox_on_background" />
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="7dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/Users_Surname"
+            app:layout_constraintTop_toBottomOf="@+id/edit_info"
+            tools:srcCompat="@tools:sample/avatars" />
+
+        <TextView
+            android:id="@+id/edit_info"
+            android:layout_width="167dp"
+            android:layout_height="53dp"
+            android:text="Your Profile"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            android:textSize="30dp"
+            tools:layout_editor_absoluteX="78dp"
+            tools:layout_editor_absoluteY="65dp" />
+
+        <EditText
+            android:id="@+id/Users_Name"
+            android:layout_width="wrap_content"
+            android:layout_height="43dp"
+            android:layout_marginTop="8dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="Name"
+            app:layout_constraintTop_toBottomOf="@+id/edit_info"
+            tools:layout_editor_absoluteX="16dp" />
+
+        <EditText
+            android:id="@+id/Users_Surname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="Surname"
+            app:layout_constraintTop_toBottomOf="@+id/Users_Name"
+            tools:layout_editor_absoluteX="16dp" />
+
+        <EditText
+            android:id="@+id/Users_Email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:ems="10"
+            android:inputType="textEmailAddress"
+            android:text="Email"
+            app:layout_constraintTop_toBottomOf="@+id/Users_Surname"
+            tools:layout_editor_absoluteX="16dp" />
+
+        <EditText
+            android:id="@+id/Users_phoneNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="number"
+            android:text="Phone"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="284dp" />
+
+        <EditText
+            android:id="@+id/Users_Address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:ems="10"
+            android:inputType="textPostalAddress"
+            android:text="Address"
+            app:layout_constraintTop_toBottomOf="@+id/Users_phoneNumber"
+            tools:layout_editor_absoluteX="16dp" />
+
+        <TextView
+            android:id="@+id/textPets"
+            android:layout_width="67dp"
+            android:layout_height="47dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="32dp"
+            android:text="Pets"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Users_Address" />
+
+        <Button
+            android:id="@+id/Edit_Profile_Btn"
+            android:layout_width="62dp"
+            android:layout_height="40dp"
+            android:text="Edit"
+            tools:layout_editor_absoluteX="322dp"
+            tools:layout_editor_absoluteY="78dp" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/usersPets"
+            android:layout_width="226dp"
+            android:layout_height="99dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="8dp"
+            android:scrollbars="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.36"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textPets"
+            tools:itemCount="15"
+            tools:layoutManager="GridLayoutManager"
+            tools:listitem="@layout/recycler_view_item_2"
+            tools:spanCount="5" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/Comments_about_user"
+            android:layout_width="396dp"
+            android:layout_height="97dp"
+            android:scrollbars="horizontal"
+            tools:layout_editor_absoluteX="7dp"
+            tools:layout_editor_absoluteY="606dp" />
+
+        <RatingBar
+            android:id="@+id/RatingBar"
+            style="@android:style/Widget.DeviceDefault.Light.RatingBar.Indicator"
+            android:layout_width="179dp"
+            android:layout_height="46dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:isIndicator="false"
+            android:numStars="5"
+            android:rating="2"
+            app:layout_constraintBottom_toTopOf="@+id/textPets"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/Users_Email"
+            app:layout_constraintTop_toBottomOf="@+id/imageView"
+            app:layout_constraintVertical_bias="0.07999998" />
+
+        <View
+            android:id="@+id/divider2"
+            android:layout_width="395dp"
+            android:layout_height="1dp"
+            android:background="?android:attr/listDivider"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="585dp" />
+
+        <EditText
+            android:id="@+id/Users_bio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textMultiLine"
+            android:text="BIo"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="392dp" />
+
+    </android.support.constraint.ConstraintLayout>
+
+
+</android.support.design.widget.CoordinatorLayout>

@@ -6,7 +6,139 @@
     android:layout_height="match_parent"
     tools:context=".EditUserProfileActivity">
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/floatingActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:clickable="true"
+        app:fabSize="normal"
+        app:layout_anchor="@+id/constraintLayout"
+        app:layout_anchorGravity="right|top"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/ic_menu_help" />
 
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="7dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/Users_Surname"
+            app:layout_constraintTop_toBottomOf="@+id/edit_info"
+            tools:srcCompat="@tools:sample/avatars" />
+
+        <TextView
+            android:id="@+id/edit_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Edit your Personal Info"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="72dp" />
+
+        <EditText
+            android:id="@+id/Users_Name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="Name"
+            app:layout_constraintTop_toBottomOf="@+id/edit_info"
+            tools:layout_editor_absoluteX="16dp" />
+
+        <EditText
+            android:id="@+id/Users_Surname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="Surname"
+            app:layout_constraintTop_toBottomOf="@+id/Users_Name"
+            tools:layout_editor_absoluteX="16dp" />
+
+        <EditText
+            android:id="@+id/Users_Email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:ems="10"
+            android:inputType="textEmailAddress"
+            android:text="Email"
+            app:layout_constraintTop_toBottomOf="@+id/Users_Surname"
+            tools:layout_editor_absoluteX="16dp" />
+
+        <EditText
+            android:id="@+id/editPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:ems="10"
+            android:inputType="textPassword"
+            android:text="Password"
+            app:layout_constraintTop_toBottomOf="@+id/Users_Email"
+            tools:layout_editor_absoluteX="16dp" />
+
+        <EditText
+            android:id="@+id/Users_phoneNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:ems="10"
+            android:inputType="number"
+            android:text="Phone"
+            app:layout_constraintTop_toBottomOf="@+id/editPassword"
+            tools:layout_editor_absoluteX="16dp" />
+
+        <EditText
+            android:id="@+id/Users_Address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:ems="10"
+            android:inputType="textPostalAddress"
+            android:text="Address"
+            app:layout_constraintTop_toBottomOf="@+id/Users_phoneNumber"
+            tools:layout_editor_absoluteX="16dp" />
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textPets"
+            tools:itemCount="15"
+            tools:layoutManager="GridLayoutManager"
+            tools:listitem="@layout/recycler_view_item_2"
+            tools:spanCount="5" />
+
+        <TextView
+            android:id="@+id/textPets"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="56dp"
+            android:text="Pets"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Users_Address" />
+
+    </android.support.constraint.ConstraintLayout>
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appBarLayout"
@@ -26,12 +158,7 @@
     <include
         android:id="@+id/include"
         layout="@layout/content_edit_user_profile"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_width="238dp" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/update"
