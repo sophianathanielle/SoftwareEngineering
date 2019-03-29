@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -24,7 +25,7 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText inputEmail, inputPassword, inputPhone, inputName;
     private Button btnSignIn, btnSignUp;
     private FirebaseAuth mAuth;
-    private FirebaseFirestore db;
+    TextView title;
 
 
     @Override
@@ -34,6 +35,8 @@ public class RegisterActivity extends AppCompatActivity {
 
         mAuth=FirebaseAuth.getInstance();
 
+
+        title = (TextView) findViewById(R.id.title);
         btnSignIn = (Button) findViewById(R.id.sign_in_button);
         btnSignUp = (Button) findViewById(R.id.sign_up_button);
 
