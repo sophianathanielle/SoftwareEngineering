@@ -62,7 +62,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity android:name=".RegisterActivity" />
-        <activity android:name=".ForgetAndChangePasswordActivity"></activity>
+        <activity android:name=".ForgotPasswordActivity"></activity>
     </application>
 
 </manifest>
