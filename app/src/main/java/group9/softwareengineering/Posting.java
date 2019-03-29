@@ -2,27 +2,42 @@ package group9.softwareengineering;
 
 import android.location.Location;
 
-import java.lang.reflect.Array;
+import com.google.firebase.firestore.GeoPoint;
+
 import java.util.ArrayList;
 import java.util.Date;
 
 public class Posting {
 
-    private String owner;
-    private String owner_id;
+    private String id;
+    private String poster;
+    private String poster_id;
     private Date start_time;
     private Date end_time;
-    private Location location;
+    private GeoPoint location;
+    private String description;
     private int payment;
-    private String[] petIDs;
+    private String petID;
+    private String photoURL;
+    private int in_progress;
     private ArrayList<Pet> pets = new ArrayList<>();
 
-    public String getOwner() {
-        return owner;
+    public Posting() { }
+
+    public String getID() {
+        return id;
     }
 
-    public void setOwner(String owner) {
-        this.owner = owner;
+    public String getPoster() {
+        return poster;
+    }
+
+    public void setPoster(String poster) {
+        this.poster = poster;
+    }
+
+    public String getPoster_id() {
+        return poster_id;
     }
 
     public Date getStart_time() {
@@ -33,6 +48,18 @@ public class Posting {
         this.start_time = start_time;
     }
 
+    public void setPetID(String petID) {
+        this.petID = petID;
+    }
+
+    public int getIn_progress() {
+        return in_progress;
+    }
+
+    public void setIn_progress(int in_progress) {
+        this.in_progress = in_progress;
+    }
+
     public Date getEnd_time() {
         return end_time;
     }
@@ -41,11 +68,11 @@ public class Posting {
         this.end_time = end_time;
     }
 
-    public Location getLocation() {
+    public GeoPoint getLocation() {
         return location;
     }
 
-    public void setLocation(Location location) {
+    public void setLocation(GeoPoint location) {
         this.location = location;
     }
 
@@ -57,13 +84,27 @@ public class Posting {
         this.payment = payment;
     }
 
-    public String[] getPetIDs() {
-        return petIDs;
+    public String getPetID() {
+        return petID;
     }
 
     public void addPet(Pet pet) { pets.add(pet); }
 
-    public String getOwner_id() {
-        return owner_id;
+    public String getDescription() {
+        return description;
     }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getPhotoURL() {
+        return photoURL;
+    }
+
+    public void setPhotoURL(String photoURL) {
+        this.photoURL = photoURL;
+    }
+
 }
+

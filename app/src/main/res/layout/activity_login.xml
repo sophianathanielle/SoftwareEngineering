@@ -38,7 +38,7 @@
             android:textColor="@color/colorPrimary" />
 
     <Button
-        android:id="@+id/sign_in_button"
+        android:id="@+id/btn_login"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dip"
@@ -48,7 +48,7 @@
 
 
     <Button
-        android:id="@+id/sign_up_button"
+        android:id="@+id/btn_signup"
         style="?android:textAppearanceSmall"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

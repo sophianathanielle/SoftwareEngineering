@@ -58,4 +58,5 @@
         app:fab_size="mini"
         app:fab_title="@string/upcoming_jobs"/>
     </com.getbase.floatingactionbutton.FloatingActionsMenu>
+
 </android.support.design.widget.CoordinatorLayout>
