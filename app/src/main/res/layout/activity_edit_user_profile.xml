@@ -6,137 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".EditUserProfileActivity">
 
-    <android.support.constraint.ConstraintLayout
-        android:id="@+id/constraintLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/editSurname"
-            app:layout_constraintTop_toBottomOf="@+id/edit_info"
-            tools:srcCompat="@tools:sample/avatars" />
-
-        <TextView
-            android:id="@+id/textEdit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="TextView"
-            app:layout_constraintTop_toBottomOf="@+id/imageView"
-            tools:layout_editor_absoluteX="288dp" />
-
-        <TextView
-            android:id="@+id/edit_info"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Edit your Personal Info"
-            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-            tools:layout_editor_absoluteX="16dp"
-            tools:layout_editor_absoluteY="72dp" />
-
-        <EditText
-            android:id="@+id/editName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:text="Name"
-            app:layout_constraintTop_toBottomOf="@+id/edit_info"
-            tools:layout_editor_absoluteX="16dp" />
-
-        <EditText
-            android:id="@+id/editSurname"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:text="Surname"
-            app:layout_constraintTop_toBottomOf="@+id/editName"
-            tools:layout_editor_absoluteX="16dp" />
-
-        <EditText
-            android:id="@+id/editPassword"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:ems="10"
-            android:inputType="textPassword"
-            android:text="Password"
-            app:layout_constraintTop_toBottomOf="@+id/editSurname"
-            tools:layout_editor_absoluteX="16dp" />
-
-        <EditText
-            android:id="@+id/editPhone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:ems="10"
-            android:inputType="number"
-            android:text="Phone"
-            app:layout_constraintTop_toBottomOf="@+id/editPassword"
-            tools:layout_editor_absoluteX="16dp" />
-
-        <EditText
-            android:id="@+id/editAddress"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:ems="10"
-            android:inputType="textPostalAddress"
-            android:text="Address"
-            app:layout_constraintTop_toBottomOf="@+id/editPhone"
-            tools:layout_editor_absoluteX="16dp" />
-
-        <EditText
-            android:id="@+id/editBio"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:text="Bio"
-            app:layout_constraintTop_toBottomOf="@+id/editAddress"
-            tools:layout_editor_absoluteX="16dp" />
-
-        <TextView
-            android:id="@+id/textPets"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="8dp"
-            android:text="Pets"
-            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/editBio"
-            app:layout_constraintTop_toBottomOf="@+id/editAddress" />
-
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/editPets"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="40dp"
-            android:scrollbars="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editBio"
-            tools:itemCount="4"
-            tools:listitem="@layout/recycler_view_item_2" />
-
-    </android.support.constraint.ConstraintLayout>
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appBarLayout"
@@ -170,6 +40,7 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
         android:clickable="true"
+        android:focusable="true"
         app:srcCompat="@android:drawable/checkbox_on_background" />
 
 </android.support.design.widget.CoordinatorLayout>
