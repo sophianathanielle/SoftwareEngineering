@@ -28,6 +28,7 @@ public class FirebaseFuncs {
     private ArrayList<Posting> postings = new ArrayList<>();
 
 
+
     public static FirebaseFuncs getInstance() {
         if (ourInstance == null) {
             ourInstance = new FirebaseFuncs();
@@ -35,7 +36,7 @@ public class FirebaseFuncs {
         return ourInstance;
     }
 
-    private FirebaseFuncs() {
+    public FirebaseFuncs() {
         db = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
 
@@ -83,6 +84,14 @@ public class FirebaseFuncs {
     private void updateProfile(Profile profile) {
         getProfileDR(currentUser.getUid()).set(profile);
     }
+
+
+    public void insertUser(String email,String password,String name, String phone){
+        Profile user = new Profile(email,password,name,phone);
+        db.collection("profile").document().set(user);
+
+    }
+
 
     // POSTINGS
     private DocumentReference getPostingDR(String posting_id) {
