@@ -71,10 +71,10 @@ public class PostingJobActivity extends AppCompatActivity implements DatePickerD
         timePickerDialog.show();
     }
 
-    public void clickLocation(View view) {
-        Intent intent = new Intent(this, MapsActivity.class);
-        startActivity(intent);
-    }
+//    public void clickLocation(View view) {
+//        Intent intent = new Intent(this, MapsActivity.class);
+//        startActivity(intent);
+//    }
 
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
