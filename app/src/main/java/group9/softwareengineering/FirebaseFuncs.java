@@ -258,4 +258,51 @@ public class FirebaseFuncs {
 
         return pet[0];
     }
+
+    private void createPet(Pet pet){
+        db.collection("pets").add(pet);
+    }
+
+    private DocumentReference getPetDR(String pet_id) {
+        return db.collection("pets").document(pet_id);
+    }
+
+    private void updatePet(Pet pet){
+        getPetDR(pet.getID()).set(pet);
+    }
+
+    private void deletePet(Pet pet) {
+        getPetDR(pet.getID()).delete();
+    }
+
+    // REVIEW
+    // used to get review info from ID
+    private Review getReview (String Uid) {
+        final Review[] review = new Review[1];
+        DocumentReference reviewRef = db.collection("reviews").document(Uid);
+
+        reviewRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                review[1] = documentSnapshot.toObject(Review.class);
+            }
+        });
+
+        return review[1];
+    }
+
+    private void createReview(Review review){
+        db.collection("reviews").add(review);
+    }
+    private DocumentReference getReviewDR(String review_id) {
+        return db.collection("reviews").document(review_id);
+    }
+
+    private void updateReview(Review review){
+        getReviewDR(currentUser.getUid()).set(review);
+    }
+
+    private void deleteReview(Review review){
+        getReviewDR(currentUser.getUid()).delete();
+    }
 }
