@@ -8,6 +8,12 @@ public class Review {
     private Date review_date;
     private String review_text;
 
+    public Review(int rating, Date review_date, String review_text){
+        this.rating = rating;
+        this.review_date = review_date;
+        this.review_text = review_text;
+    }
+
     public int getRating() {
         return rating;
     }

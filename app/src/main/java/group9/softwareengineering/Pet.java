@@ -9,6 +9,13 @@ public class Pet {
     private String species;
     private String breed;
 
+    public Pet(String name, int age, String bio, String species, String breed){
+        this.name = name;
+        this.age = age;
+        this.bio = bio;
+        this.species = species;
+        this.breed = breed;
+    }
     public String getName() {
         return name;
     }
@@ -49,7 +56,7 @@ public class Pet {
         this.breed = breed;
     }
 
-    public String getId() {
+    public String getID() {
         return id;
     }
 
