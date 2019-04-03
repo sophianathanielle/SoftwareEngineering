@@ -45,7 +45,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ExampleViewHol
         holder.payment.setText(pay+posting.getPayment());
         holder.description.setText(posting.getDescription());
         holder.posted.setText(posted+posting.getPoster());
-        //Picasso.with(context).load(posting.getPhotoURL()).fit().centerCrop().into(holder.imageView);
+        Picasso.with(context).load(posting.getPhotoURL()).fit().centerCrop().into(holder.imageView);
 
     }
 

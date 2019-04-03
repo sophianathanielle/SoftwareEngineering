@@ -18,27 +18,13 @@ public class Posting {
     private GeoPoint location;
     private String description;
     private int payment;
-    private String[] petIDs;
+    private List<String> petIDs;
     private Boolean completed;
     private String sitter_found;
+    private String photoURL;
 
     public Posting() {
 
-    }
-
-    public Posting(String poster, String poster_id, Date start_time, Date end_time, GeoPoint location, String description, int payment, String[] petIDs) {
-        this.poster = poster;
-        this.poster_id = poster_id;
-        this.start_time = start_time;
-        this.end_time = end_time;
-        this.location = location;
-        this.description = description;
-        this.payment = payment;
-        this.petIDs = petIDs;
-
-        // maybe create these values in Cloud Func on doc creation
-        this.completed = false;
-        this.sitter_found = null;
     }
 
     public String getID() {
@@ -89,7 +75,7 @@ public class Posting {
         this.payment = payment;
     }
 
-    public String[] getPetIDs() {
+    public List<String> getPetIDs() {
         return petIDs;
     }
 
@@ -99,5 +85,13 @@ public class Posting {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getPhotoURL() {
+        return photoURL;
+    }
+
+    public void setPhotoURL(String photoURL) {
+        this.photoURL = photoURL;
     }
 }

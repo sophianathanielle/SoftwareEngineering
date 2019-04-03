@@ -29,4 +29,7 @@
     <string name="title_activity_posting_job">PostingJobActivity</string>
     <string name="title_activity_maps">Map</string>
     <string name="title_activity_selected_job">SelectedJobActivity</string>
+    <string name="title_activity_my_postings">MyPostingsActivity</string>
+    <string name="content_desc_posting_image">Posting image</string>
+    <string name="job_duration">%1$s - %2$s</string>
 </resources>
