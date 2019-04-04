@@ -36,4 +36,7 @@
     <string name="startingTime">Start time:</string>
     <string name="endingTime">Ending Time:</string>
     <string name="sumbitJobRequest">Show Interest</string>
+    <string name="title_activity_my_postings">MyPostingsActivity</string>
+    <string name="content_desc_posting_image">Posting image</string>
+    <string name="job_duration">%1$s - %2$s</string>
 </resources>
