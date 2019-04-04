@@ -18,24 +18,17 @@ public class Posting {
     private GeoPoint location;
     private String description;
     private int payment;
-<<<<<<< HEAD
-    private ArrayList<String> petID = new ArrayList<>();
-    private Boolean completed;
-    private String sitter_found;
+    private ArrayList<String> petIDs = new ArrayList<>();
     private ArrayList<String> sitters_interested = new ArrayList<>();
-=======
-    private List<String> petIDs;
     private Boolean completed;
     private String sitter_found;
     private String photoURL;
->>>>>>> 3a5176560a0c8543d6f86e7b5a18727e95ba5596
 
     public Posting() {
 
     }
 
-<<<<<<< HEAD
-    public Posting(String poster, String poster_id, Date start_time, Date end_time, GeoPoint location, String description, int payment, ArrayList<String> petID) {
+    public Posting(String poster, String poster_id, Date start_time, Date end_time, GeoPoint location, String description, int payment, ArrayList<String> petIDs) {
         this.poster = poster;
         this.poster_id = poster_id;
         this.start_time = start_time;
@@ -43,15 +36,13 @@ public class Posting {
         this.location = location;
         this.description = description;
         this.payment = payment;
-        this.petID = petID;
+        this.petIDs = petIDs;
 
         // maybe create these values in Cloud Func on doc creation
         this.completed = false;
         this.sitter_found = null;
     }
 
-=======
->>>>>>> 3a5176560a0c8543d6f86e7b5a18727e95ba5596
     public String getID() {
         return id;
     }
@@ -100,16 +91,11 @@ public class Posting {
         this.payment = payment;
     }
 
-<<<<<<< HEAD
-    public ArrayList<String> getPetID() {
-        return petID;
-=======
-    public List<String> getPetIDs() {
+    public ArrayList<String> getPetIDs() {
         return petIDs;
->>>>>>> 3a5176560a0c8543d6f86e7b5a18727e95ba5596
     }
 
-    public String getDescription() {
+    public String getDescription(){
         return description;
     }
 

@@ -22,7 +22,8 @@
             android:name=".MyPostingsActivity"
             android:label="@string/title_activity_my_postings"
             android:exported="true"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
         <activity
             android:name=".SelectedJobActivity"
             android:label="@string/title_activity_selected_job"
