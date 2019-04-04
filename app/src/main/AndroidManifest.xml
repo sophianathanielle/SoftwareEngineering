@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="group9.softwareengineering">
+
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <!--
@@ -17,7 +18,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
+        <activity
+            android:name=".MyPostingsActivity"
+            android:label="@string/title_activity_my_postings"
+            android:exported="true"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".SelectedJobActivity"
+            android:label="@string/title_activity_selected_job"
+            android:theme="@style/AppTheme.NoActionBar" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -32,7 +41,7 @@
 
         <activity
             android:name=".MapsActivity"
-            android:label="@string/title_activity_maps"></activity>
+            android:label="@string/title_activity_maps" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -85,9 +94,8 @@
             android:name=".EditUserProfileActivity"
             android:label="@string/title_activity_edit_user_profile"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity android:name=".RegisterActivity" />
-        <activity android:name=".ForgotPasswordActivity"></activity>
+        <activity android:name=".ForgotPasswordActivity" />
     </application>
 
 </manifest>

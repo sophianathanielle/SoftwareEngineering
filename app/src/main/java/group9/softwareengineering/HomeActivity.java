@@ -28,7 +28,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity implements HomeAdapter.onClickListener{
     private com.getbase.floatingactionbutton.FloatingActionButton starredFab, postedFab, newJobsFab, upcomingFab;
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
@@ -109,7 +109,7 @@ public class HomeActivity extends AppCompatActivity {
                                 Log.i("postings", Integer.toString(postings.size()));
                             }
                             postings = tempPostings;
-                            adapter = new HomeAdapter(postings , pay , posted, getApplicationContext());
+                            adapter = new HomeAdapter(postings , pay , posted, getApplicationContext(), HomeActivity.this);
                             recyclerView.setLayoutManager(layoutManager);
                             recyclerView.setAdapter(adapter);
                         } else {
@@ -153,4 +153,9 @@ public class HomeActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onItemClick(int position) {
+        Intent intent = new Intent(this, SelectedJobActivity.class);
+        startActivity(intent);
+    }
 }

@@ -6,6 +6,7 @@ import com.google.firebase.firestore.GeoPoint;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Posting {
 
@@ -17,12 +18,14 @@ public class Posting {
     private GeoPoint location;
     private String description;
     private int payment;
-    private String petID;
+    private List<String> petIDs;
+    private Boolean completed;
+    private String sitter_found;
     private String photoURL;
-    private int in_progress;
-    private ArrayList<Pet> pets = new ArrayList<>();
 
-    public Posting() { }
+    public Posting() {
+
+    }
 
     public String getID() {
         return id;
@@ -46,18 +49,6 @@ public class Posting {
 
     public void setStart_time(Date start_time) {
         this.start_time = start_time;
-    }
-
-    public void setPetID(String petID) {
-        this.petID = petID;
-    }
-
-    public int getIn_progress() {
-        return in_progress;
-    }
-
-    public void setIn_progress(int in_progress) {
-        this.in_progress = in_progress;
     }
 
     public Date getEnd_time() {
@@ -84,11 +75,9 @@ public class Posting {
         this.payment = payment;
     }
 
-    public String getPetID() {
-        return petID;
+    public List<String> getPetIDs() {
+        return petIDs;
     }
-
-    public void addPet(Pet pet) { pets.add(pet); }
 
     public String getDescription() {
         return description;
@@ -105,6 +94,4 @@ public class Posting {
     public void setPhotoURL(String photoURL) {
         this.photoURL = photoURL;
     }
-
 }
-
