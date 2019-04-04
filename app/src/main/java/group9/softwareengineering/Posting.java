@@ -18,15 +18,16 @@ public class Posting {
     private GeoPoint location;
     private String description;
     private int payment;
-    private String[] petIDs;
+    private ArrayList<String> petID = new ArrayList<>();
     private Boolean completed;
     private String sitter_found;
+    private ArrayList<String> sitters_interested = new ArrayList<>();
 
     public Posting() {
 
     }
 
-    public Posting(String poster, String poster_id, Date start_time, Date end_time, GeoPoint location, String description, int payment, String[] petIDs) {
+    public Posting(String poster, String poster_id, Date start_time, Date end_time, GeoPoint location, String description, int payment, ArrayList<String> petID) {
         this.poster = poster;
         this.poster_id = poster_id;
         this.start_time = start_time;
@@ -34,7 +35,7 @@ public class Posting {
         this.location = location;
         this.description = description;
         this.payment = payment;
-        this.petIDs = petIDs;
+        this.petID = petID;
 
         // maybe create these values in Cloud Func on doc creation
         this.completed = false;
@@ -89,12 +90,16 @@ public class Posting {
         this.payment = payment;
     }
 
-    public String[] getPetIDs() {
-        return petIDs;
+    public ArrayList<String> getPetID() {
+        return petID;
     }
 
     public String getDescription() {
         return description;
+    }
+
+    public ArrayList<String> getSitters_interested() {
+        return sitters_interested;
     }
 
     public void setDescription(String description) {

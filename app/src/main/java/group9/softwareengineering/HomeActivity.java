@@ -19,6 +19,7 @@ import android.widget.Button;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.common.collect.Lists;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -34,6 +35,7 @@ public class HomeActivity extends AppCompatActivity implements HomeAdapter.onCli
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     private ArrayList<Posting>  postings = new ArrayList<>();
+    private ArrayList<String>  ids = new ArrayList<>();
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private Button find;
     private String pay;
@@ -102,13 +104,16 @@ public class HomeActivity extends AppCompatActivity implements HomeAdapter.onCli
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             ArrayList<Posting> tempPostings = new ArrayList<>();
+                            ArrayList<String> tempIds = new ArrayList<>();
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 //Log.d("das", document.getId() + " => " + document.getData());
                                 Posting posting = document.toObject(Posting.class);
                                 tempPostings.add(posting);
+                                tempIds.add(document.getId());
                                 Log.i("postings", Integer.toString(postings.size()));
                             }
                             postings = tempPostings;
+                            ids = tempIds;
                             adapter = new HomeAdapter(postings , pay , posted, getApplicationContext(), HomeActivity.this);
                             recyclerView.setLayoutManager(layoutManager);
                             recyclerView.setAdapter(adapter);
@@ -117,18 +122,6 @@ public class HomeActivity extends AppCompatActivity implements HomeAdapter.onCli
                         }
                     }
                 });
-    }
-
-    private void example() {
-        Posting posting = new Posting();
-        posting.setDescription("asdsad");
-        posting.setPayment(213);
-        postings.add(posting);
-        postings.add(posting);
-        postings.add(posting);
-
-        Log.i("das", Integer.toString(postings.size()));
-
     }
 
     @Override
@@ -155,7 +148,11 @@ public class HomeActivity extends AppCompatActivity implements HomeAdapter.onCli
 
     @Override
     public void onItemClick(int position) {
+
         Intent intent = new Intent(this, SelectedJobActivity.class);
+        intent.putExtra("usersID" , this.postings.get(position).getPoster_id());
+        intent.putExtra("ids", this.ids.get(position));
+        intent.putStringArrayListExtra("usersPetIds" , this.postings.get(position).getPetID());
         startActivity(intent);
     }
 }

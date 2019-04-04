@@ -29,4 +29,11 @@
     <string name="title_activity_posting_job">PostingJobActivity</string>
     <string name="title_activity_maps">Map</string>
     <string name="title_activity_selected_job">SelectedJobActivity</string>
+    <string name="petName">Name: </string>
+    <string name="petBreed">Breed: </string>
+    <string name="petAge">Age: </string>
+    <string name="location">Location:</string>
+    <string name="startingTime">Start time:</string>
+    <string name="endingTime">Ending Time:</string>
+    <string name="sumbitJobRequest">Show Interest</string>
 </resources>
