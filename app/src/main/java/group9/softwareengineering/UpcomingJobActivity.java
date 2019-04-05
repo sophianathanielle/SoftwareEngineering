@@ -39,8 +39,8 @@ public class UpcomingJobActivity extends AppCompatActivity implements HomeAdapte
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private String pay;
     private String posted;
-    String userid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-    ArrayList mDocumentId;
+    String mUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,18 +61,16 @@ public class UpcomingJobActivity extends AppCompatActivity implements HomeAdapte
 
     private void fetchesFromDatabase() {
         db.collection("postings")
-             .whereEqualTo("sitter_found",userid)
+             .whereEqualTo("sitter_found",mUserId)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
-                            ArrayList<String> documentIds=new ArrayList<>();
                             ArrayList<Posting> tempPostings = new ArrayList<>();
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Posting posting = document.toObject(Posting.class);
                                 tempPostings.add(posting);
-                                documentIds.add(document.getId());
                             }
 
 
