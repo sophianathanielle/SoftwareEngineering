@@ -97,6 +97,8 @@ public class RegisterActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()){
                             //store other fields in database
+                            Profile user = new Profile(name,phone);
+                            FirebaseFirestore.getInstance().collection("profile").add(user);
                             Intent intent = new Intent(RegisterActivity.this, HomeActivity.class);
                             startActivity(intent);
                             finish();

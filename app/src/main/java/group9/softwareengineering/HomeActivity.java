@@ -19,6 +19,7 @@ import android.widget.Button;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -35,9 +36,11 @@ public class HomeActivity extends AppCompatActivity implements HomeAdapter.onCli
     private RecyclerView.LayoutManager layoutManager;
     private ArrayList<Posting>  postings = new ArrayList<>();
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    FirebaseAuth mAuth;
     private Button find;
     private String pay;
     private String posted;
+    private String mUserId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,8 +48,9 @@ public class HomeActivity extends AppCompatActivity implements HomeAdapter.onCli
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         fetchesFromDatabase();
-        pay = getString(R.string.pay);
-        posted = getString(R.string.posted);
+       // mUserId =mAuth.getCurrentUser().getUid();
+        pay = getString(R.string.string_pay);
+        posted = getString(R.string.string_posted);
         FloatingActionsMenu expandFab = (FloatingActionsMenu) findViewById(R.id.expand);
         starredFab = (com.getbase.floatingactionbutton.FloatingActionButton) findViewById(R.id.starred);
         postedFab = (com.getbase.floatingactionbutton.FloatingActionButton) findViewById(R.id.posted);

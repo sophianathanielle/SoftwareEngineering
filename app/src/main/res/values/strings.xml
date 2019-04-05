@@ -13,10 +13,10 @@
     <string name="title_activity_posted_job">PostedJobActivity</string>
     <string name="title_activity_notification">NotificationActivity</string>
     <string name="title_activity_edit_user_profile">EditUserProfileActivity</string>
-    <string name="find">Find Jobs</string>
-    <string name="posted">Posted by: </string>
-    <string name="pay">Payment: £</string>
-    <string name="description">Description</string>
+    <string name="string_find">Find Jobs</string>
+    <string name="string_posted">Posted by: </string>
+    <string name="string_pay">Payment: £</string>
+    <string name="string_description">Description</string>
     <string name="edit_personal_info">Edit your Personal Info</string>
     <string name="edit_picture">Click to select Picture</string>
     <string name="edit_pets">Edit your Pets</string>

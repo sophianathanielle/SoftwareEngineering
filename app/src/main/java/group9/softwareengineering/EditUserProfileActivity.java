@@ -65,7 +65,7 @@ public class EditUserProfileActivity extends AppCompatActivity {
             recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
 
             fabUpdate = (FloatingActionButton) findViewById(R.id.update);
-        fabUpdate.setOnClickListener(new View.OnClickListener() {
+            fabUpdate.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     updatesDatabase();
