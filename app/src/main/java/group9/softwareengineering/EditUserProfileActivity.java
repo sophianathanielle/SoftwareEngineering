@@ -29,7 +29,7 @@ public class EditUserProfileActivity extends AppCompatActivity {
 
 
     private TextView editInfo, editPicture, editPets;
-    private EditText editName, editPassword, editPhone, editAddress, editBio, editPetName;
+    private EditText editName, editPhone, editAddress, editBio, editPetName;
     private ImageButton profilePicture, petPicture;
     private FloatingActionButton fabUpdate;
     private Profile user;
@@ -53,7 +53,6 @@ public class EditUserProfileActivity extends AppCompatActivity {
             editPets = (TextView) findViewById(R.id.editPets);
 
             editName = (EditText) findViewById(R.id.editName);
-            editPassword = (EditText) findViewById(R.id.editPassword);
             editPhone = (EditText) findViewById(R.id.editPassword);
             editAddress = (EditText) findViewById(R.id.editAddress);
             editBio = (EditText) findViewById(R.id.editBio);
@@ -64,8 +63,8 @@ public class EditUserProfileActivity extends AppCompatActivity {
 
             recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
 
-            fabUpdate = (FloatingActionButton) findViewById(R.id.update);
-        fabUpdate.setOnClickListener(new View.OnClickListener() {
+            fabUpdate = (FloatingActionButton) findViewById(R.id.fabUpdate);
+            fabUpdate.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     updatesDatabase();

@@ -9,7 +9,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.ImageView;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -19,8 +19,11 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 
-public class SelectedJobActivity extends AppCompatActivity {
+public class MyPostedJob extends AppCompatActivity {
 
+
+    private TextView jobDescription, jobLocation, jobStartTime, jobEndTime, jobPrice;
+    private Button buttonSittersInterested;
     private String usersID;
     private String documentId;
     private Posting posting;
@@ -30,45 +33,40 @@ public class SelectedJobActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
-    private TextView postedBy, startDate, endDate, description, location;
-    private ImageView star;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_selected_job);
+        setContentView(R.layout.activity_my_posted_job);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        jobDescription = findViewById(R.id.jobDescription);
+        jobLocation = findViewById(R.id.jobLocation);
+        jobStartTime = findViewById(R.id.jobStartTime);
+        jobEndTime = findViewById(R.id.jobEndTime);
+        jobPrice = findViewById(R.id.jobPrice);
+
+        recyclerView = findViewById(R.id.myJobPetsRecyclerView);
+        layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+
         this.usersID = getIntent().getStringExtra("usersID");
         this.petsID = getIntent().getStringArrayListExtra("usersPetIds");
         this.documentId = getIntent().getStringExtra("ids");
         fetchFromDatabasePosting();
         fetchFromDatabasePets();
-        FloatingActionButton fab = findViewById(R.id.fab);
-        recyclerView = findViewById(R.id.myJobPetsRecyclerView);
-        layoutManager = new LinearLayoutManager(this);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(layoutManager);
-        postedBy = findViewById(R.id.jobPostedBy);
-        startDate = findViewById(R.id.jobStartTime);
-        endDate = findViewById(R.id.jobEndTime);
-        description = findViewById(R.id.jobDescription);
-        location = findViewById(R.id.jobLocation);
-        star = findViewById(R.id.starImage);
-        star.setTag(R.drawable.star_empty);
-        star.setOnClickListener(new View.OnClickListener() {
+
+        buttonSittersInterested = findViewById(R.id.SeeSittersInterested);
+        /*buttonSittersInterested.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                int tag = (int) star.getTag();
-                if(tag == R.drawable.star_empty){
-                    star.setImageResource(R.drawable.star_fill);
-                    star.setTag(R.drawable.star_fill);
-                } else {
-                    star.setImageResource(R.drawable.star_empty);
-                    star.setTag(R.drawable.star_empty);
-                }
-            }
-        });
+            public void onClick() {
+
+            });
+        */
+
+        FloatingActionButton fab = findViewById(R.id.fab_edit_job);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -76,6 +74,9 @@ public class SelectedJobActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+
+
 
     }
 
@@ -89,15 +90,16 @@ public class SelectedJobActivity extends AppCompatActivity {
                     if (document.exists()) {
                         posting = document.toObject(Posting.class);
                     }
-                    postedBy.append(posting.getPoster());
-                    startDate.append(posting.getStart_time().toString());
-                    endDate.append(posting.getEnd_time().toString());
-                    description.setText(posting.getDescription());
-                    location.append(posting.getLocation().toString());
+                    jobStartTime.append(posting.getStart_time().toString());
+                    jobEndTime.append(posting.getEnd_time().toString());
+                    jobDescription.setText(posting.getDescription());
+                    jobLocation.append(posting.getLocation().toString());
+                    //jobPrice.append(posting.getPrice().toString());
                 }
             }
         });
     }
+
 
     private void fetchFromDatabasePets() {
         for (int i = 0; i < this.petsID.size(); i++) {
@@ -118,5 +120,6 @@ public class SelectedJobActivity extends AppCompatActivity {
             });
         }
     }
-}
 
+
+}

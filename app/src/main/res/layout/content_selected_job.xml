@@ -34,7 +34,7 @@
         android:layout_height="47dp"
         android:layout_marginStart="240dp"
         android:layout_marginTop="165dp"
-        android:text="@string/endingTime"
+        android:text="@string/endTime"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -58,7 +58,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/jobRecyclerView"
+        android:id="@+id/myJobPetsRecyclerView"
         android:layout_width="395dp"
         android:layout_height="571dp"
         android:layout_marginStart="8dp"
