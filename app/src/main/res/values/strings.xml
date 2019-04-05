@@ -44,4 +44,8 @@
     <string name="my_posted_job_price">Price</string>
     <string name="success">You are showing interest for this job</string>
     <string name="successRemoved">You have stopped showing interest in this job</string>
+    <string name="delete_posting_dialog_title">Confirm</string>
+    <string name="delete_posting_dialog_message">Are you sure?</string>
+    <string name="dialog_yes">YES</string>
+    <string name="dialog_no">NO</string>
 </resources>

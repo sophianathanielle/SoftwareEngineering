@@ -113,11 +113,10 @@ public class FirebaseFuncs {
     }
 
     public void createPosting(Posting posting) {
-        db.collection("postings").add(posting);
-    }
+        db.collection("postings").document().set(posting); }
 
-    public void deletePosting(Posting posting) {
-        getPostingDR(posting.getID()).delete();
+    public void deletePosting(String id) {
+        getPostingDR(id).delete();
     }
 
     public List<Posting> getOtherPostings() {
