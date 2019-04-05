@@ -2,7 +2,7 @@
     <string name="app_name">SoftwareEngineering</string>
     <string name="title_activity_home">HomeActivity</string>
     <string name="starred_jobs">Starred Jobs</string>
-    <string name="posted_jobs">Posted Jobs</string>
+    <string name="posted_jobs">My Postings</string>
     <string name="new_job">New Job</string>
     <string name="upcoming_jobs">Upcoming Jobs</string>
     <string name="notification">Notifications</string>
@@ -29,7 +29,23 @@
     <string name="title_activity_posting_job">PostingJobActivity</string>
     <string name="title_activity_maps">Map</string>
     <string name="title_activity_selected_job">SelectedJobActivity</string>
+    <string name="petName">Name: </string>
+    <string name="petBreed">Breed: </string>
+    <string name="petAge">Age: </string>
+    <string name="location">Location:</string>
+    <string name="startingTime">Start time:</string>
+    <string name="endTime">End Time:</string>
+    <string name="sumbitJobRequest">Show Interest</string>
     <string name="title_activity_my_postings">MyPostingsActivity</string>
     <string name="content_desc_posting_image">Posting image</string>
     <string name="job_duration">%1$s - %2$s</string>
+    <string name="title_activity_my_posted_job">MyPostedJob</string>
+    <string name="my_posted_job_sitters_button">See Sitters Interested</string>
+    <string name="my_posted_job_price">Price</string>
+    <string name="success">You are showing interest for this job</string>
+    <string name="successRemoved">You have stopped showing interest in this job</string>
+    <string name="delete_posting_dialog_title">Confirm</string>
+    <string name="delete_posting_dialog_message">Are you sure?</string>
+    <string name="dialog_yes">YES</string>
+    <string name="dialog_no">NO</string>
 </resources>

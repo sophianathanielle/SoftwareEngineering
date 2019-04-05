@@ -8,13 +8,20 @@ public class Pet {
     private String bio;
     private String species;
     private String breed;
+    private String photo_reference;
 
-    public Pet(String name, int age, String bio, String species, String breed){
+
+    public Pet() {
+
+    }
+
+    public Pet(String name, int age, String bio, String species, String breed, String photo_reference){
         this.name = name;
         this.age = age;
         this.bio = bio;
         this.species = species;
         this.breed = breed;
+        this.photo_reference = photo_reference;
     }
     public String getName() {
         return name;
@@ -60,4 +67,7 @@ public class Pet {
         return id;
     }
 
+    public String getPhoto_reference() {
+        return photo_reference;
+    }
 }

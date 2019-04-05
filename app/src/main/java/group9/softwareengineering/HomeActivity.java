@@ -19,7 +19,7 @@ import android.widget.Button;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
+import com.google.common.collect.Lists;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -30,11 +30,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HomeActivity extends AppCompatActivity implements HomeAdapter.onClickListener{
-    private com.getbase.floatingactionbutton.FloatingActionButton starredFab, postedFab, newJobsFab, upcomingFab;
+    private com.getbase.floatingactionbutton.FloatingActionButton starredFab, postedFab, myJobsFab, upcomingFab;
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     private ArrayList<Posting>  postings = new ArrayList<>();
+    private ArrayList<String>  ids = new ArrayList<>();
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     FirebaseAuth mAuth;
     private Button find;
@@ -53,8 +54,8 @@ public class HomeActivity extends AppCompatActivity implements HomeAdapter.onCli
         posted = getString(R.string.string_posted);
         FloatingActionsMenu expandFab = (FloatingActionsMenu) findViewById(R.id.expand);
         starredFab = (com.getbase.floatingactionbutton.FloatingActionButton) findViewById(R.id.starred);
-        postedFab = (com.getbase.floatingactionbutton.FloatingActionButton) findViewById(R.id.posted);
-        newJobsFab = (com.getbase.floatingactionbutton.FloatingActionButton) findViewById(R.id.newJobs);
+        myJobsFab = (com.getbase.floatingactionbutton.FloatingActionButton) findViewById(R.id.posted);
+        postedFab = (com.getbase.floatingactionbutton.FloatingActionButton) findViewById(R.id.newJobs);
         upcomingFab = (com.getbase.floatingactionbutton.FloatingActionButton) findViewById(R.id.upcoming);
         find = (Button) findViewById(R.id.find);
         find.setOnClickListener(new View.OnClickListener() {
@@ -81,10 +82,10 @@ public class HomeActivity extends AppCompatActivity implements HomeAdapter.onCli
                 startActivity(intent);
             }
         });
-        newJobsFab.setOnClickListener(new View.OnClickListener() {
+        myJobsFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), NewJobActivity.class);
+                Intent intent = new Intent(getApplicationContext(), MyPostingsActivity.class);
                 startActivity(intent);
             }
         });
@@ -106,13 +107,16 @@ public class HomeActivity extends AppCompatActivity implements HomeAdapter.onCli
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             ArrayList<Posting> tempPostings = new ArrayList<>();
+                            ArrayList<String> tempIds = new ArrayList<>();
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 //Log.d("das", document.getId() + " => " + document.getData());
                                 Posting posting = document.toObject(Posting.class);
                                 tempPostings.add(posting);
+                                tempIds.add(document.getId());
                                 Log.i("postings", Integer.toString(postings.size()));
                             }
                             postings = tempPostings;
+                            ids = tempIds;
                             adapter = new HomeAdapter(postings , pay , posted, getApplicationContext(), HomeActivity.this);
                             recyclerView.setLayoutManager(layoutManager);
                             recyclerView.setAdapter(adapter);
@@ -121,18 +125,6 @@ public class HomeActivity extends AppCompatActivity implements HomeAdapter.onCli
                         }
                     }
                 });
-    }
-
-    private void example() {
-        Posting posting = new Posting();
-        posting.setDescription("asdsad");
-        posting.setPayment(213);
-        postings.add(posting);
-        postings.add(posting);
-        postings.add(posting);
-
-        Log.i("das", Integer.toString(postings.size()));
-
     }
 
     @Override
@@ -159,7 +151,11 @@ public class HomeActivity extends AppCompatActivity implements HomeAdapter.onCli
 
     @Override
     public void onItemClick(int position) {
+
         Intent intent = new Intent(this, SelectedJobActivity.class);
+        intent.putExtra("usersID" , this.postings.get(position).getPoster_id());
+        intent.putExtra("ids", this.ids.get(position));
+        intent.putStringArrayListExtra("usersPetIds" , this.postings.get(position).getPetIDs());
         startActivity(intent);
     }
 }

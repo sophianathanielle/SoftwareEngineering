@@ -19,9 +19,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".MyPostedJob"
+            android:label="@string/title_activity_my_posted_job"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
             android:name=".MyPostingsActivity"
-            android:label="@string/title_activity_my_postings"
             android:exported="true"
+            android:label="@string/title_activity_my_postings"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".SelectedJobActivity"
