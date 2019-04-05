@@ -11,10 +11,15 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
@@ -32,6 +37,7 @@ public class SelectedJobActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager layoutManager;
     private TextView postedBy, startDate, endDate, description, location;
     private ImageView star;
+    private FirebaseUser currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,9 +48,11 @@ public class SelectedJobActivity extends AppCompatActivity {
         this.usersID = getIntent().getStringExtra("usersID");
         this.petsID = getIntent().getStringArrayListExtra("usersPetIds");
         this.documentId = getIntent().getStringExtra("ids");
+        star = findViewById(R.id.starImage);
+        star.setTag(R.drawable.star_empty);
         fetchFromDatabasePosting();
         fetchFromDatabasePets();
-        FloatingActionButton fab = findViewById(R.id.fab);
+        currentUser = FirebaseAuth.getInstance().getCurrentUser();
         recyclerView = findViewById(R.id.myJobPetsRecyclerView);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setHasFixedSize(true);
@@ -54,29 +62,41 @@ public class SelectedJobActivity extends AppCompatActivity {
         endDate = findViewById(R.id.jobEndTime);
         description = findViewById(R.id.jobDescription);
         location = findViewById(R.id.jobLocation);
-        star = findViewById(R.id.starImage);
-        star.setTag(R.drawable.star_empty);
         star.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 int tag = (int) star.getTag();
-                if(tag == R.drawable.star_empty){
+                if (tag == R.drawable.star_empty) {
                     star.setImageResource(R.drawable.star_fill);
                     star.setTag(R.drawable.star_fill);
+                    insertToDatabase();
                 } else {
                     star.setImageResource(R.drawable.star_empty);
                     star.setTag(R.drawable.star_empty);
+                    deleteFromDatabase();
                 }
             }
         });
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+    }
 
+    private void deleteFromDatabase() {
+        db.collection("postings").document(documentId).update("sitters_interested", FieldValue.arrayRemove(currentUser.getUid()))
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(getApplicationContext(), R.string.successRemoved, Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    private void insertToDatabase() {
+        db.collection("postings").document(documentId).update("sitters_interested", FieldValue.arrayUnion(currentUser.getUid()))
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(getApplicationContext(), R.string.success, Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
 
@@ -94,6 +114,12 @@ public class SelectedJobActivity extends AppCompatActivity {
                     endDate.append(posting.getEnd_time().toString());
                     description.setText(posting.getDescription());
                     location.append(posting.getLocation().toString());
+                    for (String i : posting.getSitters_interested()) {
+                        if (i.equals(currentUser.getUid())) {
+                            star.setTag(R.drawable.star_fill);
+                            star.setImageResource(R.drawable.star_fill);
+                        }
+                    }
                 }
             }
         });

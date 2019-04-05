@@ -2,7 +2,7 @@
     <string name="app_name">SoftwareEngineering</string>
     <string name="title_activity_home">HomeActivity</string>
     <string name="starred_jobs">Starred Jobs</string>
-    <string name="posted_jobs">Posted Jobs</string>
+    <string name="posted_jobs">My Postings</string>
     <string name="new_job">New Job</string>
     <string name="upcoming_jobs">Upcoming Jobs</string>
     <string name="notification">Notifications</string>
@@ -42,4 +42,6 @@
     <string name="title_activity_my_posted_job">MyPostedJob</string>
     <string name="my_posted_job_sitters_button">See Sitters Interested</string>
     <string name="my_posted_job_price">Price</string>
+    <string name="success">You are showing interest for this job</string>
+    <string name="successRemoved">You have stopped showing interest in this job</string>
 </resources>

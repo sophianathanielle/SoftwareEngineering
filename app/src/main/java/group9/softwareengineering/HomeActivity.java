@@ -30,7 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HomeActivity extends AppCompatActivity implements HomeAdapter.onClickListener{
-    private com.getbase.floatingactionbutton.FloatingActionButton starredFab, postedFab, newJobsFab, upcomingFab;
+    private com.getbase.floatingactionbutton.FloatingActionButton starredFab, postedFab, myJobsFab, upcomingFab;
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
@@ -51,8 +51,8 @@ public class HomeActivity extends AppCompatActivity implements HomeAdapter.onCli
         posted = getString(R.string.posted);
         FloatingActionsMenu expandFab = (FloatingActionsMenu) findViewById(R.id.expand);
         starredFab = (com.getbase.floatingactionbutton.FloatingActionButton) findViewById(R.id.starred);
-        postedFab = (com.getbase.floatingactionbutton.FloatingActionButton) findViewById(R.id.posted);
-        newJobsFab = (com.getbase.floatingactionbutton.FloatingActionButton) findViewById(R.id.newJobs);
+        myJobsFab = (com.getbase.floatingactionbutton.FloatingActionButton) findViewById(R.id.posted);
+        postedFab = (com.getbase.floatingactionbutton.FloatingActionButton) findViewById(R.id.newJobs);
         upcomingFab = (com.getbase.floatingactionbutton.FloatingActionButton) findViewById(R.id.upcoming);
         find = (Button) findViewById(R.id.find);
         find.setOnClickListener(new View.OnClickListener() {
@@ -79,10 +79,10 @@ public class HomeActivity extends AppCompatActivity implements HomeAdapter.onCli
                 startActivity(intent);
             }
         });
-        newJobsFab.setOnClickListener(new View.OnClickListener() {
+        myJobsFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), NewJobActivity.class);
+                Intent intent = new Intent(getApplicationContext(), MyPostingsActivity.class);
                 startActivity(intent);
             }
         });
