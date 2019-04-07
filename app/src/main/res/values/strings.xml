@@ -48,5 +48,4 @@
     <string name="delete_posting_dialog_message">Are you sure?</string>
     <string name="dialog_yes">YES</string>
     <string name="dialog_no">NO</string>
-    <string name="title_activity_jobs_interested_in">JobsInterestedIn</string>
 </resources>
