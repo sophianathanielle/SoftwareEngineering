@@ -5,5 +5,8 @@
     <dimen name="standard_175">175dp</dimen>
     <dimen name="standard_235">235dp</dimen>
     <dimen name="menu_item_icon_size">24dp</dimen>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
 
 </resources>

@@ -19,14 +19,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".NotificationActivity"
+            android:label="@string/title_activity_notification"></activity>
+        <activity
             android:name=".MyPostedJob"
             android:label="@string/title_activity_my_posted_job"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".MyPostingsActivity"
             android:exported="true"
             android:label="@string/title_activity_my_postings"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".SelectedJobActivity"
             android:label="@string/title_activity_selected_job"
@@ -46,9 +49,7 @@
         <activity
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps" />
-        <activity android:name=".MainActivity">
-
-        </activity>
+        <activity android:name=".MainActivity"></activity>
         <activity
             android:name=".LoginActivity"
             android:label="@string/title_activity_home"
@@ -62,9 +63,7 @@
         <activity
             android:name=".HomeActivity"
             android:label="@string/title_activity_home"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".NewJobActivity"
             android:label="@string/title_activity_new_job"
@@ -81,10 +80,6 @@
             android:name=".PostingJobActivity"
             android:exported="true"
             android:label="@string/title_activity_posting_job"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".NotificationActivity"
-            android:label="@string/title_activity_notification"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".EditUserProfileActivity"
