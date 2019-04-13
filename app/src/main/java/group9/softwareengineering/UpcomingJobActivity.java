@@ -72,8 +72,6 @@ public class UpcomingJobActivity extends AppCompatActivity implements HomeAdapte
                                 Posting posting = document.toObject(Posting.class);
                                 tempPostings.add(posting);
                             }
-
-
                             postings = tempPostings;
                             adapter = new HomeAdapter(postings , pay , posted, getApplicationContext(), UpcomingJobActivity.this);
                             recyclerView.setLayoutManager(layoutManager);
@@ -84,16 +82,12 @@ public class UpcomingJobActivity extends AppCompatActivity implements HomeAdapte
                     }
                 });
 
-        }
-
-
-    private void funct(){
-
-
     }
+
+
     @Override
     public void onItemClick(int position) {
-        Intent intent = new Intent(this, SelectedJobActivity.class);
+        Intent intent = new Intent(this, AgreedJobInfoActivity.class);
         startActivity(intent);
     }
 }

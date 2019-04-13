@@ -125,4 +125,8 @@ public class Posting {
     public void setPhotoURL(String photoURL) {
         this.photoURL = photoURL;
     }
+
+    public String getSitter_found() {
+        return sitter_found;
+    }
 }
