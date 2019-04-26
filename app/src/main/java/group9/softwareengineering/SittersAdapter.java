@@ -1,7 +1,6 @@
 package group9.softwareengineering;
 
 import android.content.Context;
-import android.os.storage.OnObbStateChangeListener;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,16 +12,20 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
 
 
-public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ExampleViewHolder> {
-    private ArrayList<Posting> postings;
+public class SittersAdapter extends RecyclerView.Adapter<SittersAdapter.ExampleViewHolder> {
+    private LinkedHashMap<String,Posting> postings;
     private onClickListener onClickListener;
     private String pay , posted;
     private Context context;
 
 
-    public HomeAdapter(ArrayList<Posting> postings ,String pay ,String posted, Context context, onClickListener onClickListener){
+    public SittersAdapter(LinkedHashMap<String,Posting> postings , String pay , String posted, Context context, onClickListener onClickListener){
         this.postings = postings;
         this.pay = pay;
         this.posted = posted;
@@ -41,7 +44,8 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ExampleViewHol
 
     @Override
     public void onBindViewHolder(@NonNull ExampleViewHolder holder, int i) {
-        Posting posting = postings.get(i);
+        ArrayList<Posting> posts = new ArrayList<>(postings.values());
+        Posting posting = posts.get(i);
         holder.payment.setText(pay+posting.getPayment());
         holder.description.setText(posting.getDescription());
         holder.posted.setText(posted+posting.getPoster());
@@ -81,6 +85,15 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ExampleViewHol
 
     public interface onClickListener{
         void onItemClick(int position);
+    }
+
+    public  Posting getPostingAt(int position){
+        return new ArrayList<Posting>(postings.values()).get(position);
+
+    }
+
+    public String getDocumentAt(int position){
+        return new ArrayList<String>(postings.keySet()).get(position);
     }
 
 
