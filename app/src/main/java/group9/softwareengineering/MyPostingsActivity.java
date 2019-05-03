@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.content.Intent;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
@@ -76,7 +77,9 @@ public class MyPostingsActivity extends AppCompatActivity {
                     @Override
                     public void onItemClick(View view, int position) {
                         // TODO: go to mypostedjob activity
-                        Toast.makeText(MyPostingsActivity.this, "This should go to the activity!", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(view.getContext(), MyPostedJob.class);
+                        startActivity(intent);
+                        //Toast.makeText(MyPostingsActivity.this, "This should go to the activity!", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
