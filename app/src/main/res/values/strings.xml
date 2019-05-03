@@ -60,4 +60,5 @@
     <string name="agreed_sitter">Pet Sitter</string>
     <string name="image_owner">Pet Owner image</string>
     <string name="image_sitter">Pet Sitter image</string>
+    <string name="title_activity_jobs_interested_in">JobsInterestedIn</string>
 </resources>

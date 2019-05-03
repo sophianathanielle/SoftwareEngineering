@@ -79,7 +79,7 @@ public class SelectedJobActivity extends AppCompatActivity {
         });
     }
 
-    private void deleteFromDatabase() {
+    public void deleteFromDatabase() {
         db.collection("postings").document(documentId).update("sitters_interested", FieldValue.arrayRemove(currentUser.getUid()))
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
