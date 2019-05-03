@@ -8,12 +8,20 @@ import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.os.storage.StorageManager;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.io.IOException;
 
@@ -24,14 +32,15 @@ public class SendPhoto extends AppCompatActivity implements View.OnClickListener
 
     private Uri filePath; // To store image we need a Uri object
 
-   /////// private StorageReference storageReference;///////
+   private StorageReference storageReference;
 
     @Override
     public void onCreate( Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sendphoto);
 
-      /////// storageReference = FirebaseStorage.getInstance().getReference();///////
+        storageReference = FirebaseStorage.getInstance().getReference();
+
         imageView = (ImageView) findViewById(R.id.imageView); // finds layout and assigns imageview to variable name
         buttonChoose = (Button) findViewById(R.id.buttonChoose);// finds layout and assigns button to variable name
         buttonChoose = (Button) findViewById(R.id.buttonUpload);// finds layout and assigns button to variable name
@@ -70,9 +79,11 @@ public class SendPhoto extends AppCompatActivity implements View.OnClickListener
                         // When the file is uploaded sucesfully we will obtain this message below
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                             progressDialog.dismiss();
-                            Toast.makeText(getApplicationContext(), exception.getMessage(), Toast.LENGTH_LONG).show();
+
+                            Toast.makeText(getApplicationContext(), "File uploaded", Toast.LENGTH_LONG).show();
                             // Get a URL to the uploaded content
-                            Uri downloadUrl = taskSnapshot.getDownloadUrl();
+
+                          ////  Uri downloadUrl = taskSnapshot.getDownloadUrl();/////
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
@@ -85,14 +96,15 @@ public class SendPhoto extends AppCompatActivity implements View.OnClickListener
 
                         }
                     })
-                    .addOnProgressListener(new OnProgressListener<uploadTast.TastSnapshot>() {
+                    .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+
                         @Override
-                        public void onProgress(UploadTast.TaskSnapshot taskSnapshot){
-                            double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalBytesCount();
+                        public void onProgress(UploadTask.TaskSnapshot taskSnapshot){
+                            double progress = (100.0 * taskSnapshot.getBytesTransferred())/taskSnapshot.getBytesTransferred();
                             progressDialog.setMessage(((int) progress) + "% Uploaded...");
                         }
                     });
-            ;
+
 
         }// close if statement
         else{
