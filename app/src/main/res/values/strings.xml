@@ -61,4 +61,9 @@
     <string name="image_owner">Pet Owner image</string>
     <string name="image_sitter">Pet Sitter image</string>
     <string name="title_activity_jobs_interested_in">JobsInterestedIn</string>
+    <string name="request_location_toast">LOCATION REQUEST SEND SUCCESSFULLY</string>
+    <string name="request_photo_toast">PHOTO REQUEST SEND SUCCESSFULLY</string>
+    <string name="swipeSittersInterested">Swipe Right to accept a Sitter, or swipe Left to decline a Siiter</string>
+    <string name="swipeRequests">Swipe Right to send a Photo Request or swipe Left to send a Location Request</string>
+
 </resources>
