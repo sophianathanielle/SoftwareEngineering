@@ -101,7 +101,7 @@ public class SelectedJobActivity extends AppCompatActivity {
 
 
     private void fetchFromDatabasePosting() {
-        db.collection("postings").document(documentId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+         db.collection("postings").document(documentId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
