@@ -20,6 +20,10 @@
         android:theme="@style/AppTheme">
         <activity android:name=".AgreedJobInfoActivity"></activity>
         <activity
+            android:name=".JobsInterestedInActivity"
+            android:label="@string/title_activity_jobs_interested_in"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
             android:name=".NotificationActivity"
             android:label="@string/title_activity_notification" />
         <activity

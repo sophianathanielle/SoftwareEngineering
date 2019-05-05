@@ -2,6 +2,8 @@ package group9.softwareengineering;
 
 import android.location.Location;
 
+import com.google.firebase.firestore.GeoPoint;
+
 public class Profile {
 
     private String name;
@@ -9,7 +11,11 @@ public class Profile {
     private String bio;
     private int fee_ph;
     private int rating;
-    private Location location;
+    private GeoPoint location;
+
+    public Profile(){
+
+    }
 
     public Profile(String name, String phone_number) {
         this.name = name;
@@ -51,11 +57,11 @@ public class Profile {
         return rating;
     }
 
-    public Location getLocation() {
+    public GeoPoint getLocation() {
         return location;
     }
 
-    public void setLocation(Location location) {
+    public void setLocation(GeoPoint location) {
         this.location = location;
     }
 
