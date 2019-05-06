@@ -83,5 +83,6 @@
     <string name="invalid_fields">Please fill all the fields</string>
     <string name="error_uploading">There was an error uploading</string>
     <string name="invalid_age">Please type an integer for age</string>
+    <string name="title_activity_edit_my_posted_job">EditMyPostedJob</string>
 
 </resources>

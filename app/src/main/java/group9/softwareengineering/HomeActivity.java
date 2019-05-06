@@ -64,7 +64,7 @@ public class HomeActivity extends AppCompatActivity implements HomeAdapter.onCli
         starredFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), StarredJobActivity.class);
+                Intent intent = new Intent(getApplicationContext(), JobsInterestedInActivity.class);
                 startActivity(intent);
             }
         });

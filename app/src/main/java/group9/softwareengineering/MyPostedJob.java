@@ -1,5 +1,6 @@
 package group9.softwareengineering;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -34,7 +35,6 @@ public class MyPostedJob extends AppCompatActivity {
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,19 +59,25 @@ public class MyPostedJob extends AppCompatActivity {
         fetchFromDatabasePets();
 
         buttonSittersInterested = findViewById(R.id.SeeSittersInterested);
-        /*buttonSittersInterested.setOnClickListener(new View.OnClickListener() {
+        buttonSittersInterested.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick() {
+            public void onClick(View v) {
+                Intent intent = new Intent(MyPostedJob.this, SittersInterestedFragment.class);
+                startActivity(intent);
+            }
+        });
 
-            });
-        */
 
         FloatingActionButton fab = findViewById(R.id.fab_edit_job);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent intent = new Intent(MyPostedJob.this,EditMyPostedJob.class);
+                intent.putExtra(documentId,"ids");
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("posting", posting);
+                intent.putExtras(bundle);
+                startActivity(intent);
             }
         });
 

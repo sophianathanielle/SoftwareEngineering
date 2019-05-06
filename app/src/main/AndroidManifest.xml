@@ -27,6 +27,12 @@
             android:name=".AddPetsActivity"
             android:label="@string/title_activity_add_pets"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".EditMyPostedJob"
+            android:label="@string/title_activity_edit_my_posted_job"
+            android:theme="@style/AppTheme.NoActionBar">
+
+        </activity>
         <activity android:name=".AgreedJobInfoActivity" />
         <activity
             android:name=".JobsInterestedInActivity"
