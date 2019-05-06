@@ -46,9 +46,9 @@ public class SittersAdapter extends RecyclerView.Adapter<SittersAdapter.ExampleV
     public void onBindViewHolder(@NonNull ExampleViewHolder holder, int i) {
         ArrayList<Posting> posts = new ArrayList<>(postings.values());
         Posting posting = posts.get(i);
-        holder.payment.setText(pay+posting.getPayment());
+        holder.payment.setText("£"+String.valueOf(posting.getPayment())+ "per hour");
         holder.description.setText(posting.getDescription());
-        holder.posted.setText(posted+posting.getPoster());
+        holder.posted.setText(posting.getPoster());
         Picasso.with(context).load(posting.getPhotoURL()).fit().centerCrop().into(holder.imageView);
 
     }
