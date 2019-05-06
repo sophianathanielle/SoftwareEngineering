@@ -4,11 +4,12 @@ import android.location.Location;
 
 import com.google.firebase.firestore.GeoPoint;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class Posting {
+public class Posting implements Serializable {
 
     private String id;
     private String poster;

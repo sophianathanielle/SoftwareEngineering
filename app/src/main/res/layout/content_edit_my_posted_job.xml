@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".EditMyPostedJob"
+    tools:showIn="@layout/activity_edit_my_posted_job">
+
+    <EditText
+        android:id="@+id/jobDescription"
+        android:layout_width="200dp"
+        android:layout_height="120dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="28dp"
+        android:text="Description"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/jobLocation"
+        android:layout_width="158dp"
+        android:layout_height="54dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/location"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/startLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="@string/start_time"
+        app:layout_constraintStart_toStartOf="@+id/jobDescription"
+        app:layout_constraintTop_toBottomOf="@+id/jobDescription" />
+
+    <TextView
+        android:id="@+id/startDate"
+        style="@android:style/Widget.Holo.Spinner"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:clickable="true"
+        android:onClick="clickSD"
+        android:textSize="32dp"
+        app:layout_constraintStart_toStartOf="@+id/jobDescription"
+        app:layout_constraintTop_toBottomOf="@+id/startLabel" />
+
+    <TextView
+        android:id="@+id/startTime"
+        style="@android:style/Widget.Holo.Spinner"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="12dp"
+        android:clickable="true"
+        android:onClick="clickST"
+        android:textSize="32dp"
+        app:layout_constraintStart_toEndOf="@+id/startDate"
+        app:layout_constraintTop_toBottomOf="@+id/startLabel" />
+
+    <TextView
+        android:id="@+id/endLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/end_time"
+        app:layout_constraintStart_toStartOf="@+id/jobDescription"
+        app:layout_constraintTop_toBottomOf="@+id/startDate"
+        />
+
+    <TextView
+        android:id="@+id/endDate"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@+id/jobDescription"
+        app:layout_constraintTop_toBottomOf="@+id/endLabel"
+        style="@android:style/Widget.Holo.Spinner"
+        android:onClick="clickED"
+        android:clickable="true"
+        android:textSize="32dp"/>
+
+    <TextView
+        android:id="@+id/endTime"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        app:layout_constraintStart_toEndOf="@+id/endDate"
+        app:layout_constraintTop_toBottomOf="@+id/endLabel"
+        style="@android:style/Widget.Holo.Spinner"
+        android:onClick="clickET"
+        android:clickable="true"
+        android:textSize="32dp"/>
+
+    <EditText
+        android:id="@+id/jobPrice"
+        android:layout_width="158dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="236dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:text="@string/my_posted_job_price"
+        app:layout_constraintBottom_toTopOf="@+id/myJobPetsRecyclerView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/jobLocation"
+        app:layout_constraintVertical_bias="0.0" />
+
+
+</android.support.constraint.ConstraintLayout>

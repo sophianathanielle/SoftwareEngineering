@@ -30,7 +30,7 @@ public class JobsInterestedInActivity extends AppCompatActivity {
     private FirestoreRecyclerAdapter adapter;
     private Query query;
 
-    private SelectedJobActivity seleted;
+    private SelectedJobActivity selected;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,7 +70,7 @@ public class JobsInterestedInActivity extends AppCompatActivity {
                         builder.setPositiveButton(getString(R.string.dialog_yes), new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
-                                seleted.deleteFromDatabase();
+                                selected.deleteFromDatabase();
                                 dialogInterface.dismiss();
                             }
                         });

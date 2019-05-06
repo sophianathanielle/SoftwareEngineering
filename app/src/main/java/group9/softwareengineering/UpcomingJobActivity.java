@@ -55,7 +55,7 @@ public class UpcomingJobActivity extends AppCompatActivity implements HomeAdapte
         setContentView(R.layout.activity_upcoming_job);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        fetchesFromDatabase();
+
         //mUserId =mAuth.getCurrentUser().getUid();
         pay = getString(R.string.string_pay);
         posted = getString(R.string.string_posted);
@@ -63,7 +63,7 @@ public class UpcomingJobActivity extends AppCompatActivity implements HomeAdapte
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
-
+        fetchesFromDatabase();
     }
 
     private void fetchesFromDatabase() {
