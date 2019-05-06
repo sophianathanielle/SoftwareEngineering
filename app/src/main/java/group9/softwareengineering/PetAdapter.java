@@ -1,14 +1,8 @@
 package group9.softwareengineering;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
-import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,12 +13,12 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-public class SelectedJobAdapter extends RecyclerView.Adapter<SelectedJobAdapter.SelectedViewHolder> {
+public class PetAdapter extends RecyclerView.Adapter<PetAdapter.SelectedViewHolder> {
 
     private ArrayList<Pet> pets = new ArrayList<>();
     private Context context;
 
-    public SelectedJobAdapter(ArrayList<Pet> pets, Context context) {
+    public PetAdapter(ArrayList<Pet> pets, Context context) {
         this.pets = pets;
         this.context = context;
     }
@@ -43,6 +37,8 @@ public class SelectedJobAdapter extends RecyclerView.Adapter<SelectedJobAdapter.
         selectedViewHolder.breed.append(pet.getBreed());
         selectedViewHolder.age.append(String.valueOf(pet.getAge()));
         selectedViewHolder.name.append(pet.getName());
+        selectedViewHolder.bio.append(pet.getBio());
+        selectedViewHolder.species.append(pet.getSpecies());
         Picasso.with(context).load(pet.getPhoto_reference()).fit().centerCrop().into(selectedViewHolder.imageView);
     }
 
@@ -55,6 +51,8 @@ public class SelectedJobAdapter extends RecyclerView.Adapter<SelectedJobAdapter.
         TextView name;
         TextView age;
         TextView breed;
+        TextView bio;
+        TextView species;
         ImageView imageView;
 
         public SelectedViewHolder(@NonNull View itemView) {
@@ -63,6 +61,8 @@ public class SelectedJobAdapter extends RecyclerView.Adapter<SelectedJobAdapter.
             age = itemView.findViewById(R.id.petAge);
             breed = itemView.findViewById(R.id.petBreed);
             imageView = itemView.findViewById(R.id.petImage);
+            bio = itemView.findViewById(R.id.petBio);
+            species = itemView.findViewById(R.id.petSpecies);
         }
     }
 }

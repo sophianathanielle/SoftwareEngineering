@@ -9,19 +9,21 @@ public class Pet {
     private String species;
     private String breed;
     private String photo_reference;
+    private String owner_id;
 
 
     public Pet() {
 
     }
 
-    public Pet(String name, int age, String bio, String species, String breed, String photo_reference){
+    public Pet(String name, int age, String bio, String species, String breed, String photo_reference,String owner_id){
         this.name = name;
         this.age = age;
         this.bio = bio;
         this.species = species;
         this.breed = breed;
         this.photo_reference = photo_reference;
+        this.owner_id = owner_id;
     }
     public String getName() {
         return name;
@@ -69,5 +71,13 @@ public class Pet {
 
     public String getPhoto_reference() {
         return photo_reference;
+    }
+
+    public String getOwner_id() {
+        return owner_id;
+    }
+
+    public void setOwner_id(String owner_id) {
+        this.owner_id = owner_id;
     }
 }

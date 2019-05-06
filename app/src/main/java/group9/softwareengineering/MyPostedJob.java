@@ -112,7 +112,7 @@ public class MyPostedJob extends AppCompatActivity {
                             Pet tempPet = document.toObject(Pet.class);
                             pets.add(tempPet);
                         }
-                        adapter = new SelectedJobAdapter(pets, getApplicationContext());
+                        adapter = new PetAdapter(pets, getApplicationContext());
                         recyclerView.setLayoutManager(layoutManager);
                         recyclerView.setAdapter(adapter);
                     }

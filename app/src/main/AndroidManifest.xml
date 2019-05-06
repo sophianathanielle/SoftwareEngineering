@@ -4,6 +4,11 @@
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
@@ -18,11 +23,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AgreedJobInfoActivity"></activity>
+        <activity
+            android:name=".AddPetsActivity"
+            android:label="@string/title_activity_add_pets"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".AgreedJobInfoActivity" />
         <activity
             android:name=".JobsInterestedInActivity"
             android:label="@string/title_activity_jobs_interested_in"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".NotificationActivity"
             android:label="@string/title_activity_notification" />
@@ -37,6 +46,10 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".SelectedJobActivity"
+            android:label="@string/title_activity_selected_job"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ViewMyProfileActivity"
             android:label="@string/title_activity_selected_job"
             android:theme="@style/AppTheme.NoActionBar" />
         <!--
@@ -54,7 +67,6 @@
         <activity
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps" />
-        <activity android:name=".MainActivity" />
         <activity
             android:name=".LoginActivity"
             android:label="@string/title_activity_home"
@@ -85,10 +97,6 @@
             android:name=".PostingJobActivity"
             android:exported="true"
             android:label="@string/title_activity_posting_job"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".EditUserProfileActivity"
-            android:label="@string/title_activity_edit_user_profile"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".ForgotPasswordActivity" />

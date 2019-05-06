@@ -1,7 +1,12 @@
 package group9.softwareengineering;
 
+import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -26,10 +31,9 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
         //Get Firebase auth instance
         auth = FirebaseAuth.getInstance();
-
+        askPermissions();
         title = (TextView) findViewById(R.id.welcome);
         inputEmail = (EditText) findViewById(R.id.email);
         inputPassword = (EditText) findViewById(R.id.password);
@@ -94,5 +98,24 @@ public class LoginActivity extends AppCompatActivity {
                         });
             }
         });
+    }
+
+    private void askPermissions() {
+        String[] permissions = {Manifest.permission.READ_EXTERNAL_STORAGE , Manifest.permission.WRITE_EXTERNAL_STORAGE
+         , Manifest.permission.CAMERA , Manifest.permission.ACCESS_FINE_LOCATION};
+        //asking for all the required permissions for our app
+        if(ContextCompat.checkSelfPermission(this.getApplicationContext() , permissions[0]) == PackageManager.PERMISSION_GRANTED
+        && ContextCompat.checkSelfPermission(this.getApplicationContext() , permissions[1]) == PackageManager.PERMISSION_GRANTED
+        && ContextCompat.checkSelfPermission(this.getApplicationContext() , permissions[2]) == PackageManager.PERMISSION_GRANTED
+        && ContextCompat.checkSelfPermission(this.getApplicationContext() , permissions[3]) == PackageManager.PERMISSION_GRANTED){
+
+        } else {
+            ActivityCompat.requestPermissions(LoginActivity.this, permissions , 1);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        askPermissions();
     }
 }

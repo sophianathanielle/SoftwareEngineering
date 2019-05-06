@@ -46,7 +46,7 @@ public class UpcomingJobActivity extends AppCompatActivity implements HomeAdapte
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private String pay;
     private String posted;
-    String mUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+    private String mUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
 
     @Override
