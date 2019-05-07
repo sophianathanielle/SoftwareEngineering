@@ -21,7 +21,7 @@
     <string name="edit_picture">Click to select Picture</string>
     <string name="edit_pets">Edit your Pets</string>
     <string name="edit_address">Address</string>
-    <string name="edit_bio">Bio</string>
+    <string name="bio">Bio: </string>
     <string name="edit_pet_name">Pet Name</string>
     <string name="post_job">Post a New Job</string>
     <string name="start_time">Start</string>
@@ -60,4 +60,29 @@
     <string name="agreed_sitter">Pet Sitter</string>
     <string name="image_owner">Pet Owner image</string>
     <string name="image_sitter">Pet Sitter image</string>
+    <string name="title_activity_jobs_interested_in">JobsInterestedIn</string>
+    <string name="request_location_toast">LOCATION REQUEST SEND SUCCESSFULLY</string>
+    <string name="request_photo_toast">PHOTO REQUEST SEND SUCCESSFULLY</string>
+    <string name="swipeSittersInterested">Swipe Right to accept a Sitter, or swipe Left to decline a Siiter</string>
+    <string name="swipeRequests">Swipe Right to send a Photo Request or swipe Left to send a Location Request</string>
+    <string name="name">Name: </string>
+    <string name="payment">Payment: </string>
+    <string name="phone">Phone Number: </string>
+    <string name="your_profile">Your Profile</string>
+    <string name="rating">Rating: </string>
+    <string name="pets">Pets</string>
+    <string name="save">Save</string>
+    <string name="invalid_phone">Invalid phone number</string>
+    <string name="invalid_payment">Invalid payment</string>
+    <string name="successfully_updated">Successful Profile Update</string>
+    <string name="addPet">Add Pet</string>
+    <string name="title_activity_add_pets">AddPetsActivity</string>
+    <string name="uploadPhoto">Upload a Photo</string>
+    <string name="your_pet">Add your Pet</string>
+    <string name="species">Species: </string>
+    <string name="invalid_fields">Please fill all the fields</string>
+    <string name="error_uploading">There was an error uploading</string>
+    <string name="invalid_age">Please type an integer for age</string>
+    <string name="title_activity_edit_my_posted_job">EditMyPostedJob</string>
+
 </resources>

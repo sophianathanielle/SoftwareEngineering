@@ -60,7 +60,7 @@ public class SittersInterestedFragment extends Fragment {
                 loadUsers(new FirestoreCallback() {
                     @Override
                     public void onCallback(LinkedHashMap<String, Profile> hashMap) {
-                        methodname();
+                        setUpRecycler();
                     }
                 });
             }
@@ -108,7 +108,7 @@ public class SittersInterestedFragment extends Fragment {
     }
 
 
-    public void methodname() {
+    public void setUpRecycler() {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         for (Posting posting : postings.values()) {
             for (String id : posting.getSitters_interested()) {
@@ -172,7 +172,7 @@ public class SittersInterestedFragment extends Fragment {
                                                 loadUsers(new FirestoreCallback() {
                                                     @Override
                                                     public void onCallback(LinkedHashMap<String, Profile> hashMap) {
-                                                        methodname();
+                                                        setUpRecycler();
                                                     }
                                                 });
                                             }

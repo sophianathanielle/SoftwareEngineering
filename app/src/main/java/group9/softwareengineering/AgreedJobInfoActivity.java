@@ -1,12 +1,10 @@
 package group9.softwareengineering;
 
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -51,20 +49,20 @@ public class AgreedJobInfoActivity extends AppCompatActivity {
 
         imageOwner = findViewById(R.id.imageOwner);
         imageSitter = findViewById(R.id.imageSitter);
-        imageOwner.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), UsersProfile.class);
-                startActivity(intent);
-            }
-        });
-        imageSitter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), UsersProfile.class);
-                startActivity(intent);
-            }
-        });
+       // imageOwner.setOnClickListener(new View.OnClickListener() {
+       //     @Override
+        //    public void onClick(View view) {
+         //       Intent intent = new Intent(view.getContext(), UsersProfile.class);
+          //      startActivity(intent);
+           // }
+        //});
+        //imageSitter.setOnClickListener(new View.OnClickListener() {
+         //   @Override
+          //  public void onClick(View view) {
+           //     Intent intent = new Intent(view.getContext(), UsersProfile.class);
+            //    startActivity(intent);
+           // }
+        //});
 
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
         fetchFromDatabasePosting();
@@ -116,7 +114,7 @@ public class AgreedJobInfoActivity extends AppCompatActivity {
                             Pet tempPet = document.toObject(Pet.class);
                             pets.add(tempPet);
                         }
-                        adapter = new SelectedJobAdapter(pets, getApplicationContext());
+                        adapter = new PetAdapter(pets, getApplicationContext());
                         recyclerView.setLayoutManager(layoutManager);
                         recyclerView.setAdapter(adapter);
                     }

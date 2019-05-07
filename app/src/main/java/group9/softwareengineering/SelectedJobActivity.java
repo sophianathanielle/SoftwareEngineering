@@ -2,8 +2,6 @@ package group9.softwareengineering;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -79,7 +77,7 @@ public class SelectedJobActivity extends AppCompatActivity {
         });
     }
 
-    private void deleteFromDatabase() {
+    public void deleteFromDatabase() {
         db.collection("postings").document(documentId).update("sitters_interested", FieldValue.arrayRemove(currentUser.getUid()))
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
@@ -101,7 +99,7 @@ public class SelectedJobActivity extends AppCompatActivity {
 
 
     private void fetchFromDatabasePosting() {
-        db.collection("postings").document(documentId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+         db.collection("postings").document(documentId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
@@ -136,7 +134,7 @@ public class SelectedJobActivity extends AppCompatActivity {
                             Pet tempPet = document.toObject(Pet.class);
                             pets.add(tempPet);
                         }
-                        adapter = new SelectedJobAdapter(pets, getApplicationContext());
+                        adapter = new PetAdapter(pets, getApplicationContext());
                         recyclerView.setLayoutManager(layoutManager);
                         recyclerView.setAdapter(adapter);
                     }

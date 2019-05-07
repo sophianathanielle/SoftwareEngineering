@@ -3,9 +3,6 @@ package group9.softwareengineering;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -19,16 +16,12 @@ import android.widget.Button;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.common.collect.Lists;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class HomeActivity extends AppCompatActivity implements HomeAdapter.onClickListener{
     private com.getbase.floatingactionbutton.FloatingActionButton starredFab, postedFab, myJobsFab, upcomingFab;
@@ -62,7 +55,6 @@ public class HomeActivity extends AppCompatActivity implements HomeAdapter.onCli
         find.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.i("das" , String.valueOf(postings.get(0).getPayment()));
                 fetchesFromDatabase();
             }
         });
@@ -72,7 +64,7 @@ public class HomeActivity extends AppCompatActivity implements HomeAdapter.onCli
         starredFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), StarredJobActivity.class);
+                Intent intent = new Intent(getApplicationContext(), JobsInterestedInActivity.class);
                 startActivity(intent);
             }
         });
@@ -142,7 +134,7 @@ public class HomeActivity extends AppCompatActivity implements HomeAdapter.onCli
                 startActivity(intent);
                 return true;
             case R.id.userProfile:
-                Intent intent2 = new Intent(getApplicationContext(), EditUserProfileActivity.class);
+                Intent intent2 = new Intent(getApplicationContext(), ViewMyProfileActivity.class);
                 startActivity(intent2);
                 return true;
         }
