@@ -17,8 +17,13 @@
         android:title="@string/requests" />
 
     <item
-        android:id="@+id/navigation_updates"
-        android:icon="@drawable/updates"
-        android:title="@string/updates" />
+    android:id="@+id/navigation_updates"
+    android:icon="@drawable/updates"
+    android:title="@string/updates" />
+
+    <item
+        android:id="@+id/navigation_history"
+        android:icon="@drawable/history_icon"
+        android:title="@string/history" />
 
 </menu>

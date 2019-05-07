@@ -84,5 +84,8 @@
     <string name="error_uploading">There was an error uploading</string>
     <string name="invalid_age">Please type an integer for age</string>
     <string name="title_activity_edit_my_posted_job">EditMyPostedJob</string>
+    <string name="history">History</string>
+    <string name="clickToRate">Please click on a completed job to leave a rating for the Pet Sitter</string>
+    <string name="thanks">Thanks for the rating!</string>
 
 </resources>

@@ -14,6 +14,7 @@ public class NotificationActivity extends AppCompatActivity {
     private JobsAgreedFragment jobsAgreedFragment;
     private RequestsFragment requestsFragment;
     private UpdatesFragment updatesFragment;
+    private HistoryFragment historyFragment;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -33,6 +34,9 @@ public class NotificationActivity extends AppCompatActivity {
                 case R.id.navigation_updates:
                     setFragment(updatesFragment);
                     return true;
+                case R.id.navigation_history:
+                    setFragment(historyFragment);
+                    return true;
             }
             return false;
         }
@@ -48,6 +52,7 @@ public class NotificationActivity extends AppCompatActivity {
         jobsAgreedFragment = new JobsAgreedFragment();
         requestsFragment = new RequestsFragment();
         updatesFragment = new UpdatesFragment();
+        historyFragment = new HistoryFragment();
         setFragment(sittersInterestedFragment);
     }
 
