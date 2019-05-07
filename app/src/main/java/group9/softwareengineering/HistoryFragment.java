@@ -47,6 +47,7 @@ public class HistoryFragment extends Fragment implements HistoryAdapter.onClickL
         View view = inflater.inflate(R.layout.fragment_history, container, false);
         recyclerView = view.findViewById(R.id.historyRecycler);
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        postings.clear();
         loadPostings(new FirestoreCallback() {
             @Override
             public void onCallback(ArrayList<Posting> tempPostings) {
@@ -92,7 +93,7 @@ public class HistoryFragment extends Fragment implements HistoryAdapter.onClickL
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setTitle("What rating would you like to give to the Pet Sitter?");
         builder.setItems(new CharSequence[]
-                        {"Rate 1", "Rate 2", "Rate 3", "Rate 4" , "Rate 5"},
+                        {"Rate 1 star", "Rate 2 stars" , "Rate 3 stars", "Rate 4 stars" , "Rate 5 stars"},
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
 

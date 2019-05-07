@@ -26,6 +26,10 @@ public class Posting implements Serializable {
     private String photoURL;
     private Boolean photo_request;
     private Boolean location_request;
+    private ArrayList<GeoPoint> location_updates = new ArrayList<>();
+    private ArrayList<String> photo_updates = new ArrayList<>();
+
+
 
     public Posting() {
 
@@ -149,5 +153,13 @@ public class Posting implements Serializable {
 
     public String getSitter_found() {
         return sitter_found;
+    }
+
+    public ArrayList<GeoPoint> getLocation_updates() {
+        return location_updates;
+    }
+
+    public ArrayList<String> getPhoto_updates() {
+        return photo_updates;
     }
 }

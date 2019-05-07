@@ -87,5 +87,8 @@
     <string name="history">History</string>
     <string name="clickToRate">Please click on a completed job to leave a rating for the Pet Sitter</string>
     <string name="thanks">Thanks for the rating!</string>
+    <string name="clickToView">Click on an on going job to check Location or Photo Updates</string>
+    <string name="title_activity_requested_photos_view">RequestedPhotosViewActivity</string>
+    <string name="title_activity_requested_location_view">RequestedLocationViewActivity</string>
 
 </resources>

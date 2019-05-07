@@ -8,7 +8,6 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
-
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
@@ -24,15 +23,21 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".RequestedLocationsViewActivity"
+            android:label="@string/title_activity_requested_location_view"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".RequestedPhotosViewActivity"
+            android:label="@string/title_activity_requested_photos_view"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".AddPetsActivity"
             android:label="@string/title_activity_add_pets"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".EditMyPostedJob"
             android:label="@string/title_activity_edit_my_posted_job"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".AgreedJobInfoActivity" />
         <activity
             android:name=".JobsInterestedInActivity"
