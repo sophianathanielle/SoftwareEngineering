@@ -105,6 +105,14 @@
             android:label="@string/title_activity_upcoming_job"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
+            android:name=".SendRequestedLocationActivity"
+            android:label="@string/title_activity_upcoming_job"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".SendRequestedPhotoActivity"
+            android:label="@string/title_activity_upcoming_job"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".PostingJobActivity"
             android:exported="true"
             android:label="@string/title_activity_posting_job"

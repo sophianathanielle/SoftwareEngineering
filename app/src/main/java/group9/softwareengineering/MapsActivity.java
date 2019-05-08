@@ -21,7 +21,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private GoogleMap mMap;
     private LatLng mLocation = new LatLng(51.24, -0.59);
     private boolean flag;
-
+    private Button locationOn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,6 +29,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+        locationOn = (Button) findViewById(R.id.getLocation);
     }
 
     @Override
@@ -58,17 +59,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     public void getLocation(View view) {
-        Button test = (Button) findViewById(R.id.getLocation);
         if (!flag) {
             Intent intent = new Intent(this, LocationService.class);
             startService(intent);
             flag = true;
-            test.setText("Location Fetching Off");
+            locationOn.setText("Location Fetching Off");
         } else {
             Intent intent = new Intent(this, LocationService.class);
             stopService(intent);
             flag = false;
-            test.setText("Location Fetching On");
+            locationOn.setText("Location Fetching On");
         }
     }
 

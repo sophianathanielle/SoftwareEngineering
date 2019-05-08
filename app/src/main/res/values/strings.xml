@@ -90,5 +90,8 @@
     <string name="clickToView">Click on an on going job to check Location or Photo Updates</string>
     <string name="title_activity_requested_photos_view">RequestedPhotosViewActivity</string>
     <string name="title_activity_requested_location_view">RequestedLocationViewActivity</string>
+    <string name="clickToUpdateLocation">These posts require Location update. Please click on them to update them.</string>
+    <string name="clickToUpdatePhoto">These posts require Photo update. Please click on them to update.</string>
+    <string name="capture">Capture</string>
 
 </resources>
