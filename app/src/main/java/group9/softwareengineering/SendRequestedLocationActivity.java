@@ -76,9 +76,10 @@ public class SendRequestedLocationActivity extends FragmentActivity implements O
                         Log.v("successful get", document.getId() + " => " + document.getData());
                         if (document.getData().get("sitter_found").equals(currentUser.getUid())) {
                             if ((boolean) document.getData().get("location_request") == true) {
-                                Posting newPosting = document.toObject(Posting.class);
+                                Posting posting = document.toObject(Posting.class);
                                 GeoPoint gpLocation = new GeoPoint(mLocation.latitude, mLocation.longitude);
                                 posting.putLocationUpdate(gpLocation);
+                                posting.setLocation_request(false);
                                 db.collection("postings").document(mId).set(posting);
                                 Log.v("locationUpdate", "Hopefully wrote posting");
                             }
@@ -93,6 +94,8 @@ public class SendRequestedLocationActivity extends FragmentActivity implements O
 
     public void confirmLocation(View view) {
         findPosting();
+        Intent myService = new Intent(this, LocationService.class);
+        stopService(myService);
         this.finish();
     }
 
