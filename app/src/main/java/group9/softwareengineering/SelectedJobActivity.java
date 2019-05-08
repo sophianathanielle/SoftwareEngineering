@@ -24,7 +24,6 @@ import java.util.ArrayList;
 
 public class SelectedJobActivity extends AppCompatActivity {
 
-    private String usersID;
     private String documentId;
     private Posting posting;
     private ArrayList<String> petsID = new ArrayList<>();
@@ -43,7 +42,6 @@ public class SelectedJobActivity extends AppCompatActivity {
         setContentView(R.layout.activity_selected_job);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        this.usersID = getIntent().getStringExtra("usersID");
         this.petsID = getIntent().getStringArrayListExtra("usersPetIds");
         this.documentId = getIntent().getStringExtra("ids");
         star = findViewById(R.id.starImage);
