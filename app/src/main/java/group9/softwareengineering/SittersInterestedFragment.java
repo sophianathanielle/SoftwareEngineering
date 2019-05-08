@@ -1,6 +1,9 @@
 package group9.softwareengineering;
 
 
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -33,7 +36,7 @@ public class SittersInterestedFragment extends Fragment {
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private RecyclerView recyclerView;
     private FirebaseUser currentUser;
-    private LinkedHashMap<String,Posting> postings = new LinkedHashMap<>();
+    private LinkedHashMap<String, Posting> postings = new LinkedHashMap<>();
     private LinkedHashMap<String, Profile> users = new LinkedHashMap<>();
     private SittersAdapter adapter;
     private ArrayList<String> users2 = new ArrayList<>();
@@ -56,7 +59,7 @@ public class SittersInterestedFragment extends Fragment {
         setupRecycler();
         loadPostings(new FirestoreCallback2() {
             @Override
-            public void onCallback(LinkedHashMap<String,Posting> hashMap) {
+            public void onCallback(LinkedHashMap<String, Posting> hashMap) {
                 loadUsers(new FirestoreCallback() {
                     @Override
                     public void onCallback(LinkedHashMap<String, Profile> hashMap) {
@@ -78,7 +81,7 @@ public class SittersInterestedFragment extends Fragment {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 //Log.d("das", document.getId() + " => " + document.getData());
                                 Posting posting = document.toObject(Posting.class);
-                                postings.put(document.getId() , posting);
+                                postings.put(document.getId(), posting);
                             }
                             firestoreCallback2.onCallback(postings);
                             //adapter = new HomeAdapter(postings , pay , posted, getApplicationContext(), HomeActivity.this);
@@ -124,14 +127,19 @@ public class SittersInterestedFragment extends Fragment {
 
 
     private interface FirestoreCallback {
-        void onCallback(LinkedHashMap<String , Profile> hashMap );
+        void onCallback(LinkedHashMap<String, Profile> hashMap);
     }
 
     private interface FirestoreCallback2 {
-        void onCallback(LinkedHashMap< String,Posting> hashMap );
+        void onCallback(LinkedHashMap<String, Posting> hashMap);
     }
 
-    public void setupRecycler(){
+    @Override
+    public void onAttachFragment(Fragment childFragment) {
+        super.onAttachFragment(childFragment);
+    }
+
+    public void setupRecycler() {
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
             @Override
             public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder viewHolder1) {
@@ -139,15 +147,31 @@ public class SittersInterestedFragment extends Fragment {
             }
 
             @Override
-            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
-                if (i == ItemTouchHelper.LEFT) {
+            public void onChildDraw(Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
+                View itemView = viewHolder.itemView;
+                Paint paint = new Paint();
+                if (dX > 0) {
+                    // Set your color for positive displacement
+                    paint.setARGB(255, 0, 255, 0);
+                    c.drawRect((float) itemView.getLeft(), (float) itemView.getTop(), dX,
+                            (float) itemView.getBottom(), paint);
+                } else {
+                    //Set  color for negative displacement
+                    paint.setARGB(255, 255, 0, 0);
+                    c.drawRect((float) itemView.getRight() + dX, (float) itemView.getTop(),
+                            (float) itemView.getRight(), (float) itemView.getBottom(), paint);
+                }
+                super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
+            }
 
+            @Override
+            public void onSwiped(@NonNull final RecyclerView.ViewHolder viewHolder, int i) {
+                if (i == ItemTouchHelper.LEFT) {
                     db.collection("postings").document(adapter.getDocumentAt(viewHolder.getAdapterPosition()))
                             .update("sitters_interested", FieldValue.arrayRemove(users2.get(viewHolder.getAdapterPosition())))
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
-
                                 }
                             });
                 }
@@ -158,7 +182,6 @@ public class SittersInterestedFragment extends Fragment {
                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
-
                                     }
                                 });
                         db.collection("postings").document(adapter.getDocumentAt(viewHolder.getAdapterPosition()))
@@ -182,7 +205,16 @@ public class SittersInterestedFragment extends Fragment {
                     }
             }
         }).attachToRecyclerView(recyclerView);
+
+
+
+
+
+
     }
+
+
+
 }
 
 
