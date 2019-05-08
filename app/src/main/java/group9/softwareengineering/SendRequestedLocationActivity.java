@@ -26,18 +26,16 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
-public class LocationUpdate extends FragmentActivity implements OnMapReadyCallback {
+public class SendRequestedLocationActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
     private String mId;
     private LatLng mLocation = new LatLng(51.24, -0.59);
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private FirebaseUser currentUser;
-    private ArrayList<Posting> postingsWithRequests;
-    private Button mButton;
+    private Posting posting;
+    private Button mButton , mButton2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,12 +43,16 @@ public class LocationUpdate extends FragmentActivity implements OnMapReadyCallba
         if (getIntent().getExtras() != null) {
             Bundle extras = getIntent().getExtras();
             mId = extras.getString("id");
+            posting = getIntent().getParcelableExtra("posting");
         }
         setContentView(R.layout.activity_maps);
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-        mButton = (Button) findViewById(R.id.confirmLocation);
+        mButton = (Button) findViewById(R.id.saveLocation);
+        mButton2 = (Button) findViewById(R.id.getLocation);
+        mButton.setEnabled(false);
+        mButton2.setEnabled(false);
     }
 
     @Override
@@ -61,7 +63,7 @@ public class LocationUpdate extends FragmentActivity implements OnMapReadyCallba
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mLocation, 40));
         IntentFilter filter = new IntentFilter();
         filter.addAction("LOCATION_INTENT");
-        this.registerReceiver(new LocationUpdate.LocationReceiver(), filter);
+        this.registerReceiver(new SendRequestedLocationActivity.LocationReceiver(), filter);
         Intent intent = new Intent(this, LocationService.class);
         startService(intent);
     }

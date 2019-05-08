@@ -1,6 +1,8 @@
 package group9.softwareengineering;
 
 import android.location.Location;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import com.google.firebase.firestore.GeoPoint;
 
@@ -9,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class Posting implements Serializable {
+public class Posting implements Parcelable {
 
     private String id;
     private String poster;
@@ -34,6 +36,37 @@ public class Posting implements Serializable {
     public Posting() {
 
     }
+
+    protected Posting(Parcel in) {
+        id = in.readString();
+        poster = in.readString();
+        poster_id = in.readString();
+        description = in.readString();
+        payment = in.readInt();
+        petIDs = in.createStringArrayList();
+        sitters_interested = in.createStringArrayList();
+        byte tmpCompleted = in.readByte();
+        completed = tmpCompleted == 0 ? null : tmpCompleted == 1;
+        sitter_found = in.readString();
+        photoURL = in.readString();
+        byte tmpPhoto_request = in.readByte();
+        photo_request = tmpPhoto_request == 0 ? null : tmpPhoto_request == 1;
+        byte tmpLocation_request = in.readByte();
+        location_request = tmpLocation_request == 0 ? null : tmpLocation_request == 1;
+        photo_updates = in.createStringArrayList();
+    }
+
+    public static final Creator<Posting> CREATOR = new Creator<Posting>() {
+        @Override
+        public Posting createFromParcel(Parcel in) {
+            return new Posting(in);
+        }
+
+        @Override
+        public Posting[] newArray(int size) {
+            return new Posting[size];
+        }
+    };
 
     public Boolean getPhoto_request() {
         return photo_request;
@@ -165,5 +198,27 @@ public class Posting implements Serializable {
 
     public void putLocationUpdate(GeoPoint location) {
         this.location_updates.add(location);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(id);
+        parcel.writeString(poster);
+        parcel.writeString(poster_id);
+        parcel.writeString(description);
+        parcel.writeInt(payment);
+        parcel.writeStringList(petIDs);
+        parcel.writeStringList(sitters_interested);
+        parcel.writeByte((byte) (completed == null ? 0 : completed ? 1 : 2));
+        parcel.writeString(sitter_found);
+        parcel.writeString(photoURL);
+        parcel.writeByte((byte) (photo_request == null ? 0 : photo_request ? 1 : 2));
+        parcel.writeByte((byte) (location_request == null ? 0 : location_request ? 1 : 2));
+        parcel.writeStringList(photo_updates);
     }
 }

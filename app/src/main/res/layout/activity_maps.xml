@@ -11,24 +11,25 @@
     android:id="@+id/map"
     android:name="com.google.android.gms.maps.SupportMapFragment"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     tools:context=".MapsActivity"
-    android:layout_weight="0.6"/>
+    android:layout_weight="9"/>
 
     <Button
         android:id="@+id/getLocation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0.2"
         android:onClick="getLocation"
-        android:text="Location Fetching On" />
+        android:text="Location Fetching On"
+        android:layout_weight="0.1"
+        android:enabled="true"/>
 
     <Button
         android:id="@+id/saveLocation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0.2"
         android:text="Save Location"
-        android:onClick="saveLocation"/>
+        android:onClick="saveLocation"
+        android:layout_weight="0.1"/>
 
 </LinearLayout>

@@ -74,9 +74,7 @@ public class MyPostedJob extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(MyPostedJob.this,EditMyPostedJob.class);
                 intent.putExtra(documentId,"ids");
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("posting", posting);
-                intent.putExtras(bundle);
+                intent.putExtra("posting", posting);
                 startActivity(intent);
             }
         });

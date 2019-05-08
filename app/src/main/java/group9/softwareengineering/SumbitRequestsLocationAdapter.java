@@ -12,19 +12,15 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
 
 
-public class UpdatesAdapter extends RecyclerView.Adapter<UpdatesAdapter.ExampleViewHolder> {
+public class SumbitRequestsLocationAdapter extends RecyclerView.Adapter<SumbitRequestsLocationAdapter.ExampleViewHolder> {
     private ArrayList<Posting> postings;
     private onClickListener onClickListener;
     private Context context;
 
 
-    public UpdatesAdapter(ArrayList<Posting> postings ,Context context, onClickListener onClickListener){
+    public SumbitRequestsLocationAdapter(ArrayList<Posting> postings , Context context, onClickListener onClickListener){
         this.postings = postings;
         this.context = context;
         this.onClickListener = onClickListener;
