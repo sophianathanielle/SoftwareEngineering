@@ -19,6 +19,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.GeoPoint;
@@ -50,6 +51,7 @@ public class SendRequestedLocationActivity extends FragmentActivity implements O
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
         mButton = (Button) findViewById(R.id.confirmLocation);
+        currentUser = FirebaseAuth.getInstance().getCurrentUser();
     }
 
     @Override
@@ -91,6 +93,7 @@ public class SendRequestedLocationActivity extends FragmentActivity implements O
 
     public void confirmLocation(View view) {
         findPosting();
+        this.finish();
     }
 
     public class LocationReceiver extends BroadcastReceiver {
