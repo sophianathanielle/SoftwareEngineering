@@ -24,6 +24,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -40,13 +41,13 @@ import java.util.List;
 public class UpcomingJobActivity extends AppCompatActivity implements HomeAdapter.onClickListener {
     private RecyclerView recyclerView;
     private Calendar calendar;
-    private RecyclerView.Adapter adapter;
+    private HomeAdapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     private ArrayList<Posting> postings = new ArrayList<>();
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private String pay;
     private String posted;
-    private String mUserId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+    private FirebaseUser currentUser;
 
 
     @Override
@@ -56,34 +57,38 @@ public class UpcomingJobActivity extends AppCompatActivity implements HomeAdapte
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        //mUserId =mAuth.getCurrentUser().getUid();
+        currentUser = FirebaseAuth.getInstance().getCurrentUser();
         pay = getString(R.string.string_pay);
         posted = getString(R.string.string_posted);
 
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
-        layoutManager = new LinearLayoutManager(this);
-        fetchesFromDatabase();
+        fetchesFromDatabase(new FirestoreCallback() {
+            @Override
+            public void onCallback(ArrayList<Posting> tempPostings) {
+                postings = tempPostings;
+                setRecyclerView();
+            }
+        });
     }
 
-    private void fetchesFromDatabase() {
+
+    private void fetchesFromDatabase(final FirestoreCallback firestoreCallback) {
         db.collection("postings")
-            .orderBy("start_time", Query.Direction.ASCENDING)
-             .whereEqualTo("sitter_found",mUserId)
+             .whereEqualTo("sitter_found",currentUser.getUid())
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
-                            ArrayList<Posting> tempPostings = new ArrayList<>();
+                            Log.i("MPENI" , "MPENI");
+
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Posting posting = document.toObject(Posting.class);
-                                tempPostings.add(posting);
+                                postings.add(posting);
                             }
-                            postings = tempPostings;
-                            adapter = new HomeAdapter(postings , pay , posted, getApplicationContext(), UpcomingJobActivity.this);
-                            recyclerView.setLayoutManager(layoutManager);
-                            recyclerView.setAdapter(adapter);
+                            firestoreCallback.onCallback(postings);
+
                         } else {
                             Log.d("TAG", "Error getting documents: ", task.getException());
                         }
@@ -95,6 +100,18 @@ public class UpcomingJobActivity extends AppCompatActivity implements HomeAdapte
     @Override
     public void onItemClick(int position) {
         Intent intent = new Intent(this, AgreedJobInfoActivity.class);
+        intent.putExtra("posting" , postings.get(position));
         startActivity(intent);
+    }
+
+    private interface FirestoreCallback {
+        void onCallback(ArrayList<Posting> tempPostings );
+    }
+
+    public void setRecyclerView(){
+        layoutManager = new LinearLayoutManager(this);
+        adapter = new HomeAdapter(postings , pay , posted, getApplicationContext(), UpcomingJobActivity.this);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(adapter);
     }
 }

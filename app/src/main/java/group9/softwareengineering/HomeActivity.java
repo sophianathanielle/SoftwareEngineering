@@ -146,7 +146,6 @@ public class HomeActivity extends AppCompatActivity implements HomeAdapter.onCli
     public void onItemClick(int position) {
 
         Intent intent = new Intent(this, SelectedJobActivity.class);
-        intent.putExtra("usersID" , this.postings.get(position).getPoster_id());
         intent.putExtra("ids", this.ids.get(position));
         intent.putStringArrayListExtra("usersPetIds" , this.postings.get(position).getPetIDs());
         startActivity(intent);

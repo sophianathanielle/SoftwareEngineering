@@ -49,29 +49,12 @@ public class AgreedJobInfoActivity extends AppCompatActivity {
 
         imageOwner = findViewById(R.id.imageOwner);
         imageSitter = findViewById(R.id.imageSitter);
-       // imageOwner.setOnClickListener(new View.OnClickListener() {
-       //     @Override
-        //    public void onClick(View view) {
-         //       Intent intent = new Intent(view.getContext(), UsersProfile.class);
-          //      startActivity(intent);
-           // }
-        //});
-        //imageSitter.setOnClickListener(new View.OnClickListener() {
-         //   @Override
-          //  public void onClick(View view) {
-           //     Intent intent = new Intent(view.getContext(), UsersProfile.class);
-            //    startActivity(intent);
-           // }
-        //});
 
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        fetchFromDatabasePosting();
-        fetchFromDatabaseProfile();
-        fetchFromDatabasePets();
 
-        this.usersID = getIntent().getStringExtra("usersID");
-        this.petsID = getIntent().getStringArrayListExtra("usersPetIds");
-        this.documentId = getIntent().getStringExtra("ids");
+
+        this.posting = getIntent().getParcelableExtra("posting");
+
 
         recyclerView = findViewById(R.id.myJobPetsRecyclerView);
         layoutManager = new LinearLayoutManager(this);
@@ -80,67 +63,5 @@ public class AgreedJobInfoActivity extends AppCompatActivity {
 
     }
 
-
-    private void fetchFromDatabasePosting() {
-        db.collection("postings").document(documentId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
-                        posting = document.toObject(Posting.class);
-                    }
-                    jobDescription.setText(posting.getDescription());
-                    jobLocation.append(posting.getLocation().toString());
-                    jobStartTime.append(posting.getStart_time().toString());
-                    jobEndTime.append(posting.getEnd_time().toString());
-                    //jobPrice.append(posting.getPayment().toString());
-                    petOwner.append(posting.getPoster());
-                    petSitter.append((posting.getSitter_found()));
-                }
-            }
-        });
-    }
-
-
-    private void fetchFromDatabasePets() {
-        for (int i = 0; i < this.petsID.size(); i++) {
-            db.collection("pets").document(this.petsID.get(i)).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                    if (task.isSuccessful()) {
-                        DocumentSnapshot document = task.getResult();
-                        if (document.exists()) {
-                            Pet tempPet = document.toObject(Pet.class);
-                            pets.add(tempPet);
-                        }
-                        adapter = new PetAdapter(pets, getApplicationContext());
-                        recyclerView.setLayoutManager(layoutManager);
-                        recyclerView.setAdapter(adapter);
-                    }
-                }
-            });
-        }
-    }
-
-
-    private void fetchFromDatabaseProfile() {
-        db.collection("profile").document(usersID).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
-                        profile = document.toObject(Profile.class);
-                    }
-                    //methods to get profile images
-                    //imageOwner.getImage();
-                    //imageSitter.getImage();
-                }
-
-            }
-
-        });
-    }
 
 }
