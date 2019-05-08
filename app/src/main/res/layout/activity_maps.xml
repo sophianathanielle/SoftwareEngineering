@@ -13,13 +13,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MapsActivity"
-    android:layout_weight="0.8"/>
+    android:layout_weight="0.6"/>
+
+    <Button
+        android:id="@+id/getLocation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.2"
+        android:onClick="getLocation"
+        android:text="Location Fetching On" />
 
     <Button
         android:id="@+id/saveLocation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0.2"
-        android:text="Save Location"/>
+        android:text="Save Location"
+        android:onClick="saveLocation"/>
 
 </LinearLayout>

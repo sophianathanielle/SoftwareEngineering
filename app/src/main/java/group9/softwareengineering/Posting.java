@@ -162,4 +162,8 @@ public class Posting implements Serializable {
     public ArrayList<String> getPhoto_updates() {
         return photo_updates;
     }
+
+    public void putLocationUpdate(GeoPoint location) {
+        this.location_updates.add(location);
+    }
 }
