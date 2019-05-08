@@ -81,7 +81,7 @@ public class PostingJobActivity extends AppCompatActivity implements DatePickerD
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.mapLite);
         mapFragment.getMapAsync(this);
         mapFragment.getView().setClickable(false);
 
