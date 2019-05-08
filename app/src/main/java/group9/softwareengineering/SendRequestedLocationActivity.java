@@ -35,7 +35,7 @@ public class SendRequestedLocationActivity extends FragmentActivity implements O
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private FirebaseUser currentUser;
     private Posting posting;
-    private Button mButton , mButton2;
+    private Button mButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,14 +45,11 @@ public class SendRequestedLocationActivity extends FragmentActivity implements O
             mId = extras.getString("id");
             posting = getIntent().getParcelableExtra("posting");
         }
-        setContentView(R.layout.activity_maps);
+        setContentView(R.layout.activity_send_location);
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-        mButton = (Button) findViewById(R.id.saveLocation);
-        mButton2 = (Button) findViewById(R.id.getLocation);
-        mButton.setEnabled(false);
-        mButton2.setEnabled(false);
+        mButton = (Button) findViewById(R.id.confirmLocation);
     }
 
     @Override
@@ -60,7 +57,7 @@ public class SendRequestedLocationActivity extends FragmentActivity implements O
         this.mMap = googleMap;
         googleMap.setMinZoomPreference(5);
         googleMap.setMaxZoomPreference(40);
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mLocation, 40));
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mLocation, 5));
         IntentFilter filter = new IntentFilter();
         filter.addAction("LOCATION_INTENT");
         this.registerReceiver(new SendRequestedLocationActivity.LocationReceiver(), filter);
@@ -77,7 +74,7 @@ public class SendRequestedLocationActivity extends FragmentActivity implements O
                         Log.v("successful get", document.getId() + " => " + document.getData());
                         if (document.getData().get("sitter_found").equals(currentUser.getUid())) {
                             if ((boolean) document.getData().get("location_request") == true) {
-                                Posting posting = document.toObject(Posting.class);
+                                Posting newPosting = document.toObject(Posting.class);
                                 GeoPoint gpLocation = new GeoPoint(mLocation.latitude, mLocation.longitude);
                                 posting.putLocationUpdate(gpLocation);
                                 db.collection("postings").document(mId).set(posting);
@@ -111,7 +108,9 @@ public class SendRequestedLocationActivity extends FragmentActivity implements O
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mLocation, 15));
             mMap.clear();
             mMap.addMarker(new MarkerOptions().position(mLocation));
-            mButton.setEnabled(true);
+            if (mButton != null) {
+                mButton.setEnabled(true);
+            }
         }
     }
 }
