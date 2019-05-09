@@ -21,6 +21,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.GeoPoint;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -35,17 +36,12 @@ public class SendRequestedLocationActivity extends FragmentActivity implements O
     private LatLng mLocation = new LatLng(51.24, -0.59);
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private FirebaseUser currentUser;
-    private Posting posting;
     private Button mButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getIntent().getExtras() != null) {
-            Bundle extras = getIntent().getExtras();
-            mId = extras.getString("id");
-            posting = getIntent().getParcelableExtra("posting");
-        }
+        mId = getIntent().getStringExtra("id");
         setContentView(R.layout.activity_send_location);
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -68,28 +64,8 @@ public class SendRequestedLocationActivity extends FragmentActivity implements O
     }
 
     private void findPosting() {
-        db.collection("postings").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    for (QueryDocumentSnapshot document : task.getResult()) {
-                        Log.v("successful get", document.getId() + " => " + document.getData());
-                        if (document.getData().get("sitter_found").equals(currentUser.getUid())) {
-                            if ((boolean) document.getData().get("location_request") == true) {
-                                Posting posting = document.toObject(Posting.class);
-                                GeoPoint gpLocation = new GeoPoint(mLocation.latitude, mLocation.longitude);
-                                posting.putLocationUpdate(gpLocation);
-                                posting.setLocation_request(false);
-                                db.collection("postings").document(mId).set(posting);
-                                Log.v("locationUpdate", "Hopefully wrote posting");
-                            }
-                        }
-                    }
-                } else {
-                    Log.v("dickhead", "Error getting documents: ", task.getException());
-                }
-            }
-        });
+        GeoPoint gpLocation = new GeoPoint(mLocation.latitude, mLocation.longitude);
+        db.collection("postings").document(mId).update("location_updates" , FieldValue.arrayUnion(gpLocation) , "location_request" , false);
     }
 
     public void confirmLocation(View view) {

@@ -54,8 +54,8 @@
     <string name="sitters_interest">Sitters Interested</string>
     <string name="agreed_jobs">Jobs agreed</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="requests">Requests</string>
-    <string name="updates">Updates</string>
+    <string name="requests">Send Requests</string>
+    <string name="updates">View Updates</string>
     <string name="agreed_owner">Pet Owner</string>
     <string name="agreed_sitter">Pet Sitter</string>
     <string name="image_owner">Pet Owner image</string>
@@ -93,5 +93,6 @@
     <string name="clickToUpdateLocation">These posts require Location update. Please click on them to update them.</string>
     <string name="clickToUpdatePhoto">These posts require Photo update. Please click on them to update.</string>
     <string name="capture">Capture</string>
+    <string name="send_updates">Send Updates</string>
 
 </resources>

@@ -9,7 +9,7 @@
     <item
         android:id="@+id/navigation_agreedJobs"
         android:icon="@drawable/jobs_agreed"
-        android:title="@string/agreed_jobs" />
+        android:title="@string/send_updates" />
 
     <item
         android:id="@+id/navigation_requests"
