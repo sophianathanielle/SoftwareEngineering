@@ -8,6 +8,7 @@ import android.graphics.Camera;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -28,6 +29,7 @@ public class RequestedLocationsViewActivity extends AppCompatActivity implements
     private ArrayList<GeoPoint> locations = new ArrayList<>();
     private ArrayList<Marker> mMarkers = new ArrayList<>();
     private GoogleMap mMap;
+    private Posting posting;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,9 +37,9 @@ public class RequestedLocationsViewActivity extends AppCompatActivity implements
         setContentView(R.layout.activity_requested_locations_view);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        Bundle bundle = new Bundle();
-        bundle = getIntent().getExtras();
-        locations = (ArrayList<GeoPoint>) bundle.getSerializable("requested_locations");
+        posting = getIntent().getParcelableExtra("posting");
+        locations = posting.getLocation_updates();
+        Log.v("PostingLength", Integer.toString(locations.size()));
     }
 
     @Override
