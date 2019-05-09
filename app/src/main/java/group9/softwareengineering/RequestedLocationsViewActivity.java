@@ -28,6 +28,9 @@ public class RequestedLocationsViewActivity extends AppCompatActivity implements
 
     private ArrayList<GeoPoint> locations = new ArrayList<>();
     private ArrayList<Marker> mMarkers = new ArrayList<>();
+    private ArrayList<String> latitudes = new ArrayList<>();
+    private ArrayList<String> longitudes = new ArrayList<>();
+
     private GoogleMap mMap;
     private Posting posting;
 
@@ -37,9 +40,17 @@ public class RequestedLocationsViewActivity extends AppCompatActivity implements
         setContentView(R.layout.activity_requested_locations_view);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        posting = getIntent().getParcelableExtra("posting");
-        locations = posting.getLocation_updates();
+        latitudes = getIntent().getStringArrayListExtra("latitudes");
+        longitudes = getIntent().getStringArrayListExtra("longitudes");
+        for(int i = 0; i < latitudes.size(); i++ ){
+            double latitude = Double.parseDouble(latitudes.get(i));
+            double longitude = Double.parseDouble(longitudes.get(i));
+            GeoPoint location = new GeoPoint(latitude , longitude);
+            locations.add(location);
+        }
         Log.v("PostingLength", Integer.toString(locations.size()));
+
+
     }
 
     @Override

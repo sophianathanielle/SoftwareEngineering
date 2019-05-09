@@ -19,6 +19,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.GeoPoint;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -109,7 +110,14 @@ public class UpdatesFragment extends Fragment implements UpdatesAdapter.onClickL
                                     break;
                                 case 1:
                                     Intent intent2 = new Intent(getContext(), RequestedLocationsViewActivity.class);
-                                    intent2.putExtra("posting" , postings.get(position));
+                                    ArrayList<String> latitudes = new ArrayList<>();
+                                    ArrayList<String> longitudes = new ArrayList<>();
+                                    for(GeoPoint geoPoint : postings.get(position).getLocation_updates()){
+                                        latitudes.add(String.valueOf(geoPoint.getLatitude()));
+                                        longitudes.add(String.valueOf(geoPoint.getLongitude()));
+                                    }
+                                    intent2.putStringArrayListExtra("latitudes" , latitudes);
+                                    intent2.putStringArrayListExtra("longitudes" , longitudes);
                                     startActivity(intent2);
                                     break;
                             }
@@ -143,7 +151,14 @@ public class UpdatesFragment extends Fragment implements UpdatesAdapter.onClickL
                             switch (which) {
                                 case 0:
                                     Intent intent2 = new Intent(getContext(), RequestedLocationsViewActivity.class);
-                                    intent2.putExtra("posting" , postings.get(position));
+                                    ArrayList<String> latitudes = new ArrayList<>();
+                                    ArrayList<String> longitudes = new ArrayList<>();
+                                    for(GeoPoint geoPoint : postings.get(position).getLocation_updates()){
+                                        latitudes.add(String.valueOf(geoPoint.getLatitude()));
+                                        longitudes.add(String.valueOf(geoPoint.getLongitude()));
+                                    }
+                                    intent2.putStringArrayListExtra("latitudes" , latitudes);
+                                    intent2.putStringArrayListExtra("longitudes" , longitudes);
                                     startActivity(intent2);
                                     break;
                             }
