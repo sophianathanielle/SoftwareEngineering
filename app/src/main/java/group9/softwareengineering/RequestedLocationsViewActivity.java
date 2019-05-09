@@ -51,6 +51,7 @@ public class RequestedLocationsViewActivity extends AppCompatActivity implements
         Log.v("PostingLength", Integer.toString(locations.size()));
 
 
+
     }
 
     @Override
