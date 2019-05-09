@@ -109,9 +109,7 @@ public class UpdatesFragment extends Fragment implements UpdatesAdapter.onClickL
                                     break;
                                 case 1:
                                     Intent intent2 = new Intent(getContext(), RequestedLocationsViewActivity.class);
-                                    Bundle bundle = new Bundle();
-                                    bundle.putSerializable("requested_locations", postings.get(position).getLocation_updates());
-                                    intent2.putExtras(bundle);
+                                    intent2.putExtra("posting" , postings.get(position));
                                     startActivity(intent2);
                                     break;
                             }
@@ -145,9 +143,7 @@ public class UpdatesFragment extends Fragment implements UpdatesAdapter.onClickL
                             switch (which) {
                                 case 0:
                                     Intent intent2 = new Intent(getContext(), RequestedLocationsViewActivity.class);
-                                    Bundle bundle = new Bundle();
-                                    bundle.putSerializable("requested_locations", postings.get(position).getLocation_updates());
-                                    intent2.putExtras(bundle);
+                                    intent2.putExtra("posting" , postings.get(position));
                                     startActivity(intent2);
                                     break;
                             }
