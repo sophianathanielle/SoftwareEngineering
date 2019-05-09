@@ -17,6 +17,7 @@ import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -36,6 +37,7 @@ public class HomeActivity extends AppCompatActivity implements HomeAdapter.onCli
     private String pay;
     private String posted;
     private String mUserId;
+    private FirebaseUser currentUser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +53,7 @@ public class HomeActivity extends AppCompatActivity implements HomeAdapter.onCli
         myJobsFab = (com.getbase.floatingactionbutton.FloatingActionButton) findViewById(R.id.posted);
         postedFab = (com.getbase.floatingactionbutton.FloatingActionButton) findViewById(R.id.newJobs);
         upcomingFab = (com.getbase.floatingactionbutton.FloatingActionButton) findViewById(R.id.upcoming);
+        currentUser = FirebaseAuth.getInstance().getCurrentUser();
         find = (Button) findViewById(R.id.find);
         find.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,10 +106,12 @@ public class HomeActivity extends AppCompatActivity implements HomeAdapter.onCli
                             ArrayList<String> tempIds = new ArrayList<>();
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 //Log.d("das", document.getId() + " => " + document.getData());
-                                Posting posting = document.toObject(Posting.class);
-                                tempPostings.add(posting);
-                                tempIds.add(document.getId());
-                                Log.i("postings", Integer.toString(postings.size()));
+                                if(!document.get("poster_id").equals(currentUser.getUid())){
+                                    Posting posting = document.toObject(Posting.class);
+                                    tempPostings.add(posting);
+                                    tempIds.add(document.getId());
+                                    Log.i("postings", Integer.toString(postings.size()));
+                                }
                             }
                             postings = tempPostings;
                             ids = tempIds;
