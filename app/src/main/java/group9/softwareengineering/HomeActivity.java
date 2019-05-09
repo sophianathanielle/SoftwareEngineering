@@ -1,6 +1,8 @@
 package group9.softwareengineering;
 
+import android.content.ClipData;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -24,20 +26,21 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
-public class HomeActivity extends AppCompatActivity implements HomeAdapter.onClickListener{
+public class HomeActivity extends AppCompatActivity implements HomeAdapter.onClickListener {
     private com.getbase.floatingactionbutton.FloatingActionButton starredFab, postedFab, myJobsFab, upcomingFab;
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
-    private ArrayList<Posting>  postings = new ArrayList<>();
-    private ArrayList<String>  ids = new ArrayList<>();
+    private ArrayList<Posting> postings = new ArrayList<>();
+    private ArrayList<String> ids = new ArrayList<>();
+    private ArrayList<Posting> usersPostings = new ArrayList<>();
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    FirebaseAuth mAuth;
     private Button find;
     private String pay;
     private String posted;
-    private String mUserId;
     private FirebaseUser currentUser;
+    private MenuItem notificationIcon;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,7 +48,7 @@ public class HomeActivity extends AppCompatActivity implements HomeAdapter.onCli
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         fetchesFromDatabase();
-       // mUserId =mAuth.getCurrentUser().getUid();
+        // mUserId =mAuth.getCurrentUser().getUid();
         pay = getString(R.string.string_pay);
         posted = getString(R.string.string_posted);
         FloatingActionsMenu expandFab = (FloatingActionsMenu) findViewById(R.id.expand);
@@ -103,21 +106,31 @@ public class HomeActivity extends AppCompatActivity implements HomeAdapter.onCli
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             ArrayList<Posting> tempPostings = new ArrayList<>();
+                            ArrayList<Posting> tempUsersPostings = new ArrayList<>();
                             ArrayList<String> tempIds = new ArrayList<>();
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 //Log.d("das", document.getId() + " => " + document.getData());
-                                if(!document.get("poster_id").equals(currentUser.getUid())){
+                                if (!document.get("poster_id").equals(currentUser.getUid())) {
                                     Posting posting = document.toObject(Posting.class);
                                     tempPostings.add(posting);
                                     tempIds.add(document.getId());
                                     Log.i("postings", Integer.toString(postings.size()));
+                                } else {
+                                    Posting posting = document.toObject(Posting.class);
+                                    tempUsersPostings.add(posting);
                                 }
                             }
+                            usersPostings = tempUsersPostings;
                             postings = tempPostings;
                             ids = tempIds;
-                            adapter = new HomeAdapter(postings , pay , posted, getApplicationContext(), HomeActivity.this);
+                            adapter = new HomeAdapter(postings, pay, posted, getApplicationContext(), HomeActivity.this);
                             recyclerView.setLayoutManager(layoutManager);
                             recyclerView.setAdapter(adapter);
+                            for (Posting posting : usersPostings) {
+                                if (posting.getLocation_request() || posting.getPhoto_request() || posting.getSitters_interested().size() > 0) {
+                                    notificationIcon.setIcon(R.drawable.notification_bell_active_con);
+                                }
+                            }
                         } else {
                             Log.d("FB", "Error getting documents: ", task.getException());
                         }
@@ -128,6 +141,7 @@ public class HomeActivity extends AppCompatActivity implements HomeAdapter.onCli
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_homepage, menu);
+        notificationIcon = menu.findItem(R.id.notification);
         return true;
     }
 
@@ -151,7 +165,20 @@ public class HomeActivity extends AppCompatActivity implements HomeAdapter.onCli
     public void onItemClick(int position) {
         Intent intent = new Intent(this, SelectedJobActivity.class);
         intent.putExtra("ids", this.ids.get(position));
-        intent.putStringArrayListExtra("usersPetIds" , this.postings.get(position).getPetIDs());
+        intent.putStringArrayListExtra("usersPetIds", this.postings.get(position).getPetIDs());
         startActivity(intent);
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(notificationIcon != null){
+            notificationIcon.setIcon(R.drawable.notification_bell_icon);
+        }
+        postings.clear();
+        ids.clear();
+        usersPostings.clear();
+        fetchesFromDatabase();
     }
 }
