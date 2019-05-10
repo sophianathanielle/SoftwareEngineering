@@ -27,36 +27,49 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        app:fab_labelStyle="@style/floatingMenu"
-         >
-    <com.getbase.floatingactionbutton.FloatingActionButton
-        android:id="@+id/starred"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        app:fab_size="mini"
-        app:fab_title="@string/starred_jobs"/>
-    <com.getbase.floatingactionbutton.FloatingActionButton
-        android:id="@+id/posted"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        app:fab_title="@string/posted_jobs"
-        app:fab_size="mini"/>
-    <com.getbase.floatingactionbutton.FloatingActionButton
-        android:id="@+id/newJobs"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        app:fab_size="mini"
-        app:fab_title="@string/new_job"/>
-    <com.getbase.floatingactionbutton.FloatingActionButton
-        android:id="@+id/upcoming"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        app:fab_size="mini"
-        app:fab_title="@string/upcoming_jobs"/>
+        app:backgroundTint="@color/colorPrimary"
+        app:fab_addButtonColorNormal="@color/colorPrimary"
+        app:fab_labelStyle="@style/floatingMenu">
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/starred"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:background="@color/colorPrimary"
+            app:backgroundTint="@color/colorPrimary"
+            app:fab_size="mini"
+            app:fab_title="@string/starred_jobs" />
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/posted"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:background="@color/colorPrimary"
+            app:backgroundTint="@color/colorPrimary"
+            app:fab_size="mini"
+            app:fab_title="@string/posted_jobs" />
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/newJobs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:background="@color/colorPrimary"
+            app:backgroundTint="@color/colorPrimary"
+            app:fab_size="mini"
+            app:fab_title="@string/new_job" />
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/upcoming"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:background="@color/colorPrimary"
+            app:backgroundTint="@color/colorPrimary"
+            app:fab_size="mini"
+            app:fab_title="@string/upcoming_jobs" />
     </com.getbase.floatingactionbutton.FloatingActionsMenu>
 
 </android.support.design.widget.CoordinatorLayout>

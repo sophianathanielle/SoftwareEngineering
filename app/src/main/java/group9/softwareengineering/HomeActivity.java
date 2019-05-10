@@ -52,7 +52,6 @@ public class HomeActivity extends AppCompatActivity implements HomeAdapter.onCli
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         fetchesFromDatabase();
-        // mUserId =mAuth.getCurrentUser().getUid();
         pay = getString(R.string.string_pay);
         posted = getString(R.string.string_posted);
         FloatingActionsMenu expandFab = (FloatingActionsMenu) findViewById(R.id.expand);
