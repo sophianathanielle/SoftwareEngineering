@@ -10,16 +10,22 @@
     android:orientation="vertical">
 
 
-    <Button
+    <SearchView
+        android:id="@+id/find"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="@string/string_find"
-        android:id="@+id/find"/>
+        android:layout_gravity="left"
+        android:queryHint="@string/string_find" />
+<android.support.v4.widget.SwipeRefreshLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/swipeLayout">
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:listitem="@layout/recycler_view_item_my_postings"
         android:id="@+id/recyclerView"/>
+
+</android.support.v4.widget.SwipeRefreshLayout>
 </LinearLayout>

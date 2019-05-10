@@ -20,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="getLocation"
-        android:text="Location Fetching On"
+        android:text="@string/onLocation"
         android:layout_weight="0.1"
         android:enabled="true"/>
 

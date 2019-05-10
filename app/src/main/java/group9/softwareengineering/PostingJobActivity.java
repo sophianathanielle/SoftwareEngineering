@@ -1,16 +1,20 @@
 package group9.softwareengineering;
 
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -42,7 +46,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-public class PostingJobActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener, OnMapReadyCallback{
+public class PostingJobActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener, OnMapReadyCallback {
 
     int DATE_DIALOG = 0;
     int TIME_DIALOG = 0;
@@ -53,10 +57,14 @@ public class PostingJobActivity extends AppCompatActivity implements DatePickerD
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     private List<Pet> mPets = new ArrayList<Pet>();
-
+    private ArrayList<String> petsIds = new ArrayList<>();
+    private ArrayList<String> petIdsSelected = new ArrayList<>();
+    private List<Pet> mPetsSelected = new ArrayList<Pet>();
+    private SupportMapFragment mapFragment;
     // Default location is Guildford-ish
-    private double mLatitude = 51.24;
-    private double mLongitude = -0.59;
+    private double mLatitude;
+    private double mLongitude;
+    private boolean locationSet;
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private FirebaseUser currentUser;
@@ -71,17 +79,18 @@ public class PostingJobActivity extends AppCompatActivity implements DatePickerD
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getIntent().getExtras() != null) {
-            Bundle extras = getIntent().getExtras();
-            mLatitude = extras.getDouble("Lat");
-            mLongitude = extras.getDouble("Long");
-        }
+
+
+        mLatitude = 51.24;
+        mLongitude = -0.59;
+        locationSet = false;
+
 
         setContentView(R.layout.activity_posting_job);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.mapLite);
+        mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.mapLite);
         mapFragment.getMapAsync(this);
         mapFragment.getView().setClickable(false);
 
@@ -90,7 +99,6 @@ public class PostingJobActivity extends AppCompatActivity implements DatePickerD
         layoutManager = new LinearLayoutManager(this);
 
         fetchPets();
-        Log.v("faggotry mpets", Integer.toString(mPets.size()));
     }
 
     @Override
@@ -126,13 +134,13 @@ public class PostingJobActivity extends AppCompatActivity implements DatePickerD
     public void clickET(View view) {
         Calendar c = Calendar.getInstance();
         TIME_DIALOG = 1;
-        timePickerDialog = new TimePickerDialog(PostingJobActivity.this, TimePickerDialog.THEME_HOLO_LIGHT,this, c.get(c.HOUR), c.get(c.MINUTE), false);
+        timePickerDialog = new TimePickerDialog(PostingJobActivity.this, TimePickerDialog.THEME_HOLO_LIGHT, this, c.get(c.HOUR), c.get(c.MINUTE), false);
         timePickerDialog.show();
     }
 
     public void clickLocation(View view) {
         Intent intent = new Intent(this, MapsActivity.class);
-        startActivity(intent);
+        startActivityForResult(intent, 1);
     }
 
     @Override
@@ -167,27 +175,21 @@ public class PostingJobActivity extends AppCompatActivity implements DatePickerD
     }
 
     private void fetchPets() {
-        db.collection("pets").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        db.collection("pets").whereEqualTo("owner_id", currentUser.getUid()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
                     List<Pet> pets = new ArrayList<Pet>();
+                    ArrayList<String> tempIds = new ArrayList<>();
                     for (QueryDocumentSnapshot document : task.getResult()) {
-                        Log.v("successful get", document.getId() + " => " + document.getData());
-                        // USE THE USER'S ID IM USING SOPHIA'S HERE BECAUSE SHES THE ONLY ONE WITH A PET
-                        if (document.getData().get("owner_id").equals("7Xx3slfuH6Tx7N0DMvbHnHlMry32")) {
-                            String name = (String) document.getData().get("name");
-                            String photoRef = (String) document.getData().get("photo_reference");
-                            Pet newPet = new Pet(name, 0, "", "", "", photoRef, document.getId());
-                            pets.add(newPet);
-                        }
+                        Pet newPet = document.toObject(Pet.class);
+                        pets.add(newPet);
+                        tempIds.add(document.getId());
                     }
-                    setPets(pets);
-                    adapter = new PostingJobAdapter(mPets);
+                    setPets(pets, tempIds);
+                    adapter = new PostingJobAdapter(mPets, getApplicationContext());
                     recyclerView.setLayoutManager(layoutManager);
                     recyclerView.setAdapter(adapter);
-                } else {
-                    Log.v("dickhead", "Error getting documents: ", task.getException());
                 }
             }
         });
@@ -207,32 +209,60 @@ public class PostingJobActivity extends AppCompatActivity implements DatePickerD
         Date start = new Date();
         Date end = new Date();
         try {
-            start = format.parse(startDate.getText().toString()+"T"+startTime.getText().toString());
-            end = format.parse(endDate.getText().toString()+"T"+endTime.getText().toString());
+            start = format.parse(startDate.getText().toString() + "T" + startTime.getText().toString());
+            end = format.parse(endDate.getText().toString() + "T" + endTime.getText().toString());
         } catch (ParseException e) {
             e.printStackTrace();
         }
 
         // Get location
         GeoPoint location = new GeoPoint(mLatitude, mLongitude);
-        int payment = Integer.parseInt(payString.getText().toString());
-
-        Toast.makeText(this, "Username: " + currentUser.getDisplayName() + "\r\n" +
-                "User ID: " + currentUser.getUid() + "\r\n" +
-                "Start: " + start.toString() + "\r\n" +
-                "End: " + end.toString() + "\r\n" +
-                "Location: " + mLatitude + "//" + mLongitude + "\r\n" +
-                "Desc: " + description.getText().toString() + "\r\n" +
-                "Payment: " + payString, Toast.LENGTH_SHORT).show();
-
-        // Posting posting = new Posting(currentUser.getDisplayName(), currentUser.getUid(), start, end, location, description.getText().toString(), 10, );
-
+        petIdsSelected.clear();
+        mPetsSelected.clear();
+        for (int i = 0; i < mPets.size(); i++) {
+            if (mPets.get(i).isSelected()) {
+                petIdsSelected.add(petsIds.get(i));
+                mPetsSelected.add(mPets.get(i));
+            }
+        }
+        if (!TextUtils.isEmpty(payString.getText().toString()) && !TextUtils.isEmpty(description.getText().toString()) && !TextUtils.isEmpty(startDate.getText().toString()) && !TextUtils.isEmpty(endDate.getText().toString()) && !TextUtils.isEmpty(startTime.getText().toString()) && !TextUtils.isEmpty(endTime.getText().toString())) {
+            if (petIdsSelected.size() > 0) {
+                if (Integer.parseInt(payString.getText().toString()) > 0) {
+                    if (locationSet) {
+                        int payment = Integer.parseInt(payString.getText().toString());
+                        Posting posting = new Posting(currentUser.getDisplayName(), currentUser.getUid(), start, end, location, description.getText().toString(), payment, petIdsSelected, false, false, mPetsSelected.get(0).getPhoto_reference());
+                        db.collection("postings").add(posting);
+                        Toast.makeText(this, getString(R.string.successfully_created), Toast.LENGTH_SHORT).show();
+                        finish();
+                    } else
+                        Toast.makeText(this, getString(R.string.invalid_location), Toast.LENGTH_SHORT).show();
+                } else
+                    Toast.makeText(this, getString(R.string.invalid_fields), Toast.LENGTH_SHORT).show();
+            } else Toast.makeText(this, getString(R.string.invalid_pet), Toast.LENGTH_SHORT).show();
+        } else Toast.makeText(this, getString(R.string.invalid_fields), Toast.LENGTH_SHORT).show();
     }
 
-    private void setPets(List<Pet> pets) {
-        Log.v("faggotry setting pets", Integer.toString(pets.size()));
+    private void setPets(List<Pet> pets, ArrayList<String> ids) {
         this.mPets = pets;
-        Log.v("faggotry testfaggotcunt", Integer.toString(this.mPets.size()));
+        this.petsIds = ids;
     }
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if ((keyCode == KeyEvent.KEYCODE_BACK)) {
+            finish();
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1 && resultCode == Activity.RESULT_OK && data != null) {
+            Bundle extras = data.getExtras();
+            mLatitude = extras.getDouble("Lat");
+            mLongitude = extras.getDouble("Long");
+            locationSet = extras.getBoolean("set");
+            mapFragment.getMapAsync(this);        }
+    }
 }

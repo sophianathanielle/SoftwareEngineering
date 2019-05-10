@@ -1,11 +1,13 @@
 package group9.softwareengineering;
 
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 
@@ -22,6 +24,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private LatLng mLocation = new LatLng(51.24, -0.59);
     private boolean flag;
     private Button locationOn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,11 +44,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         googleMap.addMarker(new MarkerOptions().position(mLocation));
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(mLocation, 15));
 
-        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener()
-        {
+        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
-            public void onMapClick(LatLng point)
-            {
+            public void onMapClick(LatLng point) {
                 android.util.Log.v("onMapClick", "Lat: " + point.latitude + ", Lon: " + point.longitude);
                 mMap.clear();
                 mMap.addMarker(new MarkerOptions().position(point));
@@ -63,20 +64,23 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             Intent intent = new Intent(this, LocationService.class);
             startService(intent);
             flag = true;
-            locationOn.setText("Location Fetching Off");
+            locationOn.setText(getString(R.string.offLocation));
         } else {
             Intent intent = new Intent(this, LocationService.class);
             stopService(intent);
             flag = false;
-            locationOn.setText("Location Fetching On");
+            locationOn.setText(getString(R.string.onLocation));
+
         }
     }
 
     public void saveLocation(View view) {
-            Intent intent = new Intent(this, PostingJobActivity.class);
-            intent.putExtra("Lat", mLocation.latitude);
-            intent.putExtra("Long", mLocation.longitude);
-            startActivity(intent);
+        Intent intent = new Intent();
+        intent.putExtra("Lat", mLocation.latitude);
+        intent.putExtra("Long", mLocation.longitude);
+        intent.putExtra("set", true);
+        setResult(Activity.RESULT_OK , intent);
+        finish();
     }
 
     public class LocationReceiver extends BroadcastReceiver {
@@ -96,5 +100,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 mMap.addMarker(new MarkerOptions().position(mLocation));
             }
         }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if ((keyCode == KeyEvent.KEYCODE_BACK)) {
+            finish();
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

@@ -83,5 +83,4 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ExampleViewHol
         void onItemClick(int position);
     }
 
-
 }
