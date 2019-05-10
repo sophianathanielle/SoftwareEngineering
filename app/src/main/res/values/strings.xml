@@ -13,7 +13,7 @@
     <string name="title_activity_posted_job">PostedJobActivity</string>
     <string name="title_activity_notification">NotificationActivity</string>
     <string name="title_activity_edit_user_profile">EditUserProfileActivity</string>
-    <string name="string_find">Find Jobs</string>
+    <string name="string_find">Find Jobs based on their Description</string>
     <string name="string_posted">Posted by: </string>
     <string name="string_pay">Payment: £</string>
     <string name="string_description">Description</string>
