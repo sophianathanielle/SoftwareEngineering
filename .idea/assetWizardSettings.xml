@@ -47,6 +47,18 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="000000" />
+                                                <entry key="paddingPercent" value="-5" />
+                                              </map>
+                                            </option>
+                                          </PersistentState>
+                                        </value>
+                                      </entry>
+                                      <entry key="text">
+                                        <value>
+                                          <PersistentState>
+                                            <option name="values">
+                                              <map>
+                                                <entry key="color" value="000000" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -56,7 +68,9 @@
                                   </option>
                                   <option name="values">
                                     <map>
-                                      <entry key="outputName" value="profile_icon" />
+                                      <entry key="assetType" value="IMAGE" />
+                                      <entry key="imageAsset" value="C:\Users\marne\Desktop\petlink.png" />
+                                      <entry key="outputName" value="logo" />
                                       <entry key="theme" value="CUSTOM" />
                                       <entry key="themeColor" value="ffffff" />
                                     </map>
