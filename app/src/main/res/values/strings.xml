@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SoftwareEngineering</string>
+    <string name="app_name">PetLink</string>
     <string name="title_activity_home">HomeActivity</string>
     <string name="starred_jobs">Starred Jobs</string>
     <string name="posted_jobs">My Postings</string>

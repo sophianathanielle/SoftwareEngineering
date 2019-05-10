@@ -78,6 +78,8 @@ public class MyPostingsActivity extends AppCompatActivity {
                     public void onItemClick(View view, int position) {
                         // TODO: go to mypostedjob activity
                         Intent intent = new Intent(view.getContext(), MyPostedJob.class);
+                        intent.putExtra("ids",response.getSnapshots().getSnapshot(position).getId());
+                        intent.putStringArrayListExtra("usersPetIds" , posting.getPetIDs());
                         startActivity(intent);
                         //Toast.makeText(MyPostingsActivity.this, "This should go to the activity!", Toast.LENGTH_SHORT).show();
                     }
