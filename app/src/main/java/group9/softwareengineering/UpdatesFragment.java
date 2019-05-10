@@ -69,7 +69,7 @@ public class UpdatesFragment extends Fragment implements UpdatesAdapter.onClickL
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                if(document.get("location_updates") != null || document.get("photo_updates") != null) {
+                                if(document.get("location_updates").equals(true) || document.get("photo_updates").equals(true) || !document.get("sitter_found").equals("")) {
                                     Posting posting = document.toObject(Posting.class);
                                     postings.add(posting);
                                 }

@@ -61,8 +61,9 @@ public class MyPostedJob extends AppCompatActivity {
         buttonSittersInterested.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MyPostedJob.this, SittersInterestedFragment.class);
-                startActivity(intent);
+                posting.setCompleted(true);
+                ///////////
+                /////HERE////
             }
         });
 

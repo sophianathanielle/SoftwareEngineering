@@ -64,7 +64,7 @@ public class MyPostingsActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
 
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        query = db.collection("postings").whereEqualTo("poster_id", currentUser.getUid());
+        query = db.collection("postings").whereEqualTo("poster_id", currentUser.getUid()).whereEqualTo("completed" , false);
 
         final FirestoreRecyclerOptions<Posting> response = new FirestoreRecyclerOptions.Builder<Posting>()
                 .setQuery(query, Posting.class)
@@ -121,14 +121,7 @@ public class MyPostingsActivity extends AppCompatActivity {
 
         recyclerView.setAdapter(adapter);
 
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MyPostingsActivity.this, NewJobActivity.class);
-                startActivity(intent);
-            }
-        });
+
     }
 
     @Override

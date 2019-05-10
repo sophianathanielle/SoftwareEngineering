@@ -71,7 +71,7 @@ public class RequestsFragment extends Fragment {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                if(document.get("sitter_found") != null) {
+                                if(document.get("sitter_found") != null && !document.get("sitter_found").equals("")) {
                                     Posting posting = document.toObject(Posting.class);
                                     postings.put(document.getId(), posting);
                                 }

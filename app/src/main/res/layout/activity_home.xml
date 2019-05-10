@@ -36,40 +36,41 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
-            android:background="@color/colorPrimary"
-            app:backgroundTint="@color/colorPrimary"
             app:fab_size="mini"
-            app:fab_title="@string/starred_jobs" />
+            app:fab_colorNormal="@color/colorPrimary"
+            app:fab_title="@string/starred_jobs"
+            app:fab_icon="@drawable/star_fill"/>
 
         <com.getbase.floatingactionbutton.FloatingActionButton
             android:id="@+id/posted"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
-            android:background="@color/colorPrimary"
-            app:backgroundTint="@color/colorPrimary"
+            app:fab_colorNormal="@color/colorPrimary"
             app:fab_size="mini"
-            app:fab_title="@string/posted_jobs" />
+            app:fab_title="@string/posted_jobs"
+            app:fab_icon="@drawable/my_postings_icon" />
 
         <com.getbase.floatingactionbutton.FloatingActionButton
             android:id="@+id/newJobs"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
-            android:background="@color/colorPrimary"
-            app:backgroundTint="@color/colorPrimary"
+            app:fab_colorNormal="@color/colorPrimary"
             app:fab_size="mini"
-            app:fab_title="@string/new_job" />
+            app:fab_title="@string/new_job"
+            app:fab_icon="@drawable/new_job_icon"
+            />
 
         <com.getbase.floatingactionbutton.FloatingActionButton
             android:id="@+id/upcoming"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
-            android:background="@color/colorPrimary"
-            app:backgroundTint="@color/colorPrimary"
+            app:fab_colorNormal="@color/colorPrimary"
             app:fab_size="mini"
-            app:fab_title="@string/upcoming_jobs" />
+            app:fab_title="@string/upcoming_jobs"
+            app:fab_icon="@drawable/current_job_icon"/>
     </com.getbase.floatingactionbutton.FloatingActionsMenu>
 
 </android.support.design.widget.CoordinatorLayout>
