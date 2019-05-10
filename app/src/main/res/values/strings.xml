@@ -94,5 +94,10 @@
     <string name="clickToUpdatePhoto">These posts require Photo update. Please click on them to update.</string>
     <string name="capture">Capture</string>
     <string name="send_updates">Send Updates</string>
+    <string name="invalid_pet">Please selected at least 1 Pet</string>
+    <string name="successfully_created">Posting successfully created</string>
+    <string name="onLocation">Turn On Location Fetching</string>
+    <string name="offLocation">Turn Off Location Fetching</string>
+    <string name="invalid_location">Please click on the Map to enter your location</string>
 
 </resources>

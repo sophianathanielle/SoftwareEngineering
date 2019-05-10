@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -91,7 +92,7 @@ public class MyPostingsActivity extends AppCompatActivity {
 
                         builder.setPositiveButton(getString(R.string.dialog_yes), new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                FirebaseFuncs.getInstance().deletePosting(response.getSnapshots().getSnapshot(position).getId());
+                                db.collection("postings").document(response.getSnapshots().getSnapshot(position).getId()).delete();
                                 dialog.dismiss();
                             }
                         });
@@ -118,74 +119,6 @@ public class MyPostingsActivity extends AppCompatActivity {
 
         recyclerView.setAdapter(adapter);
 
-        /**
-         * test code
-
-        Posting posting = new Posting("7Xx3slfuH6Tx7N0DMvbHnHlMry32", new Date(), new Date(), "TEST");
-        FirebaseFuncs.getInstance().createPosting(posting);
-
-        FirebaseAuth.getInstance().signInWithEmailAndPassword("sm01562@surrey.ac.uk", "password").addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                currentUser = FirebaseAuth.getInstance().getCurrentUser();
-                query = db.collection("postings").whereEqualTo("poster_id", currentUser.getUid());
-
-                final FirestoreRecyclerOptions<Posting> response = new FirestoreRecyclerOptions.Builder<Posting>()
-                        .setQuery(query, Posting.class)
-                        .build();
-
-                adapter = new FirestoreRecyclerAdapter<Posting, PostingHolder>(response) {
-                    @Override
-                    public void onBindViewHolder(PostingHolder holder, int position, final Posting posting) {
-                        holder.setData(posting, getApplicationContext());
-                        holder.setOnClickListener(new PostingHolder.ClickListener() {
-                            @Override
-                            public void onItemClick(View view, int position) {
-                                // TODO: go to mypostedjob activity
-                                Toast.makeText(MyPostingsActivity.this, "We should go to the activity!", Toast.LENGTH_SHORT).show();
-                            }
-
-                            @Override
-                            public void onItemLongClick(View view, final int position) {
-                                AlertDialog.Builder builder = new AlertDialog.Builder(MyPostingsActivity.this);
-
-                                builder.setTitle("Confirm");
-                                builder.setMessage("Are you sure?");
-
-                                builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        FirebaseFuncs.getInstance().deletePosting(response.getSnapshots().getSnapshot(position).getId());
-                                        dialog.dismiss();
-                                    }
-                                });
-
-                                builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        dialog.dismiss();
-                                    }
-                                });
-
-                                builder.create().show();
-                            }
-                        });
-                    }
-
-                    @Override
-                    public PostingHolder onCreateViewHolder(ViewGroup group, int i) {
-                        View view = LayoutInflater.from(group.getContext()).inflate(R.layout.recycler_view_item_my_postings, group, false);
-
-                        return new PostingHolder(view);
-                    }
-                };
-
-                recyclerView.setAdapter(adapter);
-                adapter.startListening();
-            }
-        });
-
-         */
-
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -209,6 +142,16 @@ public class MyPostingsActivity extends AppCompatActivity {
         if (adapter != null) {
             adapter.stopListening();
         }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event)
+    {
+        if ((keyCode == KeyEvent.KEYCODE_BACK))
+        {
+            finish();
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }
 
@@ -262,4 +205,6 @@ class PostingHolder extends RecyclerView.ViewHolder {
     public void setOnClickListener(PostingHolder.ClickListener clickListener){
         mClickListener = clickListener;
     }
+
+
 }

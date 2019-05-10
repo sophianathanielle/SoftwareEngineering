@@ -10,6 +10,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -110,77 +111,17 @@ public class JobsInterestedInActivity extends AppCompatActivity implements HomeA
         ids.clear();
         fetchesFromDatabase();
     }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event)
+    {
+        if ((keyCode == KeyEvent.KEYCODE_BACK))
+        {
+            finish();
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 }
-//        recyclerView = (RecyclerView) findViewById(R.id.jobs_interested_in_recycler_view);
-//
-//        layoutManager = new LinearLayoutManager(this);
-//        recyclerView.setLayoutManager(layoutManager);
-//
-//        currentUser = FirebaseAuth.getInstance().getCurrentUser();
-//        query = db.collection("postings").whereEqualTo("sitters_interested",currentUser.getUid());
-//
-//        final FirestoreRecyclerOptions<Posting> response = new FirestoreRecyclerOptions.Builder<Posting>()
-//                .setQuery(query, Posting.class)
-//                .build();
-//
-//        adapter = new FirestoreRecyclerAdapter<Posting, PostingHolder>(response) {
-//            @Override
-//            protected void onBindViewHolder(PostingHolder holder, int position, final Posting posting) {
-//                holder.setData(posting, getApplicationContext());
-//                holder.setOnClickListener(new PostingHolder.ClickListener() {
-//                    @Override
-//                    public void onItemClick(View view, int position) {
-//                        //TODO: go to Job info activity
-//                    }
-//
-//                    @Override
-//                    public void onItemLongClick(View view, final int position) {
-//                        AlertDialog.Builder builder = new AlertDialog.Builder(JobsInterestedInActivity.this);
-//
-//                        builder.setTitle(getString(R.string.delete_posting_dialog_title));
-//                        builder.setMessage(getString(R.string.delete_posting_dialog_message));
-//
-//                        builder.setPositiveButton(getString(R.string.dialog_yes), new DialogInterface.OnClickListener() {
-//                            @Override
-//                            public void onClick(DialogInterface dialogInterface, int i) {
-//                                selected.deleteFromDatabase();
-//                                dialogInterface.dismiss();
-//                            }
-//                        });
-//                        builder.setNegativeButton(getString(R.string.dialog_no), new DialogInterface.OnClickListener() {
-//                            @Override
-//                            public void onClick(DialogInterface dialogInterface, int i) {
-//                                dialogInterface.dismiss();
-//                            }
-//                        });
-//                        builder.create().show();
-//                    }
-//                });
-//
-//            }
-//
-//            @NonNull
-//            @Override
-//            public PostingHolder onCreateViewHolder(ViewGroup group, int i) {
-//                View view = LayoutInflater.from(group.getContext()).inflate(R.layout.recycler_view_item_my_postings, group, false);
-//
-//                return new PostingHolder(view);
-//            }
-//        };
-//            recyclerView.setAdapter(adapter);
-
-
-//    @Override
-//    protected void onStart() {
-//        super.onStart();
-//        adapter.startListening();
-//    }
-//
-//    @Override
-//    protected void onStop() {
-//        super.onStop();
-//        adapter.stopListening();
-//    }
 
 
 

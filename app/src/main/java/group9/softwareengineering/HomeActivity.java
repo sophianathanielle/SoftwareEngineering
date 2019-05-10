@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.SearchView;
 
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -35,7 +37,9 @@ public class HomeActivity extends AppCompatActivity implements HomeAdapter.onCli
     private ArrayList<String> ids = new ArrayList<>();
     private ArrayList<Posting> usersPostings = new ArrayList<>();
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private Button find;
+    private SwipeRefreshLayout swipeRefreshLayout;
+
+    private SearchView findSearch;
     private String pay;
     private String posted;
     private FirebaseUser currentUser;
@@ -57,13 +61,9 @@ public class HomeActivity extends AppCompatActivity implements HomeAdapter.onCli
         postedFab = (com.getbase.floatingactionbutton.FloatingActionButton) findViewById(R.id.newJobs);
         upcomingFab = (com.getbase.floatingactionbutton.FloatingActionButton) findViewById(R.id.upcoming);
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        find = (Button) findViewById(R.id.find);
-        find.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                fetchesFromDatabase();
-            }
-        });
+        swipeRefreshLayout = findViewById(R.id.swipeLayout);
+        setSwipeRefresh();
+        findSearch = findViewById(R.id.find);
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
@@ -98,6 +98,17 @@ public class HomeActivity extends AppCompatActivity implements HomeAdapter.onCli
 
     }
 
+    private void setSwipeRefresh() {
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                fetchesFromDatabase();
+            }
+        });
+    }
+
+
+
     private void fetchesFromDatabase() {
         db.collection("postings")
                 .get()
@@ -126,6 +137,7 @@ public class HomeActivity extends AppCompatActivity implements HomeAdapter.onCli
                             adapter = new HomeAdapter(postings, pay, posted, getApplicationContext(), HomeActivity.this);
                             recyclerView.setLayoutManager(layoutManager);
                             recyclerView.setAdapter(adapter);
+                            swipeRefreshLayout.setRefreshing(false);
                             for (Posting posting : usersPostings) {
                                 if (posting.getLocation_request() || posting.getPhoto_request() || posting.getSitters_interested().size() > 0) {
                                     notificationIcon.setIcon(R.drawable.notification_bell_active_con);

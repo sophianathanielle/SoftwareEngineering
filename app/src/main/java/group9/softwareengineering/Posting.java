@@ -13,7 +13,6 @@ import java.util.List;
 
 public class Posting implements Parcelable {
 
-    private String id;
     private String poster;
     private String poster_id;
     private Date start_time;
@@ -38,7 +37,6 @@ public class Posting implements Parcelable {
     }
 
     protected Posting(Parcel in) {
-        id = in.readString();
         poster = in.readString();
         poster_id = in.readString();
         description = in.readString();
@@ -84,19 +82,7 @@ public class Posting implements Parcelable {
         this.location_request = location_request;
     }
 
-    public Posting(String poster_id, Date start_time, Date end_time, String description) {
-        this.poster_id = poster_id;
-        this.start_time = start_time;
-        this.end_time = end_time;
-        this.description = description;
-        this.photo_request = false;
-        this.location_request = false;
-        // maybe create these values in Cloud Func on doc creation
-        this.completed = false;
-        this.sitter_found = null;
-    }
-
-    public Posting(String poster, String poster_id, Date start_time, Date end_time, GeoPoint location, String description, int payment, ArrayList<String> petIDs, boolean location_request , boolean photo_request) {
+    public Posting(String poster, String poster_id, Date start_time, Date end_time, GeoPoint location, String description, int payment, ArrayList<String> petIDs, boolean location_request , boolean photo_request, String photoURL) {
         this.poster = poster;
         this.poster_id = poster_id;
         this.start_time = start_time;
@@ -109,12 +95,13 @@ public class Posting implements Parcelable {
         this.photo_request = photo_request;
         // maybe create these values in Cloud Func on doc creation
         this.completed = false;
-        this.sitter_found = null;
+        this.sitter_found = "";
+        this.sitters_interested = new ArrayList<>();
+        this.location_updates = new ArrayList<>();
+        this.photo_updates = new ArrayList<>();
+        this.photoURL = photoURL;
     }
 
-    public String getID() {
-        return id;
-    }
 
     public String getPoster() {
         return poster;
@@ -207,7 +194,6 @@ public class Posting implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeString(id);
         parcel.writeString(poster);
         parcel.writeString(poster_id);
         parcel.writeString(description);

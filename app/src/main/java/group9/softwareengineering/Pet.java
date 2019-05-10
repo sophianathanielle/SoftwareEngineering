@@ -10,6 +10,7 @@ public class Pet {
     private String breed;
     private String photo_reference;
     private String owner_id;
+    private boolean isSelected;
 
 
     public Pet() {
@@ -24,6 +25,7 @@ public class Pet {
         this.breed = breed;
         this.photo_reference = photo_reference;
         this.owner_id = owner_id;
+        this.isSelected = false;
     }
     public String getName() {
         return name;
@@ -79,5 +81,13 @@ public class Pet {
 
     public void setOwner_id(String owner_id) {
         this.owner_id = owner_id;
+    }
+
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(boolean selected) {
+        isSelected = selected;
     }
 }
