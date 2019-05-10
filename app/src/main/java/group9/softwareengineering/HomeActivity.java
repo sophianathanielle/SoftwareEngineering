@@ -31,7 +31,7 @@ import java.util.ArrayList;
 public class HomeActivity extends AppCompatActivity implements HomeAdapter.onClickListener {
     private com.getbase.floatingactionbutton.FloatingActionButton starredFab, postedFab, myJobsFab, upcomingFab;
     private RecyclerView recyclerView;
-    private RecyclerView.Adapter adapter;
+    private HomeAdapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     private ArrayList<Posting> postings = new ArrayList<>();
     private ArrayList<String> ids = new ArrayList<>();
@@ -95,7 +95,18 @@ public class HomeActivity extends AppCompatActivity implements HomeAdapter.onCli
                 startActivity(intent);
             }
         });
+        findSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                return false;
+            }
 
+            @Override
+            public boolean onQueryTextChange(String s) {
+                adapter.getFilter().filter(s);
+                return false;
+            }
+        });
     }
 
     private void setSwipeRefresh() {

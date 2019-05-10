@@ -7,16 +7,20 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 
-public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ExampleViewHolder> {
+public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ExampleViewHolder> implements Filterable {
     private ArrayList<Posting> postings;
+    private ArrayList<Posting> postingsFilters;
     private onClickListener onClickListener;
     private String pay , posted;
     private Context context;
@@ -28,6 +32,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ExampleViewHol
         this.posted = posted;
         this.context = context;
         this.onClickListener = onClickListener;
+        postingsFilters = new ArrayList<>(postings);
     }
 
 
@@ -54,6 +59,36 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ExampleViewHol
         return postings.size();
     }
 
+    @Override
+    public Filter getFilter() {
+         Filter filter = new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+                ArrayList<Posting> filteredPostings = new ArrayList<>();
+                if(charSequence == null || charSequence.length() == 0){
+                    filteredPostings.addAll(postingsFilters);
+                } else {
+                    String filterString = charSequence.toString().toLowerCase().trim();
+                    for(Posting posting : postingsFilters){
+                        if(posting.getDescription().toLowerCase().contains(filterString)){
+                            filteredPostings.add(posting);
+                        }
+                    }
+                }
+                FilterResults results = new FilterResults();
+                results.values = filteredPostings;
+                return results;
+            }
+
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                postings.clear();
+                postings.addAll((ArrayList)filterResults.values);
+                notifyDataSetChanged();
+            }
+        };
+        return filter;
+    }
 
 
     public static class ExampleViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
