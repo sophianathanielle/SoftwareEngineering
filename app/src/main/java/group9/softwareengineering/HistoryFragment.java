@@ -20,6 +20,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -32,6 +33,7 @@ public class HistoryFragment extends Fragment implements HistoryAdapter.onClickL
     private FirebaseUser currentUser;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private ArrayList<Posting> postings = new ArrayList<>();
+    private ArrayList<String> ids = new ArrayList<>();
     private HistoryAdapter adapter;
     private RecyclerView recyclerView;
 
@@ -50,7 +52,9 @@ public class HistoryFragment extends Fragment implements HistoryAdapter.onClickL
         postings.clear();
         loadPostings(new FirestoreCallback() {
             @Override
-            public void onCallback(ArrayList<Posting> tempPostings) {
+            public void onCallback(ArrayList<Posting> tempPostings , ArrayList<String> tempIds) {
+                postings = tempPostings;
+                ids = tempIds;
                 setupRecycler();
             }
         });
@@ -59,6 +63,8 @@ public class HistoryFragment extends Fragment implements HistoryAdapter.onClickL
     }
 
     private void loadPostings(final FirestoreCallback firestoreCallback) {
+        postings.clear();
+        ids.clear();
         db.collection("postings").whereEqualTo("poster_id", currentUser.getUid()).whereEqualTo("completed" , true)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -68,8 +74,9 @@ public class HistoryFragment extends Fragment implements HistoryAdapter.onClickL
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Posting posting = document.toObject(Posting.class);
                                 postings.add(posting);
+                                ids.add(document.getId());
                             }
-                            firestoreCallback.onCallback(postings);
+                            firestoreCallback.onCallback(postings , ids);
 
                         }
                     }
@@ -85,7 +92,7 @@ public class HistoryFragment extends Fragment implements HistoryAdapter.onClickL
 
 
     private interface FirestoreCallback {
-        void onCallback(ArrayList<Posting> tempPostings );
+        void onCallback(ArrayList<Posting> tempPostings, ArrayList<String> tempIds);
     }
 
     @Override
@@ -99,18 +106,68 @@ public class HistoryFragment extends Fragment implements HistoryAdapter.onClickL
 
                         switch (which) {
                             case 0:
+                                db.collection("profile").document(postings.get(position).getSitter_found()).update("ratingsOf1", FieldValue.increment(1));
+                                db.collection("postings").document(ids.get(position)).delete();
+                                loadPostings(new FirestoreCallback() {
+                                    @Override
+                                    public void onCallback(ArrayList<Posting> tempPostings, ArrayList<String> tempIds) {
+                                        postings = tempPostings;
+                                        ids = tempIds;
+                                        setupRecycler();
+                                    }
+                                });
                                 Toast.makeText(getContext(),getString(R.string.thanks),Toast.LENGTH_SHORT).show();
                                 break;
                             case 1:
+                                db.collection("profile").document(postings.get(position).getSitter_found()).update("ratingsOf2", FieldValue.increment(1));
+                                db.collection("postings").document(ids.get(position)).delete();
+                                loadPostings(new FirestoreCallback() {
+                                    @Override
+                                    public void onCallback(ArrayList<Posting> tempPostings, ArrayList<String> tempIds) {
+                                        postings = tempPostings;
+                                        ids = tempIds;
+                                        setupRecycler();
+                                    }
+                                });
                                 Toast.makeText(getContext(),getString(R.string.thanks),Toast.LENGTH_SHORT).show();
                                 break;
                             case 2:
+                                db.collection("profile").document(postings.get(position).getSitter_found()).update("ratingsOf3", FieldValue.increment(1));
+                                db.collection("postings").document(ids.get(position)).delete();
+                                loadPostings(new FirestoreCallback() {
+                                    @Override
+                                    public void onCallback(ArrayList<Posting> tempPostings, ArrayList<String> tempIds) {
+                                        postings = tempPostings;
+                                        ids = tempIds;
+                                        setupRecycler();
+                                    }
+                                });
                                 Toast.makeText(getContext(),getString(R.string.thanks),Toast.LENGTH_SHORT).show();
                                 break;
                             case 3:
+                                db.collection("profile").document(postings.get(position).getSitter_found()).update("ratingsOf4", FieldValue.increment(1));
+                                db.collection("postings").document(ids.get(position)).delete();
+                                loadPostings(new FirestoreCallback() {
+                                    @Override
+                                    public void onCallback(ArrayList<Posting> tempPostings, ArrayList<String> tempIds) {
+                                        postings = tempPostings;
+                                        ids = tempIds;
+                                        setupRecycler();
+                                    }
+                                });
                                 Toast.makeText(getContext(),getString(R.string.thanks),Toast.LENGTH_SHORT).show();
                                 break;
                             case 4:
+                                db.collection("profile").document(postings.get(position).getSitter_found()).update("ratingsOf5", FieldValue.increment(1));
+                                db.collection("postings").document(ids.get(position)).delete();
+                                loadPostings(new FirestoreCallback() {
+                                    @Override
+                                    public void onCallback(ArrayList<Posting> tempPostings, ArrayList<String> tempIds) {
+                                        postings = tempPostings;
+                                        ids = tempIds;
+                                        setupRecycler();
+                                    }
+                                });
                                 Toast.makeText(getContext(),getString(R.string.thanks),Toast.LENGTH_SHORT).show();
                                 break;
                         }

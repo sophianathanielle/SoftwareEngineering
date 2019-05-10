@@ -131,13 +131,12 @@ public class HomeActivity extends AppCompatActivity implements HomeAdapter.onCli
                             ArrayList<Posting> tempUsersPostings = new ArrayList<>();
                             ArrayList<String> tempIds = new ArrayList<>();
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                //Log.d("das", document.getId() + " => " + document.getData());
-                                if (!document.get("poster_id").equals(currentUser.getUid())) {
+                                if (!document.get("poster_id").equals(currentUser.getUid()) && document.get("sitter_found").equals("")) {
                                     Posting posting = document.toObject(Posting.class);
                                     tempPostings.add(posting);
                                     tempIds.add(document.getId());
                                     Log.i("postings", Integer.toString(postings.size()));
-                                } else {
+                                } else if(document.get("poster_id").equals(currentUser)){
                                     Posting posting = document.toObject(Posting.class);
                                     tempUsersPostings.add(posting);
                                 }

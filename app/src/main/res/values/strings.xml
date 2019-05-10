@@ -99,5 +99,6 @@
     <string name="onLocation">Turn On Location Fetching</string>
     <string name="offLocation">Turn Off Location Fetching</string>
     <string name="invalid_location">Please click on the Map to enter your location</string>
+    <string name="payment_perhour">Payment per Hour</string>
 
 </resources>
