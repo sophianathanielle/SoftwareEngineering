@@ -26,7 +26,6 @@ public class MyPostedJob extends AppCompatActivity {
 
     private TextView jobDescription, jobLocation, jobStartTime, jobEndTime, jobPrice;
     private Button buttonSittersInterested;
-    private String usersID;
     private String documentId;
     private Posting posting;
     private ArrayList<String> petsID = new ArrayList<>();
@@ -53,7 +52,6 @@ public class MyPostedJob extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        this.usersID = getIntent().getStringExtra("usersID");
         this.petsID = getIntent().getStringArrayListExtra("usersPetIds");
         this.documentId = getIntent().getStringExtra("ids");
         fetchFromDatabasePosting();
@@ -99,7 +97,7 @@ public class MyPostedJob extends AppCompatActivity {
                     jobEndTime.append(posting.getEnd_time().toString());
                     jobDescription.setText(posting.getDescription());
                     jobLocation.append(posting.getLocation().toString());
-                    //jobPrice.append(posting.getPrice().toString());
+                    jobPrice.append(String.valueOf(posting.getPayment()));
                 }
             }
         });

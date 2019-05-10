@@ -48,7 +48,7 @@ public class EditMyPostedJob extends AppCompatActivity implements DatePickerDial
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        posting = (Posting)getIntent().getSerializableExtra("posting");
+        posting = getIntent().getParcelableExtra("posting");
 
         jobDescription = findViewById(R.id.jobDescription);
         jobLocation = findViewById(R.id.jobLocation);
@@ -59,7 +59,7 @@ public class EditMyPostedJob extends AppCompatActivity implements DatePickerDial
         TextView endTime = (TextView) findViewById(R.id.endTime);
         this.documentId = getIntent().getStringExtra("ids");
         jobDescription.setText(posting.getDescription());
-        jobPrice.setText(posting.getPayment());
+        jobPrice.setText(String.valueOf(posting.getPayment()));
         jobLocation.setText(posting.getLocation().toString());
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {

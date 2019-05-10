@@ -1,10 +1,8 @@
 package group9.softwareengineering;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,7 +12,6 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -22,24 +19,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-
 import java.util.ArrayList;
 
 public class JobsInterestedInActivity extends AppCompatActivity implements HomeAdapter.onClickListener {
-
-//    private RecyclerView recyclerView;
-//    private RecyclerView.Adapter mAdapter;
-//    private RecyclerView.LayoutManager layoutManager;
-//
-//    private FirebaseFirestore db = FirebaseFirestore.getInstance();
-//    private FirebaseUser currentUser;
-//    private FirestoreRecyclerAdapter adapter;
-//    private Query query;
-//
-//    private SelectedJobActivity selected
 
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
@@ -60,13 +44,11 @@ public class JobsInterestedInActivity extends AppCompatActivity implements HomeA
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
         pay = getString(R.string.string_pay);
         posted = getString(R.string.string_posted);
-
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
         fetchesFromDatabase();
     }
-
 
     private void fetchesFromDatabase() {
         db.collection("postings")
@@ -121,7 +103,5 @@ public class JobsInterestedInActivity extends AppCompatActivity implements HomeA
         }
         return super.onKeyDown(keyCode, event);
     }
+
 }
-
-
-
