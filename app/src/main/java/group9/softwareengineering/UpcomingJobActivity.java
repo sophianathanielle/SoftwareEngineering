@@ -102,6 +102,10 @@ public class UpcomingJobActivity extends AppCompatActivity implements HomeAdapte
     public void onItemClick(int position) {
         Intent intent = new Intent(this, AgreedJobInfoActivity.class);
         intent.putExtra("posting" , postings.get(position));
+        intent.putExtra("longitude",postings.get(position).getLocation().getLongitude());
+        intent.putExtra("latitude",postings.get(position).getLocation().getLatitude());
+        intent.putExtra("start_time",postings.get(position).getStart_time().toString());
+        intent.putExtra("end_time",postings.get(position).getEnd_time().toString());
         startActivity(intent);
     }
 

@@ -9,6 +9,7 @@
 
     <TextView
         android:id="@+id/jobDescription"
+        android:text="Description: "
         android:layout_width="200dp"
         android:layout_height="120dp"
         android:layout_marginStart="16dp"
@@ -30,7 +31,7 @@
         android:id="@+id/jobStartTime"
         android:layout_width="158dp"
         android:layout_height="50dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="28dp"
         android:layout_marginEnd="16dp"
         android:text="@string/startingTime"
         app:layout_constraintEnd_toEndOf="parent"
@@ -40,7 +41,7 @@
         android:id="@+id/jobEndTime"
         android:layout_width="158dp"
         android:layout_height="50dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
         android:text="@string/endTime"
         app:layout_constraintEnd_toEndOf="parent"
@@ -51,64 +52,165 @@
         android:layout_width="158dp"
         android:layout_height="50dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/my_posted_job_price"
+        android:layout_marginTop="32dp"
+        android:text="Price: "
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/jobDescription" />
 
-    <ImageView
-        android:id="@+id/imageOwner"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:contentDescription="@string/image_owner"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="230dp"
-        tools:srcCompat="@tools:sample/avatars" />
-
     <TextView
         android:id="@+id/petOwner"
-        android:layout_width="220dp"
-        android:layout_height="50dp"
+        android:layout_width="81dp"
+        android:layout_height="22dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/agreed_owner"
-        app:layout_constraintStart_toEndOf="@+id/imageOwner"
-        app:layout_constraintTop_toBottomOf="@+id/jobPrice" />
-
-    <ImageView
-        android:id="@+id/imageSitter"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="24dp"
-        android:contentDescription="@string/image_sitter"
-        app:layout_constraintBottom_toTopOf="@+id/myJobPetsRecyclerView"
+        android:layout_marginTop="32dp"
+        android:text="Pet Owner: "
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageOwner"
-        tools:srcCompat="@tools:sample/avatars" />
+        app:layout_constraintTop_toBottomOf="@+id/jobPrice" />
 
     <TextView
         android:id="@+id/petSitter"
-        android:layout_width="220dp"
-        android:layout_height="50dp"
+        android:layout_width="63dp"
+        android:layout_height="25dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/agreed_sitter"
-        app:layout_constraintStart_toEndOf="@+id/imageSitter"
+        android:layout_marginTop="32dp"
+        android:text="Pet Sitter: "
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/petOwner" />
+
+    <TextView
+        android:id="@+id/ownerLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="PetOwner:"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/petOwner"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/jobPrice"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/sitterLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="PetSitter:"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/petSitter"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/petOwner"
+        app:layout_constraintVertical_bias="0.0" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/myJobPetsRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="48dp"
         android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/petSitter" />
+
+    <TextView
+        android:id="@+id/descLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="Description:"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/jobDescription"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/locationLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="144dp"
+        android:text="Location:"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/jobLocation"
+        app:layout_constraintStart_toEndOf="@+id/descLabel" />
+
+    <TextView
+        android:id="@+id/startLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="8dp"
+        android:text="Start Time: "
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/jobStartTime"
+        app:layout_constraintStart_toEndOf="@+id/jobDescription"
+        app:layout_constraintTop_toBottomOf="@+id/jobLocation"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/endLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="184dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="EndTime:"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/jobEndTime"
+        app:layout_constraintStart_toEndOf="@+id/priceLabel"
+        app:layout_constraintTop_toBottomOf="@+id/jobStartTime"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/priceLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="Price:"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/jobPrice"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/jobDescription"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/petsLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="Pets"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/myJobPetsRecyclerView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/petSitter"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/ownerPhone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="telephone"
+        app:layout_constraintStart_toEndOf="@+id/petOwner"
+        app:layout_constraintTop_toBottomOf="@+id/jobPrice" />
+
+    <TextView
+        android:id="@+id/sitterPhone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="48dp"
+        android:text="telephone"
+        app:layout_constraintBottom_toTopOf="@+id/myJobPetsRecyclerView"
+        app:layout_constraintStart_toEndOf="@+id/petSitter"
+        app:layout_constraintTop_toBottomOf="@+id/ownerPhone"
+        app:layout_constraintVertical_bias="1.0" />
 
 
 </android.support.constraint.ConstraintLayout>

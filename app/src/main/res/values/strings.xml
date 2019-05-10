@@ -41,7 +41,7 @@
     <string name="job_duration">%1$s - %2$s</string>
     <string name="title_activity_my_posted_job">MyPostedJob</string>
     <string name="my_posted_job_sitters_button">See Sitters Interested</string>
-    <string name="my_posted_job_price">Price</string>
+    <string name="my_posted_job_price">Price: </string>
     <string name="success">You are showing interest for this job</string>
     <string name="successRemoved">You have stopped showing interest in this job</string>
     <string name="delete_posting_dialog_title">Confirm</string>
