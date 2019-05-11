@@ -8,11 +8,13 @@
     android:orientation="vertical" >
 
 
-        <Button
-            android:id="@+id/capture"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/capture"/>
+    <Button
+        android:id="@+id/capture"
+        android:layout_width="154dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button"
+        android:text="@string/capture"
+        android:textColor="@color/button" />
 
 
 
@@ -26,6 +28,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/uploadPhoto"
+        android:textColor="@color/button"
+        android:background="@drawable/button"
         android:clickable="false"
         android:visibility="gone"
         />
