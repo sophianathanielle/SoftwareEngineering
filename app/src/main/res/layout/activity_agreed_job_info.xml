@@ -75,6 +75,7 @@
         android:layout_marginStart="220dp"
         android:layout_marginTop="44dp"
         app:layout_constraintStart_toStartOf="parent"
+        android:onClick="clickLocation"
         app:layout_constraintTop_toTopOf="parent">
 
         <fragment xmlns:android="http://schemas.android.com/apk/res/android"
@@ -88,7 +89,8 @@
             map:layout_constraintStart_toStartOf="parent"
             map:layout_constraintTop_toTopOf="parent"
             map:liteMode="true"
-            map:mapType="normal" />
+            map:mapType="normal"
+            />
 
     </android.support.constraint.ConstraintLayout>
 

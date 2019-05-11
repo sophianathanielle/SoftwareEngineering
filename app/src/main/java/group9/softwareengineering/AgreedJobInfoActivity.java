@@ -1,5 +1,6 @@
 package group9.softwareengineering;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -195,6 +196,17 @@ public class AgreedJobInfoActivity extends AppCompatActivity {
 
     private interface FirestoreCallback3 {
         void onCallback(Profile sitter);
+    }
+
+    public void clickLocation(View view) {
+        Intent intent = new Intent(getApplicationContext(), RequestedLocationsViewActivity.class);
+        ArrayList<String> longitude = new ArrayList<>();
+        ArrayList<String> latitude = new ArrayList<>();
+        longitude.add(String.valueOf(posting.getLocation().getLongitude()));
+        latitude.add(String.valueOf(posting.getLocation().getLatitude()));
+        intent.putExtra("latitudes" , latitude);
+        intent.putExtra("longitudes", longitude);
+        startActivity(intent);
     }
 
     private void setupRecycler(){
