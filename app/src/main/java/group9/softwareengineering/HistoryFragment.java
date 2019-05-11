@@ -72,9 +72,11 @@ public class HistoryFragment extends Fragment implements HistoryAdapter.onClickL
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                Posting posting = document.toObject(Posting.class);
-                                postings.add(posting);
-                                ids.add(document.getId());
+                                if(document.get("sitter_found") != "") {
+                                    Posting posting = document.toObject(Posting.class);
+                                    postings.add(posting);
+                                    ids.add(document.getId());
+                                }
                             }
                             firestoreCallback.onCallback(postings , ids);
 

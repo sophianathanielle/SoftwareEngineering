@@ -45,6 +45,7 @@ public class UpcomingJobActivity extends AppCompatActivity implements HomeAdapte
     private HomeAdapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     private ArrayList<Posting> postings = new ArrayList<>();
+    private ArrayList<String> ids = new ArrayList<>();
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private String pay;
     private String posted;
@@ -66,8 +67,9 @@ public class UpcomingJobActivity extends AppCompatActivity implements HomeAdapte
         recyclerView.setHasFixedSize(true);
         fetchesFromDatabase(new FirestoreCallback() {
             @Override
-            public void onCallback(ArrayList<Posting> tempPostings) {
+            public void onCallback(ArrayList<Posting> tempPostings , ArrayList<String> tempIds) {
                 postings = tempPostings;
+                ids = tempIds;
                 setRecyclerView();
             }
         });
@@ -87,8 +89,9 @@ public class UpcomingJobActivity extends AppCompatActivity implements HomeAdapte
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Posting posting = document.toObject(Posting.class);
                                 postings.add(posting);
+                                ids.add(document.getId());
                             }
-                            firestoreCallback.onCallback(postings);
+                            firestoreCallback.onCallback(postings , ids);
 
                         } else {
                             Log.d("TAG", "Error getting documents: ", task.getException());
@@ -102,15 +105,13 @@ public class UpcomingJobActivity extends AppCompatActivity implements HomeAdapte
     public void onItemClick(int position) {
         Intent intent = new Intent(this, AgreedJobInfoActivity.class);
         intent.putExtra("posting" , postings.get(position));
-        intent.putExtra("longitude",postings.get(position).getLocation().getLongitude());
-        intent.putExtra("latitude",postings.get(position).getLocation().getLatitude());
-        intent.putExtra("start_time",postings.get(position).getStart_time().toString());
-        intent.putExtra("end_time",postings.get(position).getEnd_time().toString());
+        intent.putExtra("id" , ids.get(position));
+        intent.putExtra("flag" , false);
         startActivity(intent);
     }
 
     private interface FirestoreCallback {
-        void onCallback(ArrayList<Posting> tempPostings );
+        void onCallback(ArrayList<Posting> tempPostings , ArrayList<String> tempIds );
     }
 
     public void setRecyclerView(){

@@ -7,9 +7,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -18,15 +20,17 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.GeoPoint;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedHashMap;
 
 public class AgreedJobInfoActivity extends AppCompatActivity {
 
 
-    private TextView jobDescription,descLabel, jobLocation,locationLabel, jobStartTime,startLabel, jobEndTime,endLabel, jobPrice,
-            priceLabel, petOwner,ownerLabel, petSitter,sitterLabel,sitterPhone,ownerPhone,telephoneLabel;
+    private TextView jobDescription, jobLocation, jobStartTime, jobEndTime, jobPrice, petOwner, petSitter, sitterPhone , ownerPhone;
     private Button complete;
     private Posting posting;
     private ArrayList<String> petsID = new ArrayList<>();
@@ -36,6 +40,9 @@ public class AgreedJobInfoActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager layoutManager;
     private FirebaseUser currentUser;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private String id;
+    private Profile sitter;
+    private boolean flag = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,63 +56,136 @@ public class AgreedJobInfoActivity extends AppCompatActivity {
         jobPrice = findViewById(R.id.jobPrice);
         petOwner = findViewById(R.id.petOwner);
         petSitter = findViewById(R.id.petSitter);
-        descLabel =findViewById(R.id.descLabel);
-        locationLabel =findViewById(R.id.locationLabel);
-        startLabel =findViewById(R.id.startLabel);
-        endLabel =findViewById(R.id.endLabel);
-        priceLabel  =findViewById(R.id.priceLabel);
-        ownerLabel =findViewById(R.id.ownerLabel);
-        sitterLabel =findViewById(R.id.sitterLabel);
         sitterPhone  =findViewById(R.id.sitterPhone);
         ownerPhone =findViewById(R.id.ownerPhone);
-        telephoneLabel= findViewById(R.id.telephoneLabel);
         complete=findViewById(R.id.completeJobButton);
-        fetchFromDatabasePets();
 
+        id = getIntent().getStringExtra("id");
+        flag = getIntent().getBooleanExtra("flag" , true);
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        this.posting = getIntent().getParcelableExtra("posting");
-        double longitude = getIntent().getDoubleExtra("longitude",0);
-        double latitude = getIntent().getDoubleExtra("latitude",0);
-        GeoPoint location = new GeoPoint(latitude,longitude);
-        String start = getIntent().getStringExtra("start_time");
-        String start_time = new String(start);
-        String end = getIntent().getStringExtra("end_time");
-        String end_time = new String(end);
 
         recyclerView = findViewById(R.id.myJobPetsRecyclerView);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(layoutManager);
-
-        jobDescription.setText(posting.getDescription());
-        jobLocation.setText(location.toString());
-        jobStartTime.setText(start_time);
-        jobEndTime.setText(end_time);
-        jobPrice.setText(String.valueOf(posting.getPayment()));
-        petOwner.setText(posting.getPoster());
-        petSitter.setText(posting.getSitter_found());
-
-    }
-
-    private void fetchFromDatabasePets() {
-        for (int i = 0; i < this.petsID.size(); i++) {
-            db.collection("pets").document(this.petsID.get(i)).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                    if (task.isSuccessful()) {
-                        DocumentSnapshot document = task.getResult();
-                        if (document.exists()) {
-                            Pet tempPet = document.toObject(Pet.class);
-                            pets.add(tempPet);
-                        }
-                        adapter = new PetAdapter(pets, getApplicationContext());
-                        recyclerView.setLayoutManager(layoutManager);
-                        recyclerView.setAdapter(adapter);
+        loadPosting(new FirestoreCallback() {
+            @Override
+            public void onCallback(Posting tempPosting) {
+                posting = tempPosting;
+                jobDescription.setText(posting.getDescription());
+                jobLocation.setText(posting.getLocation().toString());
+                jobStartTime.setText(posting.getStart_time().toString());
+                jobEndTime.setText(posting.getEnd_time().toString());
+                jobPrice.setText(String.valueOf(posting.getPayment()));
+                petOwner.setText(posting.getPoster());
+                petSitter.setText(posting.getSitter_found());
+                ownerPhone.setText(currentUser.getPhoneNumber());
+                loadProfileSitter(new FirestoreCallback3() {
+                    @Override
+                    public void onCallback(Profile tempSitter) {
+                        sitter = tempSitter;
+                        sitterPhone.setText(sitter.getPhone_number());
+                        petSitter.setText(sitter.getName());
                     }
+                });
+                loadPets(new FirestoreCallback2() {
+                    @Override
+                    public void onCallback(ArrayList<Pet> tempPets) {
+                        pets = tempPets;
+                        setupRecycler();
+                    }
+                });
+                if(flag) {
+                    complete.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            db.collection("postings").document(id).update("completed", true);
+                            Toast.makeText(getApplicationContext(), getString(R.string.job_complete), Toast.LENGTH_SHORT).show();
+                            finish();
+                        }
+                    });
+                } else {
+                    complete.setVisibility(View.INVISIBLE);
+                    complete.setEnabled(false);
                 }
-            });
-        }
+            }
+
+            private void loadProfileSitter(final FirestoreCallback3 firestoreCallback3) {
+                db.collection("profile").document(posting.getSitter_found()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if(task.isSuccessful()){
+                            Profile profile = task.getResult().toObject(Profile.class);
+                            sitter = profile;
+                            firestoreCallback3.onCallback(sitter);
+                        }
+                    }
+                });
+
+                db.collection("profile").document(currentUser.getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if(task.isSuccessful()){
+                            Profile profile = task.getResult().toObject(Profile.class);
+                            ownerPhone.setText(profile.getPhone_number());
+                        }
+                    }
+                });
+            }
+        });
+
+
+
     }
+
+    private void loadPosting(final FirestoreCallback firestoreCallback) {
+        db.collection("postings").document(id).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if(task.isSuccessful()){
+                    posting = task.getResult().toObject(Posting.class);
+                    firestoreCallback.onCallback(posting);
+                }
+            }
+        });
+    }
+
+    private void loadPets(final FirestoreCallback2 firestoreCallback2) {
+        db.collection("pets").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    for(QueryDocumentSnapshot document : task.getResult()) {
+                        for (String petId : posting.getPetIDs()) {
+                            if (document.getId().equals(petId)){
+                                Pet pet = document.toObject(Pet.class);
+                                pets.add(pet);
+                            }
+                        }
+                    }
+                    firestoreCallback2.onCallback(pets);
+                }
+            }
+        });
+    }
+
+    private interface FirestoreCallback {
+        void onCallback(Posting tempPosting);
+    }
+
+    private interface FirestoreCallback2 {
+        void onCallback(ArrayList<Pet> tempPets);
+    }
+
+    private interface FirestoreCallback3 {
+        void onCallback(Profile sitter);
+    }
+
+    private void setupRecycler(){
+        adapter = new PetAdapter(pets, getApplicationContext());
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setAdapter(adapter);
+    }
+
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event)
     {

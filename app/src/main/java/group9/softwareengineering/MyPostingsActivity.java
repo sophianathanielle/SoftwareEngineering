@@ -85,6 +85,10 @@ public class MyPostingsActivity extends AppCompatActivity {
                             intent.putExtra("posting" , response.getSnapshots().getSnapshot(position).toObject(Posting.class));
                             intent.putExtra("id" , response.getSnapshots().getSnapshot(position).getId());
                             startActivity(intent);
+                        } else {
+                            Intent intent2 = new Intent(getApplicationContext() , AgreedJobInfoActivity.class);
+                            intent2.putExtra("id" , response.getSnapshots().getSnapshot(position).getId());
+                            startActivity(intent2);
                         }
                        // Intent intent = new Intent(view.getContext(), MyPostedJob.class);
                         //intent.putExtra("ids",response.getSnapshots().getSnapshot(position).getId());

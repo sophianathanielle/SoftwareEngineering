@@ -45,7 +45,7 @@
     <string name="success">You are showing interest for this job</string>
     <string name="successRemoved">You have stopped showing interest in this job</string>
     <string name="delete_posting_dialog_title">Confirm</string>
-    <string name="delete_posting_dialog_message">Are you sure?</string>
+    <string name="delete_posting_dialog_message">Are you sure you want to delete this posting?</string>
     <string name="dialog_yes">YES</string>
     <string name="dialog_no">NO</string>
     <string name="title_home">Home</string>
@@ -103,5 +103,6 @@
     <string name="title_activity_view_sitters_profile">ViewSittersProfileActivity</string>
     <string name="sitters_profile">Sitter\'s Profile</string>
     <string name="successfully_updated_posting">Posting successfully updated</string>
+    <string name="job_complete">Job Complete! If you would like you can leave a rating via your History</string>
 
 </resources>
