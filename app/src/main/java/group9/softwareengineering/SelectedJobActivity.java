@@ -27,8 +27,10 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.Locale;
 
 public class SelectedJobActivity extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -44,6 +46,7 @@ public class SelectedJobActivity extends AppCompatActivity implements OnMapReady
     private ImageView star;
     private FirebaseUser currentUser;
     private SupportMapFragment mapFragment;
+    private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("E, dd MMM HH:mm" , new Locale("en" , "GB"));
 
 
     @Override
@@ -139,8 +142,8 @@ public class SelectedJobActivity extends AppCompatActivity implements OnMapReady
                         posting = document.toObject(Posting.class);
                     }
                     postedBy.append(posting.getPoster());
-                    startDate.append(posting.getStart_time().toString());
-                    endDate.append(posting.getEnd_time().toString());
+                    startDate.append(simpleDateFormat.format(posting.getStart_time()));
+                    endDate.append(simpleDateFormat.format(posting.getEnd_time()));
                     description.setText(posting.getDescription());
                     for (String i : posting.getSitters_interested()) {
                         if (i.equals(currentUser.getUid())) {

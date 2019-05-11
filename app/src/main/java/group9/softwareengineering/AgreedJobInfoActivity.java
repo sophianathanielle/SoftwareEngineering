@@ -30,9 +30,11 @@ import com.google.firebase.firestore.GeoPoint;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedHashMap;
+import java.util.Locale;
 
 public class AgreedJobInfoActivity extends AppCompatActivity {
 
@@ -51,6 +53,8 @@ public class AgreedJobInfoActivity extends AppCompatActivity {
     private Profile sitter;
     private boolean flag = true;
     private SupportMapFragment mapFragment;
+    private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("E, dd MMM HH:mm" , new Locale("en" , "GB"));
+
 
 
     @Override
@@ -80,8 +84,8 @@ public class AgreedJobInfoActivity extends AppCompatActivity {
             public void onCallback(Posting tempPosting) {
                 posting = tempPosting;
                 jobDescription.setText(posting.getDescription());
-                jobStartTime.setText(posting.getStart_time().toString());
-                jobEndTime.setText(posting.getEnd_time().toString());
+                jobStartTime.setText(simpleDateFormat.format(posting.getStart_time()));
+                jobEndTime.setText(simpleDateFormat.format(posting.getEnd_time()));
                 jobPrice.setText(String.valueOf(posting.getPayment()));
                 petOwner.setText(posting.getPoster());
                 petSitter.setText(posting.getSitter_found());
