@@ -12,7 +12,6 @@
         android:layout_height="22dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
-        android:text="Pet Owner: "
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/jobPrice" />
 
@@ -22,7 +21,6 @@
         android:layout_height="25dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
-        android:text="Pet Sitter: "
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/petOwner" />
 
@@ -33,7 +31,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
-        android:text="PetOwner:"
+        android:text="@string/string_petOwner"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/petOwner"
         app:layout_constraintStart_toStartOf="parent"
@@ -48,11 +46,11 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:text="Telephone:"
+        android:text="@string/string_telephone"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/petOwner"
         app:layout_constraintEnd_toStartOf="@+id/jobEndTime"
-        app:layout_constraintHorizontal_bias="0.166"
+        app:layout_constraintHorizontal_bias="0.428"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/jobPrice"
         app:layout_constraintVertical_bias="0.0" />
@@ -64,7 +62,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
-        android:text="PetSitter:"
+        android:text="@string/string_petsitter"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/petSitter"
         app:layout_constraintStart_toStartOf="parent"
@@ -77,7 +75,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:text="Description:"
+        android:text="@string/string_description"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/jobDescription"
         app:layout_constraintStart_toStartOf="parent" />
@@ -87,7 +85,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="144dp"
-        android:text="Location:"
+        android:text="@string/location"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/jobLocation"
         app:layout_constraintStart_toEndOf="@+id/descLabel" />
@@ -98,7 +96,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="8dp"
-        android:text="Start Time: "
+        android:text="@string/startingTime"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/jobStartTime"
         app:layout_constraintStart_toEndOf="@+id/jobDescription"
@@ -112,7 +110,7 @@
         android:layout_marginStart="184dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
-        android:text="EndTime:"
+        android:text="@string/endTime"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/jobEndTime"
         app:layout_constraintStart_toEndOf="@+id/priceLabel"
@@ -125,7 +123,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:text="Price:"
+        android:text="@string/my_posted_job_price"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/jobPrice"
         app:layout_constraintStart_toStartOf="parent"
@@ -138,7 +136,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:text="Pets"
+        android:text="@string/pets"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/myJobPetsRecyclerView"
         app:layout_constraintStart_toStartOf="parent"
@@ -161,7 +159,7 @@
             android:layout_height="54dp"
             android:layout_marginTop="28dp"
             android:layout_marginEnd="16dp"
-            android:text="@string/location"
+
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -171,7 +169,6 @@
         android:layout_height="50dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
-        android:text="@string/startingTime"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/jobLocation" />
 
@@ -181,7 +178,7 @@
         android:layout_height="50dp"
         android:layout_marginTop="188dp"
         android:layout_marginEnd="16dp"
-        android:text="@string/endTime"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -192,7 +189,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
-        android:text="@string/my_posted_job_price"
+
         app:layout_constraintBottom_toTopOf="@+id/myJobPetsRecyclerView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/jobDescription"
@@ -218,7 +215,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginBottom="16dp"
         android:background="@drawable/button"
-        android:text="Complete Job"
+        android:text="@string/complete_button"
         android:textColor="@color/button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -227,26 +224,30 @@
 
     <TextView
         android:id="@+id/ownerPhone"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="80dp"
+        android:layout_height="22dp"
         android:layout_marginStart="12dp"
-        android:layout_marginTop="32dp"
-        android:text="telephone"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.084"
         app:layout_constraintStart_toEndOf="@+id/petOwner"
         app:layout_constraintTop_toBottomOf="@+id/jobPrice" />
 
     <TextView
         android:id="@+id/sitterPhone"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_width="83dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginBottom="48dp"
-        android:text="telephone"
         app:layout_constraintBottom_toTopOf="@+id/myJobPetsRecyclerView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/petSitter"
         app:layout_constraintTop_toBottomOf="@+id/ownerPhone"
-        app:layout_constraintVertical_bias="0.415" />
+        app:layout_constraintVertical_bias="0.333" />
 
 
 </android.support.constraint.ConstraintLayout>
