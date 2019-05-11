@@ -112,6 +112,7 @@ public class ViewMyProfileActivity extends AppCompatActivity {
                             @Override
                             public void onSuccess(Void aVoid) {
                                 Toast.makeText(context,getString(R.string.successfully_updated),Toast.LENGTH_SHORT).show();
+                                finish();
                             }
                         });
             }

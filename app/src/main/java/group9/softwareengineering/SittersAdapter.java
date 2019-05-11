@@ -62,7 +62,7 @@ public class SittersAdapter extends RecyclerView.Adapter<SittersAdapter.ExampleV
         ArrayList<Profile> profiles = new ArrayList<>(postingsAndProfiles.values());
         Posting posting = posts.get(i);
         Profile profile = profiles.get(i);
-        holder.payment.setText("£"+String.valueOf(profile.getFee_ph())+ "per hour");
+        holder.payment.setText("£"+String.valueOf(posting.getPayment())+ "per hour");
         holder.description.setText(posting.getDescription());
         holder.posted.setText(profile.getName());
         Picasso.with(context).load(posting.getPhotoURL()).fit().centerCrop().into(holder.imageView);

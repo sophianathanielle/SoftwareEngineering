@@ -26,7 +26,6 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ExampleViewHol
     private String pay , posted;
     private Context context;
 
-
     public HomeAdapter(ArrayList<Posting> postings ,String pay ,String posted, Context context, onClickListener onClickListener){
         this.postings = postings;
         this.pay = pay;

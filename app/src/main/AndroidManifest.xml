@@ -25,6 +25,7 @@
         <activity
             android:name=".ViewSittersProfileActivity"
             android:label="@string/title_activity_view_sitters_profile"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"></activity>
 
         <uses-library
@@ -34,43 +35,53 @@
         <activity
             android:name=".RequestedLocationsViewActivity"
             android:label="@string/title_activity_requested_location_view"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".RequestedPhotosViewActivity"
             android:label="@string/title_activity_requested_photos_view"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".AddPetsActivity"
             android:label="@string/title_activity_add_pets"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".EditMyPostedJob"
             android:label="@string/title_activity_edit_my_posted_job"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".AgreedJobInfoActivity" />
         <activity
             android:name=".JobsInterestedInActivity"
             android:label="@string/title_activity_jobs_interested_in"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".NotificationActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_notification" />
         <activity
             android:name=".MyPostedJob"
             android:label="@string/title_activity_my_posted_job"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".MyPostingsActivity"
+            android:screenOrientation="portrait"
             android:exported="true"
             android:label="@string/title_activity_my_postings"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".SelectedJobActivity"
             android:label="@string/title_activity_selected_job"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ViewMyProfileActivity"
             android:label="@string/title_activity_selected_job"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -90,6 +101,7 @@
         <activity
             android:name=".LoginActivity"
             android:label="@string/app_name"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -100,22 +112,27 @@
         <activity
             android:name=".HomeActivity"
             android:label="@string/title_activity_home"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".UpcomingJobActivity"
             android:label="@string/title_activity_upcoming_job"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".SendRequestedLocationActivity"
             android:label="@string/title_activity_upcoming_job"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".SendRequestedPhotoActivity"
             android:label="@string/title_activity_upcoming_job"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".PostingJobActivity"
             android:exported="true"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_posting_job"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".RegisterActivity" />

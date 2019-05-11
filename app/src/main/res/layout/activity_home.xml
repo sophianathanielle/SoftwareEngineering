@@ -29,6 +29,7 @@
         android:layout_gravity="bottom|end"
         app:backgroundTint="@color/colorPrimary"
         app:fab_addButtonColorNormal="@color/colorPrimary"
+        app:fab_addButtonColorPressed="@color/colorPrimary"
         app:fab_labelStyle="@style/floatingMenu">
 
         <com.getbase.floatingactionbutton.FloatingActionButton
