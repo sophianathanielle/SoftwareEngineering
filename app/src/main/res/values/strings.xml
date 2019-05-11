@@ -104,5 +104,8 @@
     <string name="sitters_profile">Sitter\'s Profile</string>
     <string name="successfully_updated_posting">Posting successfully updated</string>
     <string name="job_complete">Job Complete! If you would like you can leave a rating via your History</string>
-
+    <string name="string_petOwner">Pet Owner</string>
+    <string name="string_telephone">Telephone:</string>
+    <string name="complete_button">Complete Job</string>
+    <string name="string_petsitter">Pet Sitter:</string>
 </resources>
