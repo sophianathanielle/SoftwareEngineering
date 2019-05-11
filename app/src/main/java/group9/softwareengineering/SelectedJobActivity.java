@@ -12,6 +12,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -22,8 +28,9 @@ import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 
-public class SelectedJobActivity extends AppCompatActivity {
+public class SelectedJobActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private String documentId;
     private Posting posting;
@@ -33,9 +40,11 @@ public class SelectedJobActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
-    private TextView postedBy, startDate, endDate, description, location;
+    private TextView postedBy, startDate, endDate, description;
     private ImageView star;
     private FirebaseUser currentUser;
+    private SupportMapFragment mapFragment;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +56,23 @@ public class SelectedJobActivity extends AppCompatActivity {
         this.documentId = getIntent().getStringExtra("ids");
         star = findViewById(R.id.starImage);
         star.setTag(R.drawable.star_empty);
-        fetchFromDatabasePosting();
+        fetchFromDatabasePosting(new FirestoreCallback() {
+            @Override
+            public void onCallback(Posting tempPsting) {
+                posting = tempPsting;
+                mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.mapLite);
+                mapFragment.getMapAsync(new OnMapReadyCallback() {
+                    @Override
+                    public void onMapReady(GoogleMap googleMap) {
+                        googleMap.getUiSettings().setMapToolbarEnabled(false);
+                        LatLng location = new LatLng(posting.getLocation().getLatitude(), posting.getLocation().getLongitude());
+                        googleMap.addMarker(new MarkerOptions().position(location));
+                        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 15));
+                        mapFragment.getView().setClickable(false);
+                    }
+                });
+            }
+        });
         fetchFromDatabasePets();
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
         recyclerView = findViewById(R.id.myJobPetsRecyclerView);
@@ -58,7 +83,6 @@ public class SelectedJobActivity extends AppCompatActivity {
         startDate = findViewById(R.id.jobStartTime);
         endDate = findViewById(R.id.jobEndTime);
         description = findViewById(R.id.jobDescription);
-        location = findViewById(R.id.jobLocation);
         star.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -74,6 +98,14 @@ public class SelectedJobActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        googleMap.getUiSettings().setMapToolbarEnabled(false);
+        LatLng location = new LatLng(posting.getLocation().getLatitude(), posting.getLocation().getLongitude());
+        googleMap.addMarker(new MarkerOptions().position(location));
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 15));
     }
 
     public void deleteFromDatabase() {
@@ -97,7 +129,7 @@ public class SelectedJobActivity extends AppCompatActivity {
     }
 
 
-    private void fetchFromDatabasePosting() {
+    private void fetchFromDatabasePosting(final FirestoreCallback firestoreCallback) {
          db.collection("postings").document(documentId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -110,13 +142,13 @@ public class SelectedJobActivity extends AppCompatActivity {
                     startDate.append(posting.getStart_time().toString());
                     endDate.append(posting.getEnd_time().toString());
                     description.setText(posting.getDescription());
-                    location.append(posting.getLocation().toString());
                     for (String i : posting.getSitters_interested()) {
                         if (i.equals(currentUser.getUid())) {
                             star.setTag(R.drawable.star_fill);
                             star.setImageResource(R.drawable.star_fill);
                         }
                     }
+                firestoreCallback.onCallback(posting);
                 }
             }
         });
@@ -140,6 +172,10 @@ public class SelectedJobActivity extends AppCompatActivity {
                 }
             });
         }
+    }
+
+    private interface FirestoreCallback {
+        void onCallback(Posting posting );
     }
 
     @Override

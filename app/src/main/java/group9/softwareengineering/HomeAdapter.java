@@ -48,8 +48,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ExampleViewHol
     @Override
     public void onBindViewHolder(@NonNull ExampleViewHolder holder, int i) {
         Posting posting = postings.get(i);
-        Log.i("DAME" , posting.getPoster());
-        holder.payment.setText(pay+posting.getPayment());
+        holder.payment.setText(pay+posting.getPayment() +" per Hour");
         holder.description.setText(posting.getDescription());
         holder.posted.setText(posted+posting.getPoster());
         Picasso.with(context).load(posting.getPhotoURL()).fit().centerCrop().into(holder.imageView);
