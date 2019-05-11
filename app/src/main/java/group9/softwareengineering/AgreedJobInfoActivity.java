@@ -13,6 +13,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -30,7 +36,7 @@ import java.util.LinkedHashMap;
 public class AgreedJobInfoActivity extends AppCompatActivity {
 
 
-    private TextView jobDescription, jobLocation, jobStartTime, jobEndTime, jobPrice, petOwner, petSitter, sitterPhone , ownerPhone;
+    private TextView jobDescription, jobStartTime, jobEndTime, jobPrice, petOwner, petSitter, sitterPhone , ownerPhone;
     private Button complete;
     private Posting posting;
     private ArrayList<String> petsID = new ArrayList<>();
@@ -43,6 +49,8 @@ public class AgreedJobInfoActivity extends AppCompatActivity {
     private String id;
     private Profile sitter;
     private boolean flag = true;
+    private SupportMapFragment mapFragment;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +58,6 @@ public class AgreedJobInfoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_agreed_job_info);
 
         jobDescription = findViewById(R.id.jobDescription);
-        jobLocation = findViewById(R.id.jobLocation);
         jobStartTime = findViewById(R.id.jobStartTime);
         jobEndTime = findViewById(R.id.jobEndTime);
         jobPrice = findViewById(R.id.jobPrice);
@@ -72,13 +79,23 @@ public class AgreedJobInfoActivity extends AppCompatActivity {
             public void onCallback(Posting tempPosting) {
                 posting = tempPosting;
                 jobDescription.setText(posting.getDescription());
-                jobLocation.setText(posting.getLocation().toString());
                 jobStartTime.setText(posting.getStart_time().toString());
                 jobEndTime.setText(posting.getEnd_time().toString());
                 jobPrice.setText(String.valueOf(posting.getPayment()));
                 petOwner.setText(posting.getPoster());
                 petSitter.setText(posting.getSitter_found());
                 ownerPhone.setText(currentUser.getPhoneNumber());
+                mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.mapLite);
+                mapFragment.getMapAsync(new OnMapReadyCallback() {
+                    @Override
+                    public void onMapReady(GoogleMap googleMap) {
+                        googleMap.getUiSettings().setMapToolbarEnabled(false);
+                        LatLng location = new LatLng(posting.getLocation().getLatitude(), posting.getLocation().getLongitude());
+                        googleMap.addMarker(new MarkerOptions().position(location));
+                        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 15));
+                        mapFragment.getView().setClickable(false);
+                    }
+                });
                 loadProfileSitter(new FirestoreCallback3() {
                     @Override
                     public void onCallback(Profile tempSitter) {
