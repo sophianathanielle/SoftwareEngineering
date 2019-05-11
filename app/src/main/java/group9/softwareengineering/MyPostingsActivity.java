@@ -78,10 +78,18 @@ public class MyPostingsActivity extends AppCompatActivity {
                     @Override
                     public void onItemClick(View view, int position) {
                         // TODO: go to mypostedjob activity
-                        Intent intent = new Intent(view.getContext(), MyPostedJob.class);
-                        intent.putExtra("ids",response.getSnapshots().getSnapshot(position).getId());
-                        intent.putStringArrayListExtra("usersPetIds" , posting.getPetIDs());
-                        startActivity(intent);
+                        if(response.getSnapshots().getSnapshot(position).get("sitter_found").equals("")){
+                            Intent intent = new Intent(view.getContext(), PostingJobActivity.class);
+                            intent.putExtra("start" , response.getSnapshots().getSnapshot(position).toObject(Posting.class).getStart_time().getTime());
+                            intent.putExtra("end" , response.getSnapshots().getSnapshot(position).toObject(Posting.class).getEnd_time().getTime());
+                            intent.putExtra("posting" , response.getSnapshots().getSnapshot(position).toObject(Posting.class));
+                            intent.putExtra("id" , response.getSnapshots().getSnapshot(position).getId());
+                            startActivity(intent);
+                        }
+                       // Intent intent = new Intent(view.getContext(), MyPostedJob.class);
+                        //intent.putExtra("ids",response.getSnapshots().getSnapshot(position).getId());
+                        //intent.putStringArrayListExtra("usersPetIds" , posting.getPetIDs());
+                        //startActivity(intent);
                         //Toast.makeText(MyPostingsActivity.this, "This should go to the activity!", Toast.LENGTH_SHORT).show();
                     }
 

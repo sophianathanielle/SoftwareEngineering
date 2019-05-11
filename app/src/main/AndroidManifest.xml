@@ -102,10 +102,6 @@
             android:label="@string/title_activity_home"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".NewJobActivity"
-            android:label="@string/title_activity_new_job"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name=".UpcomingJobActivity"
             android:label="@string/title_activity_upcoming_job"
             android:theme="@style/AppTheme.NoActionBar" />

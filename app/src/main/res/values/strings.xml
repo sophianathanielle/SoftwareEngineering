@@ -102,5 +102,6 @@
     <string name="payment_perhour">Payment per Hour</string>
     <string name="title_activity_view_sitters_profile">ViewSittersProfileActivity</string>
     <string name="sitters_profile">Sitter\'s Profile</string>
+    <string name="successfully_updated_posting">Posting successfully updated</string>
 
 </resources>

@@ -68,8 +68,13 @@ public class PostingJobActivity extends AppCompatActivity implements DatePickerD
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private FirebaseUser currentUser;
-
-
+    private TextView endTime , startTime , startDate, endDate;
+    private long startTimeLong , endTimeLong;
+    private SimpleDateFormat formatDate = new SimpleDateFormat("dd/MM/yyyy");
+    private SimpleDateFormat formatTime = new SimpleDateFormat("HH:mm");
+    private EditText description , payString;
+    private Posting posting;
+    private String id;
     // TODO
     // Get FirebaseUser working.
     // Get RecyclerView working probably with the help of Theo.
@@ -79,14 +84,33 @@ public class PostingJobActivity extends AppCompatActivity implements DatePickerD
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        setContentView(R.layout.activity_posting_job);
 
         mLatitude = 51.24;
         mLongitude = -0.59;
         locationSet = false;
-
-
-        setContentView(R.layout.activity_posting_job);
+        endTime = (TextView) findViewById(R.id.endTime);
+        startTime = (TextView) findViewById(R.id.startTime);
+        startDate = (TextView) findViewById(R.id.startDate);
+        endDate = (TextView) findViewById(R.id.endDate);
+         description = (EditText) findViewById(R.id.descText);
+         payString = (EditText) findViewById(R.id.paymentText);
+        if(getIntent().getExtras() != null){
+            posting = getIntent().getParcelableExtra("posting");
+            startTimeLong = getIntent().getLongExtra("start" , 0);
+            endTimeLong = getIntent().getLongExtra("end" , 0);
+            id = getIntent().getStringExtra("id");
+            Date start = new Date();
+            Date end = new Date();
+            start.setTime(startTimeLong);
+            end.setTime(endTimeLong);
+            endTime.setText(formatTime.format(end));
+            startTime.setText(formatTime.format(start));
+            startDate.setText(formatDate.format(start));
+            endDate.setText(formatDate.format(end));
+            description.setText(posting.getDescription());
+            payString.setText(String.valueOf(posting.getPayment()));
+        }
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -145,32 +169,26 @@ public class PostingJobActivity extends AppCompatActivity implements DatePickerD
 
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
         Calendar c = Calendar.getInstance();
         c.set(year, month, dayOfMonth);
         if (DATE_DIALOG == 0) {
-            TextView startDate = (TextView) PostingJobActivity.this.findViewById(R.id.startDate);
-            startDate.setText(format.format(c.getTime()));
+            startDate.setText(formatDate.format(c.getTime()));
         }
         if (DATE_DIALOG == 1) {
-            TextView endDate = (TextView) PostingJobActivity.this.findViewById(R.id.endDate);
-            endDate.setText(format.format(c.getTime()));
+            endDate.setText(formatDate.format(c.getTime()));
         }
     }
 
     @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-        SimpleDateFormat format = new SimpleDateFormat("HH:mm");
         Calendar c = Calendar.getInstance();
         c.set(Calendar.HOUR, hourOfDay);
         c.set(Calendar.MINUTE, minute);
         if (TIME_DIALOG == 0) {
-            TextView startTime = (TextView) PostingJobActivity.this.findViewById(R.id.startTime);
-            startTime.setText(format.format(c.getTime()));
+            startTime.setText(formatTime.format(c.getTime()));
         }
         if (TIME_DIALOG == 1) {
-            TextView endTime = (TextView) PostingJobActivity.this.findViewById(R.id.endTime);
-            endTime.setText(format.format(c.getTime()));
+            endTime.setText(formatTime.format(c.getTime()));
         }
     }
 
@@ -196,13 +214,6 @@ public class PostingJobActivity extends AppCompatActivity implements DatePickerD
     }
 
     public void update(View view) {
-        // Find everything by ID
-        TextView startDate = (TextView) this.findViewById(R.id.startDate);
-        TextView endDate = (TextView) this.findViewById(R.id.endDate);
-        TextView startTime = (TextView) this.findViewById(R.id.startTime);
-        TextView endTime = (TextView) this.findViewById(R.id.endTime);
-        EditText description = (EditText) this.findViewById(R.id.descText);
-        EditText payString = (EditText) this.findViewById(R.id.paymentText);
 
         // Get start and end dates
         SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd'T'HH:mm");
@@ -231,9 +242,16 @@ public class PostingJobActivity extends AppCompatActivity implements DatePickerD
                     if (locationSet) {
                         int payment = Integer.parseInt(payString.getText().toString());
                         Posting posting = new Posting(currentUser.getDisplayName(), currentUser.getUid(), start, end, location, description.getText().toString(), payment, petIdsSelected, false, false, mPetsSelected.get(0).getPhoto_reference());
-                        db.collection("postings").add(posting);
-                        Toast.makeText(this, getString(R.string.successfully_created), Toast.LENGTH_SHORT).show();
-                        finish();
+                        if(getIntent().getExtras() != null){
+                            db.collection("postings").document(id).update("start_time" , start , "end_time" , end , "location" , location , "petIDs" , petIdsSelected
+                                    , "photoURL" , mPetsSelected.get(0).getPhoto_reference() , "description" , description.getText().toString() , "payment" , payment);
+                            Toast.makeText(this, getString(R.string.successfully_updated_posting), Toast.LENGTH_SHORT).show();
+                            finish();
+                        } else {
+                            db.collection("postings").add(posting);
+                            Toast.makeText(this, getString(R.string.successfully_created), Toast.LENGTH_SHORT).show();
+                            finish();
+                        }
                     } else
                         Toast.makeText(this, getString(R.string.invalid_location), Toast.LENGTH_SHORT).show();
                 } else
