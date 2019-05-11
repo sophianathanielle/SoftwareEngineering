@@ -9,9 +9,14 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/clickToUpdateLocation"
+            android:textAllCaps="true"
+            android:background="@color/colorPrimary"
+            android:textColor="#ffffff"
+            android:textSize="11dp"
+            android:textStyle="bold"
             android:textAlignment="center"/>
 
 
@@ -21,11 +26,17 @@
             android:id="@+id/locationRecycler"
             android:layout_marginBottom="40dp">
         </android.support.v7.widget.RecyclerView>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/clickToUpdatePhoto"
-                android:textAlignment="center"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:text="@string/clickToUpdatePhoto"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textColor="#ffffff"
+            android:textSize="11dp"
+            android:textStyle="bold" />
 
         <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"

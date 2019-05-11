@@ -12,6 +12,7 @@
         android:id="@+id/my_postings_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        app:fastScrollEnabled="false"
         tools:listitem="@layout/recycler_view_item_my_postings" />
 
 </android.support.constraint.ConstraintLayout>

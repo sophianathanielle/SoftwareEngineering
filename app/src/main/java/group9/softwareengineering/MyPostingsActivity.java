@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -130,7 +131,7 @@ public class MyPostingsActivity extends AppCompatActivity {
                 return new PostingHolder(view);
             }
         };
-
+        recyclerView.addItemDecoration(new LineDividerItemDecoration(this, R.drawable.line_divider));
         recyclerView.setAdapter(adapter);
 
 

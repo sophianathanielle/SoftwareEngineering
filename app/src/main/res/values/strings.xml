@@ -7,10 +7,10 @@
     <string name="upcoming_jobs">Current Jobs</string>
     <string name="notification">Notifications</string>
     <string name="profile">Edit User Profile</string>
-    <string name="title_activity_new_job">NewJobActivity</string>
-    <string name="title_activity_starred_job">StarredJobActivity</string>
-    <string name="title_activity_upcoming_job">UpcomingJobActivity</string>
-    <string name="title_activity_posted_job">PostedJobActivity</string>
+    <string name="title_activity_new_job">Create a new Posting</string>
+    <string name="title_activity_starred_job">Jobs Interested In</string>
+    <string name="title_activity_upcoming_job">Current Jobs</string>
+    <string name="title_activity_posted_job">My Postings</string>
     <string name="title_activity_notification">NotificationActivity</string>
     <string name="title_activity_edit_user_profile">EditUserProfileActivity</string>
     <string name="string_find">Find Jobs based on their Description</string>

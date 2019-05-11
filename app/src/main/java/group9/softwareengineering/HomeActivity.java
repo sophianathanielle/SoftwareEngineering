@@ -51,7 +51,6 @@ public class HomeActivity extends AppCompatActivity implements HomeAdapter.onCli
         setContentView(R.layout.activity_home);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        fetchesFromDatabase();
         pay = getString(R.string.string_pay);
         posted = getString(R.string.string_posted);
         FloatingActionsMenu expandFab = (FloatingActionsMenu) findViewById(R.id.expand);
@@ -65,6 +64,8 @@ public class HomeActivity extends AppCompatActivity implements HomeAdapter.onCli
         findSearch = findViewById(R.id.find);
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
+        recyclerView.addItemDecoration(new LineDividerItemDecoration(this, R.drawable.line_divider));
+        fetchesFromDatabase();
         layoutManager = new LinearLayoutManager(this);
         starredFab.setOnClickListener(new View.OnClickListener() {
             @Override

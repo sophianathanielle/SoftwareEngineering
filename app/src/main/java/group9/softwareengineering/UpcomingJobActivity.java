@@ -65,6 +65,7 @@ public class UpcomingJobActivity extends AppCompatActivity implements HomeAdapte
 
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
+        recyclerView.addItemDecoration(new LineDividerItemDecoration(this, R.drawable.line_divider));
         fetchesFromDatabase(new FirestoreCallback() {
             @Override
             public void onCallback(ArrayList<Posting> tempPostings , ArrayList<String> tempIds) {

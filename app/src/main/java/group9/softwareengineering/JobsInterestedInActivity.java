@@ -47,6 +47,7 @@ public class JobsInterestedInActivity extends AppCompatActivity implements HomeA
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
+        recyclerView.addItemDecoration(new LineDividerItemDecoration(this, R.drawable.line_divider));
         fetchesFromDatabase();
     }
 
