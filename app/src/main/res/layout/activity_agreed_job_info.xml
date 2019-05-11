@@ -50,7 +50,7 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/petOwner"
         app:layout_constraintEnd_toStartOf="@+id/jobEndTime"
-        app:layout_constraintHorizontal_bias="0.428"
+        app:layout_constraintHorizontal_bias="0.672"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/jobPrice"
         app:layout_constraintVertical_bias="0.0" />
@@ -70,10 +70,11 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <android.support.constraint.ConstraintLayout
+        android:id="@+id/constraintLayout2"
         android:layout_width="182dp"
         android:layout_height="197dp"
-        android:layout_marginStart="220dp"
-        android:layout_marginTop="44dp"
+        android:layout_marginStart="224dp"
+        android:layout_marginTop="36dp"
         app:layout_constraintStart_toStartOf="parent"
         android:onClick="clickLocation"
         app:layout_constraintTop_toTopOf="parent">
@@ -85,7 +86,9 @@
             android:layout_width="181dp"
             android:layout_height="202dp"
             android:layout_marginTop="2dp"
+            android:layout_marginEnd="8dp"
             map:cameraZoom="13"
+            map:layout_constraintEnd_toEndOf="parent"
             map:layout_constraintStart_toStartOf="parent"
             map:layout_constraintTop_toTopOf="parent"
             map:liteMode="true"
@@ -108,7 +111,8 @@
         android:id="@+id/locationLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="144dp"
+        android:layout_marginStart="140dp"
+        android:layout_marginTop="16dp"
         android:text="@string/location"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/descLabel"
@@ -116,19 +120,25 @@
 
     <TextView
         android:id="@+id/startLabel"
-        android:layout_width="wrap_content"
+        android:layout_width="79dp"
         android:layout_height="24dp"
-        android:layout_marginStart="48dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="112dp"
         android:text="Start Time: "
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/jobStartTime"
-        app:layout_constraintStart_toEndOf="@+id/telephoneLabel" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout2"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/endLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="225dp"
+        android:layout_marginStart="216dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:text="@string/endTime"
@@ -136,7 +146,7 @@
         app:layout_constraintBottom_toTopOf="@+id/jobEndTime"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/jobStartTime"
-        app:layout_constraintVertical_bias="0.942" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/priceLabel"
@@ -177,9 +187,9 @@
     <TextView
         android:id="@+id/jobStartTime"
         android:layout_width="158dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="278dp"
-        android:layout_marginEnd="32dp"
+        android:layout_height="53dp"
+        android:layout_marginTop="264dp"
+        android:layout_marginEnd="36dp"
         android:text="@string/startingTime"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -188,10 +198,15 @@
         android:id="@+id/jobEndTime"
         android:layout_width="158dp"
         android:layout_height="50dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="356dp"
-        android:layout_marginEnd="28dp"
+        android:layout_marginEnd="36dp"
+        android:layout_marginBottom="8dp"
         android:text="@string/endTime"
+        app:layout_constraintBottom_toTopOf="@+id/myJobPetsRecyclerView"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -239,10 +254,10 @@
         android:layout_width="80dp"
         android:layout_height="22dp"
         android:layout_marginStart="12dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="36dp"
         android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.084"
+        app:layout_constraintHorizontal_bias="0.06"
         app:layout_constraintStart_toEndOf="@+id/petOwner"
         app:layout_constraintTop_toBottomOf="@+id/jobPrice" />
 
@@ -250,16 +265,16 @@
         android:id="@+id/sitterPhone"
         android:layout_width="83dp"
         android:layout_height="24dp"
-        android:layout_marginStart="32dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="204dp"
         android:layout_marginBottom="48dp"
         app:layout_constraintBottom_toTopOf="@+id/myJobPetsRecyclerView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/petSitter"
+        app:layout_constraintHorizontal_bias="0.982"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ownerPhone"
-        app:layout_constraintVertical_bias="0.333" />
+        app:layout_constraintVertical_bias="0.35" />
 
 
 </android.support.constraint.ConstraintLayout>
