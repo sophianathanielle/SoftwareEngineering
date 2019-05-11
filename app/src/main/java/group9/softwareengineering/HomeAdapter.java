@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.storage.OnObbStateChangeListener;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,6 +48,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ExampleViewHol
     @Override
     public void onBindViewHolder(@NonNull ExampleViewHolder holder, int i) {
         Posting posting = postings.get(i);
+        Log.i("DAME" , posting.getPoster());
         holder.payment.setText(pay+posting.getPayment());
         holder.description.setText(posting.getDescription());
         holder.posted.setText(posted+posting.getPoster());
