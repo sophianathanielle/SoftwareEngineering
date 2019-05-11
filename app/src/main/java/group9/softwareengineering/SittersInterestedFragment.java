@@ -1,6 +1,7 @@
 package group9.softwareengineering;
 
 
+import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -18,6 +19,9 @@ import android.view.ViewGroup;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.LinkedListMultimap;
+import com.google.common.collect.Multimap;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -31,15 +35,17 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 
 
-public class SittersInterestedFragment extends Fragment {
+public class SittersInterestedFragment extends Fragment implements SittersAdapter.onClickListener{
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private RecyclerView recyclerView;
     private FirebaseUser currentUser;
-    private LinkedHashMap<String, Posting> postings = new LinkedHashMap<>();
+    private LinkedHashMap<Posting , String>postings = new LinkedHashMap<>();
     private LinkedHashMap<String, Profile> users = new LinkedHashMap<>();
     private SittersAdapter adapter;
     private ArrayList<String> users2 = new ArrayList<>();
+    private LinkedListMultimap<Posting , Profile> postingsAndProfiles = LinkedListMultimap.create();
+
 
 
     public SittersInterestedFragment() {
@@ -57,17 +63,6 @@ public class SittersInterestedFragment extends Fragment {
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
         recyclerView = view.findViewById(R.id.sittersRecycler);
         setupRecycler();
-        loadPostings(new FirestoreCallback2() {
-            @Override
-            public void onCallback(LinkedHashMap<String, Posting> hashMap) {
-                loadUsers(new FirestoreCallback() {
-                    @Override
-                    public void onCallback(LinkedHashMap<String, Profile> hashMap) {
-                        setUpRecycler();
-                    }
-                });
-            }
-        });
         return view;
     }
 
@@ -79,14 +74,14 @@ public class SittersInterestedFragment extends Fragment {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
-                                //Log.d("das", document.getId() + " => " + document.getData());
-                                Posting posting = document.toObject(Posting.class);
-                                postings.put(document.getId(), posting);
+                                if(document.get("sitter_found") == "") {
+                                    //Log.d("das", document.getId() + " => " + document.getData());
+                                    Posting posting = document.toObject(Posting.class);
+                                    postings.put(posting, document.getId());
+                                }
                             }
                             firestoreCallback2.onCallback(postings);
-                            //adapter = new HomeAdapter(postings , pay , posted, getApplicationContext(), HomeActivity.this);
-                            //recyclerView.setLayoutManager(layoutManager);
-                            //recyclerView.setAdapter(adapter);
+
                         } else {
                             Log.d("FB", "Error getting documents: ", task.getException());
                         }
@@ -95,34 +90,45 @@ public class SittersInterestedFragment extends Fragment {
     }
 
     public void loadUsers(final FirestoreCallback firestoreCallback) {
-        for (Posting posting : postings.values()) {
-            for (final String userID : posting.getSitters_interested()) {
-                db.collection("profile").document(userID)
-                        .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                db.collection("profile").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
-                    public void onSuccess(DocumentSnapshot document) {
-                        Profile user = document.toObject(Profile.class);
-                        users.put(userID, user);
-                        firestoreCallback.onCallback(users);
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Profile profile = document.toObject(Profile.class);
+                                users.put(document.getId(), profile);
+                            }
+                            firestoreCallback.onCallback(users);
+                        }
                     }
                 });
-            }
-        }
     }
 
 
     public void setUpRecycler() {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
-        for (Posting posting : postings.values()) {
+        for (Posting posting : postings.keySet()) {
             for (String id : posting.getSitters_interested()) {
-                users2.add(id);
-                String pay = String.valueOf(users.get(id).getFee_ph());
-                String posted = users.get(id).getName();
-                adapter = new SittersAdapter(postings, pay, posted, getContext(), null);
-                recyclerView.setLayoutManager(layoutManager);
-                recyclerView.setAdapter(adapter);
+                if(users.containsKey(id)) {
+                    postingsAndProfiles.put(posting ,users.get(id));
+                    users2.add(id);
+                    String pay = String.valueOf(users.get(id).getFee_ph());
+                    String posted = users.get(id).getName();
+                    Log.i("MPENI DAME" , "EMPIKE " + postingsAndProfiles.size());
+                    adapter = new SittersAdapter(postings, postingsAndProfiles, pay, posted, getContext(), SittersInterestedFragment.this);
+                    recyclerView.setLayoutManager(layoutManager);
+                    recyclerView.setAdapter(adapter);
+                    adapter.notifyDataSetChanged();
+                }
             }
         }
+    }
+
+    @Override
+    public void onItemClick(int position) {
+        Intent intent = new Intent(getContext() , ViewSittersProfileActivity.class);
+        intent.putExtra("profile" ,users.get(users2.get(position)));
+        startActivity(intent);
     }
 
 
@@ -131,12 +137,33 @@ public class SittersInterestedFragment extends Fragment {
     }
 
     private interface FirestoreCallback2 {
-        void onCallback(LinkedHashMap<String, Posting> hashMap);
+        void onCallback(LinkedHashMap<Posting , String>hashMap);
     }
 
     @Override
     public void onAttachFragment(Fragment childFragment) {
         super.onAttachFragment(childFragment);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        postings.clear();
+        users.clear();
+        postingsAndProfiles.clear();
+        loadPostings(new FirestoreCallback2() {
+            @Override
+            public void onCallback(LinkedHashMap<Posting , String> hashMap) {
+                postings = hashMap;
+                loadUsers(new FirestoreCallback() {
+                    @Override
+                    public void onCallback(LinkedHashMap<String, Profile> hashMap2) {
+                        users = hashMap2;
+                        setUpRecycler();
+                    }
+                });
+            }
+        });
     }
 
     public void setupRecycler() {
@@ -189,12 +216,17 @@ public class SittersInterestedFragment extends Fragment {
                                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
+                                        postings.clear();
+                                        users.clear();
                                         loadPostings(new FirestoreCallback2() {
                                             @Override
-                                            public void onCallback(LinkedHashMap<String,Posting> hashMap) {
+                                            public void onCallback(LinkedHashMap<Posting,String> hashMap) {
                                                 loadUsers(new FirestoreCallback() {
                                                     @Override
                                                     public void onCallback(LinkedHashMap<String, Profile> hashMap) {
+                                                        final int size = postingsAndProfiles.size();
+                                                        postingsAndProfiles.clear();
+                                                        adapter.notifyItemRangeRemoved(0, size);
                                                         setUpRecycler();
                                                     }
                                                 });

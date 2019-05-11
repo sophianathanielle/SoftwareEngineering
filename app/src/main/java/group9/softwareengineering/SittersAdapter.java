@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.common.collect.Multimap;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -16,21 +17,35 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class SittersAdapter extends RecyclerView.Adapter<SittersAdapter.ExampleViewHolder> {
-    private LinkedHashMap<String,Posting> postings;
+    private LinkedHashMap<Posting , String> postings;
     private onClickListener onClickListener;
     private String pay , posted;
     private Context context;
+    private Multimap<Posting , Profile> postingsAndProfiles;
+    private ArrayList<Posting> posts = new ArrayList<>();
+    private ArrayList<String> ids = new ArrayList<>();
 
 
-    public SittersAdapter(LinkedHashMap<String,Posting> postings , String pay , String posted, Context context, onClickListener onClickListener){
+
+    public SittersAdapter(LinkedHashMap<Posting , String> postings , Multimap<Posting , Profile> postingsAndProfiles , String pay , String posted, Context context, onClickListener onClickListener){
         this.postings = postings;
         this.pay = pay;
         this.posted = posted;
         this.context = context;
         this.onClickListener = onClickListener;
+        this.postingsAndProfiles = postingsAndProfiles;
+        for(Map.Entry<Posting , Profile> allKeys : postingsAndProfiles.entries()){
+            posts.add(allKeys.getKey());
+            for(Posting posting : postings.keySet()){
+                if(posting.equals(allKeys.getKey())){
+                    ids.add(postings.get(posting));
+                }
+            }
+        }
     }
 
 
@@ -44,18 +59,19 @@ public class SittersAdapter extends RecyclerView.Adapter<SittersAdapter.ExampleV
 
     @Override
     public void onBindViewHolder(@NonNull ExampleViewHolder holder, int i) {
-        ArrayList<Posting> posts = new ArrayList<>(postings.values());
+        ArrayList<Profile> profiles = new ArrayList<>(postingsAndProfiles.values());
         Posting posting = posts.get(i);
-        holder.payment.setText("£"+String.valueOf(posting.getPayment())+ "per hour");
+        Profile profile = profiles.get(i);
+        holder.payment.setText("£"+String.valueOf(profile.getFee_ph())+ "per hour");
         holder.description.setText(posting.getDescription());
-        holder.posted.setText(posting.getPoster());
+        holder.posted.setText(profile.getName());
         Picasso.with(context).load(posting.getPhotoURL()).fit().centerCrop().into(holder.imageView);
 
     }
 
     @Override
     public int getItemCount() {
-        return postings.size();
+        return postingsAndProfiles.size();
     }
 
 
@@ -87,13 +103,9 @@ public class SittersAdapter extends RecyclerView.Adapter<SittersAdapter.ExampleV
         void onItemClick(int position);
     }
 
-    public  Posting getPostingAt(int position){
-        return new ArrayList<Posting>(postings.values()).get(position);
-
-    }
 
     public String getDocumentAt(int position){
-        return new ArrayList<String>(postings.keySet()).get(position);
+        return ids.get(position);
     }
 
 

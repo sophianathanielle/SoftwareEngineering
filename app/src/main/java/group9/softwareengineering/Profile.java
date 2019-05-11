@@ -1,12 +1,14 @@
 package group9.softwareengineering;
 
 import android.location.Location;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import com.google.firebase.firestore.GeoPoint;
 
 import java.util.ArrayList;
 
-public class Profile {
+public class Profile implements Parcelable {
 
     private String name;
     private String phone_number;
@@ -32,6 +34,32 @@ public class Profile {
         this.ratingsOf5 = 0;
 
     }
+
+    protected Profile(Parcel in) {
+        name = in.readString();
+        phone_number = in.readString();
+        bio = in.readString();
+        fee_ph = in.readInt();
+        rating = in.readDouble();
+        ratingsOf1 = in.readInt();
+        ratingsOf2 = in.readInt();
+        ratingsOf3 = in.readInt();
+        ratingsOf4 = in.readInt();
+        ratingsOf5 = in.readInt();
+    }
+
+    public static final Creator<Profile> CREATOR = new Creator<Profile>() {
+        @Override
+        public Profile createFromParcel(Parcel in) {
+            return new Profile(in);
+        }
+
+        @Override
+        public Profile[] newArray(int size) {
+            return new Profile[size];
+        }
+    };
+
     public String getName() {
         return name;
     }
@@ -94,6 +122,25 @@ public class Profile {
 
     public int getRatingsOf5() {
         return ratingsOf5;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(name);
+        parcel.writeString(phone_number);
+        parcel.writeString(bio);
+        parcel.writeInt(fee_ph);
+        parcel.writeDouble(rating);
+        parcel.writeInt(ratingsOf1);
+        parcel.writeInt(ratingsOf2);
+        parcel.writeInt(ratingsOf3);
+        parcel.writeInt(ratingsOf4);
+        parcel.writeInt(ratingsOf5);
     }
 }
 

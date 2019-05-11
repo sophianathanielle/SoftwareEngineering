@@ -29,7 +29,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 
 
-public class RequestsFragment extends Fragment {
+public class RequestsFragment extends Fragment implements RequestsAdapter.onClickListener{
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private RecyclerView recyclerView;
@@ -90,9 +90,14 @@ public class RequestsFragment extends Fragment {
 
     public void setUpAdapter() {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
-                adapter = new RequestsAdapter(postings, getContext(), null);
+                adapter = new RequestsAdapter(postings, getContext() , RequestsFragment.this);
                 recyclerView.setLayoutManager(layoutManager);
                 recyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    public void onItemClick(int position) {
+        
     }
 
     private interface FirestoreCallback2 {
