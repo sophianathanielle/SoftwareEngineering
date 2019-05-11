@@ -135,7 +135,7 @@ public class HomeActivity extends AppCompatActivity implements HomeAdapter.onCli
                                     Posting posting = document.toObject(Posting.class);
                                     tempPostings.add(posting);
                                     tempIds.add(document.getId());
-                                } else if(document.get("poster_id").equals(currentUser)){
+                                } else if(document.get("poster_id").equals(currentUser.getUid())){
                                     Posting posting = document.toObject(Posting.class);
                                     tempUsersPostings.add(posting);
                                 }

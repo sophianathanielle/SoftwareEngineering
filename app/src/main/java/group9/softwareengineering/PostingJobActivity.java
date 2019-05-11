@@ -32,6 +32,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.GeoPoint;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -44,6 +45,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 public class PostingJobActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener, OnMapReadyCallback {
@@ -70,15 +72,12 @@ public class PostingJobActivity extends AppCompatActivity implements DatePickerD
     private FirebaseUser currentUser;
     private TextView endTime , startTime , startDate, endDate;
     private long startTimeLong , endTimeLong;
-    private SimpleDateFormat formatDate = new SimpleDateFormat("dd/MM/yyyy");
-    private SimpleDateFormat formatTime = new SimpleDateFormat("HH:mm");
+    private SimpleDateFormat formatDate = new SimpleDateFormat("dd/MM/yyyy" ,new Locale("en" , "GB"));
+    private SimpleDateFormat formatTime = new SimpleDateFormat("HH:mm" , new Locale("en" , "GB"));
     private EditText description , payString;
     private Posting posting;
     private String id;
-    // TODO
-    // Get FirebaseUser working.
-    // Get RecyclerView working probably with the help of Theo.
-    // Make location update on the fly.
+
 
 
     @Override
@@ -123,6 +122,18 @@ public class PostingJobActivity extends AppCompatActivity implements DatePickerD
         layoutManager = new LinearLayoutManager(this);
 
         fetchPets();
+        fetchOwnerDefaultPayment();
+    }
+
+    private void fetchOwnerDefaultPayment() {
+        db.collection("profile").document(currentUser.getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if(task.isSuccessful()){
+                    payString.setText(String.valueOf(task.getResult().get("fee_ph")));
+                }
+            }
+        });
     }
 
     @Override
@@ -182,7 +193,7 @@ public class PostingJobActivity extends AppCompatActivity implements DatePickerD
     @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
         Calendar c = Calendar.getInstance();
-        c.set(Calendar.HOUR, hourOfDay);
+        c.set(Calendar.HOUR_OF_DAY, hourOfDay);
         c.set(Calendar.MINUTE, minute);
         if (TIME_DIALOG == 0) {
             startTime.setText(formatTime.format(c.getTime()));

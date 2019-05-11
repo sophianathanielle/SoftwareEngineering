@@ -182,11 +182,6 @@ public class SittersInterestedFragment extends Fragment implements SittersAdapte
                     paint.setARGB(255, 0, 255, 0);
                     c.drawRect((float) itemView.getLeft(), (float) itemView.getTop(), dX,
                             (float) itemView.getBottom(), paint);
-                } else {
-                    //Set  color for negative displacement
-                    paint.setARGB(255, 255, 0, 0);
-                    c.drawRect((float) itemView.getRight() + dX, (float) itemView.getTop(),
-                            (float) itemView.getRight(), (float) itemView.getBottom(), paint);
                 }
                 super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
             }
@@ -199,6 +194,7 @@ public class SittersInterestedFragment extends Fragment implements SittersAdapte
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
+
                                 }
                             });
                 }

@@ -25,7 +25,6 @@
         app:layout_constraintTop_toBottomOf="@+id/petOwner" />
 
     <TextView
-        android:id="@+id/ownerLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -39,7 +38,6 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/telephoneLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="88dp"
@@ -56,7 +54,6 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/sitterLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -76,6 +73,7 @@
         android:layout_marginStart="224dp"
         android:layout_marginTop="36dp"
         app:layout_constraintStart_toStartOf="parent"
+        android:onClick="clickLocation"
         app:layout_constraintTop_toTopOf="parent">
 
         <fragment xmlns:android="http://schemas.android.com/apk/res/android"
@@ -91,7 +89,8 @@
             map:layout_constraintStart_toStartOf="parent"
             map:layout_constraintTop_toTopOf="parent"
             map:liteMode="true"
-            map:mapType="normal" />
+            map:mapType="normal"
+            />
 
     </android.support.constraint.ConstraintLayout>
 
@@ -106,7 +105,6 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/locationLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="140dp"
@@ -147,7 +145,6 @@
         app:layout_constraintVertical_bias="1.0" />
 
     <TextView
-        android:id="@+id/priceLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -160,7 +157,6 @@
         app:layout_constraintVertical_bias="0.095" />
 
     <TextView
-        android:id="@+id/petsLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
