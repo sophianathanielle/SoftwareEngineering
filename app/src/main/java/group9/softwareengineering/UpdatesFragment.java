@@ -62,7 +62,7 @@ public class UpdatesFragment extends Fragment implements UpdatesAdapter.onClickL
     }
 
     private void loadPostings(final UpdatesFragment.FirestoreCallback firestoreCallback) {
-        db.collection("postings").whereEqualTo("poster_id", currentUser.getUid())
+        db.collection("postings").whereEqualTo("poster_id", currentUser.getUid()).whereEqualTo("completed" , false)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override

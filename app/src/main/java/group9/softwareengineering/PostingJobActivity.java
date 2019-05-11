@@ -143,7 +143,7 @@ public class PostingJobActivity extends AppCompatActivity implements DatePickerD
     public void clickST(View view) {
         Calendar c = Calendar.getInstance();
         TIME_DIALOG = 0;
-        timePickerDialog = new TimePickerDialog(PostingJobActivity.this, TimePickerDialog.THEME_HOLO_LIGHT, this, c.get(c.HOUR), c.get(c.MINUTE), true);
+        timePickerDialog = new TimePickerDialog(PostingJobActivity.this, this, c.get(c.HOUR), c.get(c.MINUTE), true);
         timePickerDialog.show();
     }
 
@@ -158,7 +158,7 @@ public class PostingJobActivity extends AppCompatActivity implements DatePickerD
     public void clickET(View view) {
         Calendar c = Calendar.getInstance();
         TIME_DIALOG = 1;
-        timePickerDialog = new TimePickerDialog(PostingJobActivity.this, TimePickerDialog.THEME_HOLO_LIGHT, this, c.get(c.HOUR), c.get(c.MINUTE), true);
+        timePickerDialog = new TimePickerDialog(PostingJobActivity.this, this, c.get(c.HOUR), c.get(c.MINUTE), true);
         timePickerDialog.show();
     }
 

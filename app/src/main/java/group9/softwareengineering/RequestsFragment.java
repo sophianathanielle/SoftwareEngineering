@@ -64,7 +64,7 @@ public class RequestsFragment extends Fragment implements RequestsAdapter.onClic
     }
 
     public void loadPostings(final FirestoreCallback2 firestoreCallback2) {
-        db.collection("postings").whereEqualTo("poster_id", currentUser.getUid())
+        db.collection("postings").whereEqualTo("poster_id", currentUser.getUid()).whereEqualTo("completed" , false)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
