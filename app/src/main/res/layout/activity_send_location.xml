@@ -22,6 +22,8 @@
         android:onClick="confirmLocation"
         android:text="Confirm Location"
         android:layout_weight="0.1"
+        android:textColor="@color/button"
+        android:background="@drawable/button"
         android:enabled="false"/>
 
 </LinearLayout>

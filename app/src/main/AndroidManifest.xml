@@ -119,7 +119,6 @@
             android:label="@string/title_activity_posting_job"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".RegisterActivity" />
-        <activity android:name=".ForgotPasswordActivity" />
 
         <service
             android:name=".LocationService"
