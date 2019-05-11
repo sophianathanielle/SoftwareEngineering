@@ -57,7 +57,7 @@ public class MyPostedJob extends AppCompatActivity {
         fetchFromDatabasePosting();
         fetchFromDatabasePets();
 
-        buttonSittersInterested = findViewById(R.id.SeeSittersInterested);
+        buttonSittersInterested = findViewById(R.id.completeJobButton);
         buttonSittersInterested.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

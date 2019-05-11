@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -24,11 +25,10 @@ import java.util.Date;
 public class AgreedJobInfoActivity extends AppCompatActivity {
 
 
-    private TextView jobDescription,descLabel, jobLocation,locationLabel, jobStartTime,startLabel, jobEndTime,endLabel, jobPrice,priceLabel, petOwner,ownerLabel, petSitter,sitterLabel,sitterPhone,ownerPhone;
-    private ImageView imageOwner, imageSitter;
-    private String usersID, documentId;
+    private TextView jobDescription,descLabel, jobLocation,locationLabel, jobStartTime,startLabel, jobEndTime,endLabel, jobPrice,
+            priceLabel, petOwner,ownerLabel, petSitter,sitterLabel,sitterPhone,ownerPhone,telephoneLabel;
+    private Button complete;
     private Posting posting;
-    private Profile profile;
     private ArrayList<String> petsID = new ArrayList<>();
     private ArrayList<Pet> pets = new ArrayList<>();
     private RecyclerView recyclerView;
@@ -58,6 +58,8 @@ public class AgreedJobInfoActivity extends AppCompatActivity {
         sitterLabel =findViewById(R.id.sitterLabel);
         sitterPhone  =findViewById(R.id.sitterPhone);
         ownerPhone =findViewById(R.id.ownerPhone);
+        telephoneLabel= findViewById(R.id.telephoneLabel);
+        complete=findViewById(R.id.completeJobButton);
         fetchFromDatabasePets();
 
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
